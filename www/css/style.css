@@ -152,7 +152,7 @@ input:focus { outline: none;box-shadow: none;}
 .whitebg{background:#fff;}
 .content{clear:left; height:89.9%;width:100%;padding-bottom:60px;}
 #landing-english .content, #about .content, #help .content, #contact .content{margin-top:100px}
-#landing-swahili .content, #about .content, #help .content, #contact .content{margin-top:100px}
+#landing-swahili .content, #about-swahili .content, #help-swahili .content, #contact-swahili .content{margin-top:100px}
 
 .even{background:#eeeeee;}
 .odd{background:#dddddd;}
@@ -659,7 +659,7 @@ text-align: center;}
       margin-top: 30px;
       position: relative;
     }
-    #landing-swahili .content, #about .content, #help .content, #contact .content {
+    #landing-swahili .content, #about-swahili .content, #help-swahili .content, #contact-swahili .content {
       margin-top: 30px;
       position: relative;
     }
@@ -679,7 +679,7 @@ text-align: center;}
       margin-top: 50px;
       position: relative;
     }
-    #landing-swahili .content, #about .content, #help .content, #contact .content {
+    #landing-swahili .content, #about-swahili .content, #help-swahili .content, #contact-swahili .content {
       margin-top: 50px;
       position: relative;
     }
@@ -689,7 +689,7 @@ text-align: center;}
       margin-top: 70px;
       position: relative;
     }
-    #landing-swahili .content, #about .content, #help .content, #contact .content {
+    #landing-swahili .content, #about-swahili .content, #help-swahili .content, #contact-swahili .content {
       margin-top: 70px;
       position: relative;
     }

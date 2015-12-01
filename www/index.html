@@ -52,11 +52,11 @@
 			<nav id="menu" class="navmenu navmenu-fixed-left offcanvas" role="navigation">
 				<section class="menu-section bgmenu">
 					<ul class="menu-section-list bgmenu">
-						<li><a href="#questions" data-transition="slide"><span>Home</span></a></li>
-						<li><a href="#home" data-transition="slide"><span>Choose Language</span></a></li>
-						<li><a href="#about" data-transition="slide"><span>About</span></a></li>
-						<li><a href="#contact" data-transition="slide" ><span>Contact</span></a></li>
-						<li><a href="#help" data-transition="slide" ><span>Help</span></a></li>
+						<li id="home-menu-link"><a href="#questions" data-transition="slide"><span>Home</span></a></li>
+						<li id="language-menu-link"><a href="#home" data-transition="slide"><span>Choose Language</span></a></li>
+						<li id="about-menu-link"><a href="#about" data-transition="slide"><span>About</span></a></li>
+						<li id="contact-menu-link"><a href="#contact" data-transition="slide" ><span>Contact</span></a></li>
+						<li id="help-menu-link"><a href="#help" data-transition="slide" ><span>Help</span></a></li>
 						<!-- <li><a href="#ask-a-quiz" class="ask-a-quiz" data-transition="slide" ><span>Settings</span></a></li> -->
 						<div class="conditions">
 							<p><b>DISCLAIMER:</b> The data in MbeguChoice has been carefully gathered from KALRO, KEPHIS and seed companies. All information about suitable agroecological zones has been gathered from breeders and seed companies, based on their testing and knowledge about product performance. However, farmers, retailers and farmer advisors should not rely solely on information provided in MbeguChoice. Variety suitability and adaptability must always be carefully tested and confirmed by farmers, based on their specific location and growing conditions. The MbeguChoice app, its managers, and partners bear no responsibility for the outcome of variety selection based on information provided on the app.</p>
@@ -86,10 +86,10 @@
 						<div class="selectLangCont">
 	                        <h1>Select your Language</h1>
 	                        <div class="english">
-	                        	<a href="#landing" data-transition="slide">ENGLISH</a>
+	                        	<a href="#landing-english" data-transition="slide">ENGLISH</a>
 	                        </div>
 	                        <div class="kiswahili">
-	                        	<a href="#">KISWAHILI</a>
+	                        	<a href="#landing-swahili">KISWAHILI</a>
 	                        </div>
                         </div><!--selectLangCont-->
 						<!--selectLangCont-->
@@ -114,7 +114,7 @@
 							<p>Answer a few questions about where you are located and what type of crop seed you want and MbeguChoice will show you the latest seed                choices available to you and tell you about them!</p>
 						</div>
 						<div class="lets">
-							<a href="#questions" id="lets-begin" data-transition="slide">LET'S BEGIN</a>
+							<a href="#questions-english" id="lets-begin" data-transition="slide">LET'S BEGIN</a>
 						</div>
 					</div>
 				</section>
@@ -660,6 +660,238 @@
 				</div>
 			</div>
 
+			<!-- ================= About swahili ====================== -->
+			<div data-role="page" id="about-swahili">
+				<div class="navbar navbar-default navbar-fixed-top header">
+					<button type="button" class="toggle-button navbar-toggle" data-toggle="offcanvas" data-target="#menu" data-canvas="body"><i class="fa fa-bars"></i></button>
+				</div>
+				<section class="content landingbg">
+                    <div class="content">
+                        <div class="about-info-title"><h4>KUHUSU MBEGUCHOICE</h4></div>
+                        <div class="about-info-text">
+                        	<div class="about-align-left">MbeguChoice ni ufanisi wa ushirikiano kati ya Shirika la Utafiti wa Kilimo na Mifugo nchini Kenya(KALRO), Shirika la Huduma za Afya ya Mimea nchini Kenya (KEPHIS), Kampnuni za Mbegu nchini Kenya, Agri Experience, Ltd. na Kenya Markets Trust.<br></div>  
+                            <br>
+                            <div class="about-align-left">
+                            MbeguChoice ilibuniwa ili: <br>
+                            • Kusaidia wakulima wa Kenya, maafisa wa nyanjani na wauzaji bidhaa za kilimo kuweza kufahamu vyema aina za mbegu zilizopo.<br>
+                            • Kuhakikisha wakulima wanapanda aina za mbegu zinazofaa kwa maeneo yao ambapo ni kuhakikisha kwamba mbegu wanayochagua itatoa mazao bora.<br>
+                            • Kuonyesha aina bora za mbegu zilizomo masokoni ikiwa ni pamoja na maelezo maalum ya aina ya mimea na <br>
+                            • Kuboresha mazao mashambani kote nchini Kenya<br>
+                            </div>
+                            <br>
+                            Ukitaka habari na maelezo zaidi, bonyeza sehemu iliyoandikwa SeedWorks katika tuvuti yetu nyingine <a href="http://www.seedsectorplatformkenya.com" target="_blank">www.seedsectorplatformkenya.com</a><br>
+                            <br>
+                            Mara kwa mara tunaongeza habari na malezo katika tuvuti yetu ya MbeguChoice.<br>
+                            <br>
+                            Wasiliana nasi <a href="mailto:mbeguchoice@agri-experience.com" target="_blank"><br>mbeguchoice@agri-experience.com</a>
+                        </div>
+                    </div>
+                </section>
+			</div>
+
+			<!-- ================= Help swahili ====================== -->
+			<div data-role="page" id="help-swahili">
+			    <div class="navbar navbar-default navbar-fixed-top header">
+			        <button type="button" class="toggle-button navbar-toggle" data-toggle="offcanvas" data-target="#menu" data-canvas="body"><i class="fa fa-bars"></i></button>
+			    </div>
+			    <section class="content landingbg">
+			        <div class="content">
+			            <!-- <div class="help-info-title"><h4>HELP TIPS</h4></div> -->
+			            <div class="help-info-text about-align-left">
+			                <div id="ecozones-help">
+			                    <div class="specialchartitle">MAENEO (EKOLOJIA)</div>
+			                    <div class="specialcharitem">
+			                        <span class="maturityitemname">Nyanda ya Chini</span> - 900 hadi 1200 mita kutoka usawa wa bahari
+			                    </div>
+			                    <div class="specialcharitem">
+			                        <span class="maturityitemname">Nyanda ya Chini Kiasi</span> - 900 hadi 1200 mita kutoka usawa wa bahari
+			                    </div>
+			                    <div class="specialcharitem">
+			                        <span class="maturityitemname">Muinuko Kiasi</span> - 1200 hadi 1600 mita kutoka usawa wa bahari
+			                    </div>
+			                    <div class="specialcharitem">
+			                        <span class="maturityitemname">Nyanda ya Juu Kiasi</span> - 1600 hadi 1800 mita kutoka usawa wa bahari
+			                    </div>
+			                    <div class="specialcharitem">
+			                        <span class="maturityitemname">Nyanda ya Juu</span> - Juu ya 1800 mita kutoka usawa wa bahari
+			                    </div>
+			                </div>
+
+			                <div id="maturity-help" class="white-popup mfp-hide">
+			                    
+			                        <div class="maturitytitle">MUDA WA KUKOMAA</div>
+
+			                        <div class="maturityitem">
+			                            <div class="maturityitemname">MUHOGO</div>
+			                            <div class="maturityitemdetails">
+			                                • extra early maturing - 6-8 months <br />
+			                                • early maturing - 8-10 months <br />
+			                                • medium maturing - 10-14 months <br />
+			                                • late maturing - 15-18 months 
+			                            </div>
+			                        </div>
+			                        <div class="maturityitem">
+			                            <div class="maturityitemname">MINJI (CHICKPEA)</div>
+			                            <div class="maturityitemdetails">
+			                            • early maturing - 2-3 months <br />
+			                            • medium maturing - 3-4 months 
+			                            </div>
+			                        </div>
+			                        <div class="maturityitem">
+			                            <div class="maturityitemname">MAHARAGWE YA KUTAMBAA</div>
+			                            <div class="maturityitemdetails">
+			                            • early maturing - 2-3 months <br />
+			                            • medium maturing - 3-4 months 
+			                            </div>
+			                        </div>
+			                        <div class="maturityitem">
+			                            <div class="maturityitemname">MAHARAGWE ASILI</div>
+			                            <div class="maturityitemdetails">
+			                            • early maturing - 2-3 months <br />
+			                            • medium maturing - 3-4 months 
+			                            </div>
+			                        </div>
+			                        <div class="maturityitem">
+			                            <div class="maturityitemname">KUNDE</div>
+			                            <div class="maturityitemdetails">
+			                            • early maturing - 2-3 months <br />
+			                            • medium maturing - 3-4 months 
+			                            </div>
+			                        </div>
+			                        <div class="maturityitem">
+			                            <div class="maturityitemname">MAHARAGWE DOLICHOS</div>
+			                            <div class="maturityitemdetails">
+			                            • medium maturing - 3-4 months 
+			                            </div>
+			                        </div>
+			                        <div class="maturityitem">
+			                            <div class="maturityitemname">WIMBI-FINGER</div>
+			                            <div class="maturityitemdetails">
+			                            • early maturing - 3-4 months <br />
+			                            • medium maturing - 4-6 months <br />
+			                            • late maturing - 6-7 months 
+			                            </div>
+			                        </div>
+			                        <div class="maturityitem">    
+			                            <div class="maturityitemname">VIAZI</div>
+			                            <div class="maturityitemdetails">
+			                            • extra early maturing - 2-3 months <br />
+			                            • early maturing - 3-4 months <br />
+			                            • medium maturing - 4-5 months 
+			                            </div>
+			                        </div>
+			                        <div class="maturityitem">
+			                            <div class="maturityitemname">MAHINDI</div>
+			                            <div class="maturityitemdetails">
+			                            • extra early maturing - 2-3 months <br />
+			                            • early maturing - 3-4 months <br />
+			                            • medium maturing - 4-5 months <br />
+			                            • Late maturing - 6 months and above 
+			                            </div>
+			                        </div>
+			                        <div class="maturityitem">
+			                            <div class="maturityitemname">POJO/NDENGU</div>
+			                            <div class="maturityitemdetails">
+			                            • early maturing - 2-3 months <br />
+			                            • Medium maturing - 3-4 months 
+			                            </div>
+			                        </div>
+			                        <div class="maturityitem">
+			                            <div class="maturityitemname">WIMBI-PEARL</div>
+			                            <div class="maturityitemdetails">
+			                            • early maturing - 3-4 months <br />
+			                            • medium maturing - 4-6 months <br />
+			                            • late maturing - 6-7 months 
+			                            </div>
+			                        </div>
+			                        <div class="maturityitem">
+			                            <div class="maturityitemname">MBAAZI(PIGEON PEA)</div>
+			                            <div class="maturityitemdetails">
+			                            • extra early maturing - 2-3 months <br />
+			                            • early maturing - 3-4 months <br />
+			                            • medium maturing - 4-6 months <br />
+			                            • late maturing - 6-8 months 
+			                            </div>
+			                        </div>
+			                        <div class="maturityitem">
+			                            <div class="maturityitemname">MPUNGA(RICE)</div>
+			                            <div class="maturityitemdetails">
+			                            • early maturing - 2-3 months <br />
+			                            • medium maturing - 3-4 months <br />
+			                            • late maturing - 4-5 months 
+			                            </div>
+			                        </div>
+			                        <div class="maturityitem">
+			                            <div class="maturityitemname">MTAMA</div>
+			                            <div class="maturityitemdetails">
+			                            • early maturing - 2-3 months<br />
+			                            • medium maturing - 4-5 months<br />
+			                            • late maturing - 6-8 months
+			                            </div>
+			                        </div>
+			                        <div class="maturityitem">
+			                            <div class="maturityitemname">MAHARAGWE SOYA</div>
+			                            <div class="maturityitemdetails">
+			                            • early maturing - 3-4 months<br />
+			                            • medium maturing - 4-6 months
+			                            </div>
+			                        </div>
+			                        <div class="maturityitem">
+			                            <div class="maturityitemname">VIAZI VITAMU</div>
+			                            <div class="maturityitemdetails">
+			                            • early maturing - 3-4 months<br />
+			                            • medium maturing - 4-5 months<br />
+			                            • late maturing - 5-7 months
+			                            </div>
+			                        </div>
+			                        <div class="maturityitem">
+			                            <div class="maturityitemname">NGANO</div>
+			                            <div class="maturityitemdetails">
+			                            • early maturing - 2-4 months<br />
+			                            • medium maturing - 4-5 months
+			                            </div>    
+			                        </div>
+			                    
+			                    
+			                </div>
+
+			                <div id="special-attributes-help" class="short-popup mfp-hide">
+			                    
+		                        <div class="specialchartitle">MAUMBILE NA MAELEZO MAALUM</div>
+		                        <div class="specialcharitem">
+		                            <span class="maturityitemname">KUHIMILI KIANGAZI</span> - Tabaka/ Variety hunawiri vyema katika hali ya ukame kushinda aina zinginezo za kawaida, na vilevile yaweza kunawiri kataka mazingira yasiyokuwa na ukame. Hili tajiko halimaanishi kuwa tabaka itanawiri katika mazingira yenye ukame kupindukia.
+		                        </div>
+		                        <div class="specialcharitem">
+		                            <span class="maturityitemname">KUHIMILI MAGONJWA</span> - Tabaka/variety yaweza kuambukizwa lakini huwa na uwezo ya kupambana na hali hiyo hadi kiwango cha kukomaa.
+		                        </div>
+		                        <div class="specialcharitem">
+		                            <span class="maturityitemname">KUHIMILI WADUDU WAHARIBIFU WA SHAMBANI NA GHALANI</span> - Tabaka/Variety inauwezo wa hali ya juu ya kuhimili uharibifu wa wadudu wa shambani na ghalani. Hata hivyo, tabaka haina uwezo wa uzuilifu wote.
+		                        </div>
+		                        <div class="specialcharitem">
+		                            <span class="maturityitemname">INAYOPENDELEWA NA WATUMIZI</span> - Tabaka/ Variety imefanyiwa utafiti kuhakikisha kuwa sifa zinazopendelewa na watumizi zimehifadhiwa. Hii yaweza kuwa uwezo wa kupondwapondwa, muda mfupi wa kupikwa, ladha, harufi safi, na mengineyo.
+		                        </div>
+			                    
+			                </div>
+
+
+			                <div id="seasons-help" class="short-popup mfp-hide">
+			                    
+		                        <div class="rainstitle">MSIMU/MVUA</div>
+		                        <div class="rainsitem">
+		                            <span class="maturityitemname">MSIMU WA MVUA CHACHE</span> – Tabaka/Variety inafaa kwa msimu wa mvua chache. (kuanza takriban mwezi wa Novemba)
+		                                </div>    
+		                        <div class="rainsitem">
+		                            <span class="maturityitemname">MSIMU WA MVUA NYINGI</span> – Tabaka/Variety inafaa kwa msimu wa mvua nyingi (kuanza takriban mwezi wa Machi)
+		                                </div>    
+		                        <div class="rainsitem">
+		                            <span class="maturityitemname">MSIMU WA MVUA ZOTE</span> – Tabaka/Variety inafaa kwa msimu wa mvua nyingi na chache.
+		                        </div>    
+			                    
+			                </div>
+			            </div>
+			        </div>
+			    </section>
+			</div>
 
 			<input type="hidden" name="language_selected" id="language_selected" value="">
 		</main>	
