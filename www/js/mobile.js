@@ -2279,6 +2279,7 @@ $(document).ready(function(e) {
 	    $('.lnkenglish').trigger('click');
 	    $( "#language_selected" ).val('english');
 	    $( ".menu-section-list #language-menu-link a span" ).html("Choose Language");
+	    $( ".menu-section-list #home-menu-link a" ).attr("href", "#questions-english");
 	    $( ".menu-section-list #about-menu-link a span" ).html("About");
 	    $( ".menu-section-list #about-menu-link a" ).attr("href", "#about");
 	    $( ".menu-section-list #help-menu-link a span" ).html("Help");
@@ -2292,6 +2293,7 @@ $(document).ready(function(e) {
 	    $('.lnkkiswahili').trigger('click');
 	    $( "#language_selected" ).val('swahili');
 	    $( ".menu-section-list #language-menu-link a span" ).html("Chagua Lugha");
+	    $( ".menu-section-list #home-menu-link a" ).attr("href", "#questions-swahili");
 	    $( ".menu-section-list #about-menu-link a span" ).html("Kutuhusu");
 	    $( ".menu-section-list #about-menu-link a" ).attr("href", "#about-swahili");
 	    $( ".menu-section-list #help-menu-link a span" ).html("Pata Usaidizi");
