@@ -1,0 +1,847 @@
+<!DOCTYPE html> 
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>jQuery Mobile Web App</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<title>African Alliance Conference - Login </title>
+		<!-- Bootstrap Core CSS -->
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<!-- <link href="css/animate.min.css" rel="stylesheet"> wow -->
+		<link href="fonts/stylesheet.css" rel='stylesheet' type='text/css'>
+		<link href="css/font-awesome.min.css" rel="stylesheet">
+		<link href="css/jasny-bootstrap.css" rel="stylesheet">
+		<link href="css/custom.css" rel="stylesheet">
+		<!-- jQuery Version 1.11.1 -->
+		<script src="js/jquery.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<!-- <script src="js/wow.min.js"></script> wow -->
+		<!--   -->
+		<script src="js/main.js"></script>
+		<script src="js/jasny-bootstrap.min.js"></script>
+		<!--[if lt IE 9]>
+		<script src="js/html5shiv.js"></script>
+		<script src="js/respond.min.js"></script>
+		<![endif]-->   
+		<link href="jquery.mobile-1.3.0.min.css" rel="stylesheet" type="text/css"/>
+		<!--<script src="jquery-1.8.3.min.js" type="text/javascript"></script>-->
+		<script src="jquery.mobile-1.3.0.min.js" type="text/javascript"></script>
+		<script src="cordova.js" type="text/javascript"></script>
+		<script src="js/mobile.js" type="text/javascript"></script>
+		<link href="css/dan.css" rel="stylesheet">
+		<script src="js/modernizr.custom.js" type="text/javascript"></script>
+		<script src="js/moment.min.js"></script>
+		<script src="http://chat.africanallianceconferences.com/Scripts/jquery.signalR-2.2.0.js" type="text/javascript"></script>
+		<script src="http://chat.africanallianceconferences.com/signalr/hubs" type="text/javascript"></script>
+		<!--
+			<script src="http://localhost/chat/Scripts/jquery.signalR-2.2.0.js" type="text/javascript"></script>
+			<script src="http://localhost/chat/signalr/hubs" type="text/javascript"></script>
+			 --> 
+		<script type="text/javascript">
+			$(function () {
+			
+			
+				
+			var chatHub = $.connection.chatHub;
+			//   $.connection.hub.url = "http://localhost/chat/signalr/";
+			$.connection.hub.url = "http://chat.africanallianceconferences.com/signalr/";
+			registerClientMethods(chatHub);
+			
+			$.connection.hub.start().done(function () {
+			
+			        registerEvents(chatHub);
+			
+			    });
+			
+			
+			});
+			
+			function registerEvents(chatHub) {
+			   var name = $("#chatusername").val();
+			   chatHub.server.connect(name); // Register User
+			
+			   $('#sendPrivatemessage').click(function () {
+			       // Call the Send method on the hub.
+			try{
+			       var now = moment().format("Do MMM YY, h:mm a").toString();
+			       var recipient=$('#recipient').val();
+			       var sender=$('#username').val();
+			       var message = $('#txtMessage').val();
+			      
+			    
+			           chatHub.server.sendPrivateMessage(sender, recipient, now, message);
+			       
+			
+			saveMessage(sender, now, message);
+			       // Clear text box and reset focus for next comment.
+			// var now  = moment().format("Do MMM YY, h:mm a");  
+			       $('#txtMessage').val('').focus();
+			} catch (err) {
+			           alert(err);
+			       }
+			   });
+			
+			}
+			
+			function registerClientMethods(chatHub) {
+			// Create a function that the hub can call to broadcast messages.
+			chatHub.client.broadcastMessage = function (server_id,name,subject,time, message) {
+			
+			var now  = moment().format("Do MMM YY, h:mm a");  
+			msg='<li class="col-sm-12 col-xs-12 wow fadeInDown" data-wow-duration="1200ms"data-wow-delay="1200ms">';
+			msg+='<div class="col-sm-9 col-xs-9 notificationtextdiv">';
+			msg+='<div class="detaildiv">';
+			msg+='<span class="authorname">'+name+'</span>';
+			msg+='<span> <h2>'+subject+'</h2>';
+			msg+='<p>'+message+'</p> </span>';
+			msg+='</div>';
+			msg+='</div>';
+			msg+='<div class="col-sm-3 col-xs-3 notficationpostdate">';
+			msg+='<div class="notetimediv pull-right">';
+			msg+='<span class="datestamp pull-right">12 May</span>';
+			msg+='<span class="timestamp pull-right">6:56 am</span>';
+			msg+='</div>';
+			msg+='</div> ';
+			msg+='<a class="deleteicon pull-right" href="#">';
+			msg+='<span class="fa fa-trash"></span>';
+			msg+='</a> ';
+			msg+='</li>';
+			// $('.notificationlist').append(msg);
+			
+			
+			localNotification(name,subject,time, message);
+			AddNotification(server_id,name,subject,time, message);			   
+			
+			
+			};
+			
+			
+			
+			chatHub.client.ReceivePrivateMessage = function (sender, time, message) {
+			
+			// var now  = moment().format("Do MMM YY, h:mm a");  
+			var msg='<div class="direct-chat-msg">';
+			msg+='<div class="direct-chat-info clearfix">';
+			msg+='<span class="direct-chat-name pull-left">'+sender+'</span>';
+			msg+='<span class="direct-chat-timestamp pull-right">'+time+'</span>';
+			msg+='</div>';
+			msg+='<div class="direct-chat-text">'+message;
+			msg+='</div>';
+			msg+=' </div>';
+			//$('.direct-chat-messages').append(msg);
+			 saveMessage(sender, time, message);  
+			localNotificationMessage(sender,message);
+			}
+			
+			}
+			
+			
+			
+		</script>
+		<link href="css/ios.css" rel="stylesheet">
+	</head>
+	<body>
+		<input type="hidden" id="chatusername" value="d.mburu@creativeyr.co.ke" />
+		<input type="hidden" id="recipient" value="AFRICANALLIANCE" />
+		<div class="overlay">
+			<div class="loader">
+				<img src="images/ajaxloader.gif">
+				<!-- <label style="font-size: 13px;font-weight: bold;overflow: hidden;position: relative;top:10px;width: 80px;;"></label>-->
+			</div>
+		</div>
+		<!-- overlay -->
+		<nav id="menu" class="navmenu navmenu-fixed-left offcanvas" role="navigation">
+			<section class="menu-section memberprofile">
+				<!--<span class="profilepic center-block"><img src="http://placehold.it/65x65" class="img-circle"></span>-->
+				<h2 class="uName text-center center-block"></h2>
+				<p class="uTitle text-center center-block"></p>
+			</section>
+			<section class="menu-section bgmenu">
+				<ul class="menu-section-list bgmenu">
+					<li><a href="#home" ><i class="fa fa-home"></i><span>Home</span></a></li>
+					<li><a href="#event-program" data-transition="slide"><i class="fa fa-list-alt"></i><span>Event Program</span></a></li>
+					<li><a href="#my-schedule" data-transition="slide" ><i class="fa fa-calendar"></i><span>My Schedule</span></a></li>
+					<li><a href="#speakers" data-transition="slide" ><i class="fa fa-microphone"></i><span>Speakers</span></a></li>
+					<!-- <li><a href="#participating-companies" data-transition="slide" ><i class="fa fa-building-o"></i><span>Participating Companies</span></a></li>
+						<li><a href="#talk-to-us" class="talk-to-us" data-transition="slide" ><i class="fa fa-comments-o"></i><span>Talk to Us</span></a></li>-->
+					<li><a href="#ask-a-quiz" class="ask-a-quiz" data-transition="slide" ><i class="fa fa-comments-o"></i><span>Talk to Us</span></a></li>
+					<li><a href="#notifications" data-transition="slide" ><i class="fa fa-bell-o"></i><span>Notifications</span></a></li>
+					<li><a href="#survey" data-transition="slide"><i class="fa fa-pencil-square-o"></i><span>Survey</span></a></li>
+					<li><a href="#login" data-transition="slide" ><i class="fa fa-refresh"></i><span>Refresh</span></a></li>
+				</ul>
+			</section>
+		</nav>
+		<main id="panel">
+			<div data-role="page" id="landing">
+				<section class="content landingbg">
+					<div class="container maincont">
+						<div class="row mainrow">
+							<div class="col-sm-12 col-xs-12 maincols">
+								<div class="aasplash wow fadeInDown" data-wow-duration="1200ms"  data-wow-delay="1200ms">
+									<img src="images/africa.png" class="img-responsive centeredbox">
+								</div>
+								<div class="aasplashdetails wow fadeInDown" data-wow-duration="1200ms"  data-wow-delay="1300ms">
+									<div class="tagline centeredbox">UNCONVENTIONAL - UNLIMITED - UNRELENTING</div>
+									<div class="conf-title center-block">AFRICAN ALLIANCE</div>
+									<div class="conf-smalltitle center-block">6TH ANNUAL INVESTOR CONFERENCE </div>
+									<div class="centeredbox center-block">
+										<span class="boxedtext">
+											<h3 class="animation animated-item-4 heading4">MAY 13 - 14 , 2015 </h3>
+											<h4 class="animation animated-item-4 heading5">THE TRIBE HOTEL - NAIROBI</h4>
+										</span>
+									</div>
+									<p>&nbsp;</p>
+									<a data-role="none" data-transition="slide" href="#home" class="continuebtn">Continue</a>
+									<p>&nbsp;</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+			</div>
+			<div data-role="page" id="home">
+				<div class="navbar navbar-default navbar-fixed-top header">
+					<button type="button" class="toggle-button navbar-toggle" data-toggle="offcanvas" data-target="#menu" data-canvas="body"><i class="fa fa-bars"></i></button>
+					<h1 >Home</h1>
+				</div>
+				<section class="content">
+					<div class="container maincont">
+						<div class="row mainrow">
+							<div class="col-sm-12 col-xs-12 maincols">
+								<ul class="innermenu-section-list">
+									<li class="active wow fadeInDown" data-wow-duration="1200ms"  data-wow-delay="1200ms"><a href="#event-program" data-transition="slide"><i class="fa fa-list-alt"></i><span>Event Program</span></a></li>
+									<li class="wow fadeInDown" data-wow-duration="1200ms"  data-wow-delay="1200ms"><a href="#my-schedule" data-transition="slide" ><i class="fa fa-calendar"></i><span>My Schedule</span></a></li>
+									<li class="wow fadeInDown" data-wow-duration="1200ms"  data-wow-delay="1200ms"><a href="#speakers" data-transition="slide" ><i class="fa fa-microphone"></i><span>Speakers</span></a></li>
+									<!-- 						<li class="wow fadeInDown" data-wow-duration="1200ms"  data-wow-delay="1200ms"><a href="#participating-companies" data-transition="slide" ><i class="fa fa-building-o"></i><span>Participating Companies</span></a></li>
+										<li class="wow fadeInDown" data-wow-duration="1200ms"  data-wow-delay="1200ms"><a href="#talk-to-us"  class="talk-to-us"  ><i class="fa fa-comments-o"></i><span>Talk to Us</span></a></li>
+										-->                        
+									<li class="wow fadeInDown" data-wow-duration="1200ms"  data-wow-delay="1200ms"><a href="#ask-a-quiz"  class="ask-a-quiz"  ><i class="fa fa-comments-o"></i><span>Talk to Us</span></a></li>
+									<li class="wow fadeInDown" data-wow-duration="1200ms"  data-wow-delay="1200ms"><a href="#notifications" ><i class="fa fa-bell-o"></i><span>Notifications</span></a></li>
+									<li class="wow fadeInDown" data-wow-duration="1200ms"  data-wow-delay="1200ms"><a href="#survey" class="lnksurvey"  data-transition="slide"><i class="fa fa-pencil-square-o"></i><span>Survey</span></a></li>
+									<li class="wow fadeInDown" data-wow-duration="1200ms"  data-wow-delay="1200ms"><a href="#login" id="lnkRefresh"  data-transition="slide"><i class="fa fa-refresh"></i><span>Refresh</span></a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</section>
+			</div>
+			<div data-role="page" id="login">
+				<div class="navbar navbar-default navbar-fixed-top header">
+					<h1>Login</h1>
+				</div>
+				<section class="content loginbg">
+					<div class="container">
+						<div class="row">
+							<div class="col-sm-12 col-xs-12">
+								<div class="aalogo wow fadeInDown" data-wow-duration="1200ms"  data-wow-delay="1200ms"><img src="images/aalogo.png" class="img-responsive"></div>
+								<!--<div class="loginicon wow fadeInDown" data-wow-duration="1200ms"  data-wow-delay="1200ms"><img src="images/loginicon_03.png" class="img-responsive"></div>-->
+								<div class="logindiv wow fadeInDown" data-wow-duration="1200ms"  data-wow-delay="1200ms">
+									<div class="input-wrapper"><span class="icon"><i class="fa fa-envelope-o"></i></span><input id="uname" data-role="none"  type="email" placeholder="Email address:" value="" /></div>
+									<div class="input-wrapper"><span class="icon"><i class="fa fa-lock"></i></span><input id="pid" data-role="none"  type="password" placeholder="Password:" value="" /></div>
+									<input type="button" data-role="none"  value="SIGN IN" class="loginbutton" />
+									<!-- <a class="forgotlink" data-role="none" href="#">Forgot Password</a>-->
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+			</div>
+			<div data-role="page" id="my-schedule">
+				<div class="navbar navbar-default navbar-fixed-top header">
+					<button type="button" class="toggle-button navbar-toggle" data-toggle="offcanvas" data-target="#menu" data-canvas="body"><i class="fa fa-bars"></i></button>
+					<h1 >Schedule</h1>
+				</div>
+				<section class="content">
+					<div class="container">
+						<div class="row">
+							<div class="col-sm-12 col-xs-12 nopadding wow fadeInDown" data-wow-duration="1200ms"  data-wow-delay="1200ms">
+								<div class="currentschedule-container">
+									<a class="current-innercont"  data-transition="flip" href="#my-schedule2">
+										<div class="currentdate">
+											May 13<sup>th</sup> 2015
+										</div>
+										<div class="currentday">
+											Wednesday
+										</div>
+									</a>
+									<div class="nextarrow pull-right">
+										<div class="innerarrowdiv">
+											<span class="nexticon"><a data-transition="flip" href="#my-schedule2"><i class="fa fa-arrow-right"></i></a></span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-12 col-xs-12">
+								<ul id="meetings" class="meetinglist">
+								</ul>
+							</div>
+						</div>
+					</div>
+				</section>
+				<footer>
+					<a href="#" class="arrow-left"><i class="fa fa-arrow-left"></i></a>  
+					<a href="#home" data-transition="slide" class="btn-home"><i class="fa fa-home"></i></a> 
+					<button id="footermenu" type="button" class="toggle-button navbar-toggle" data-toggle="offcanvas" data-target="#menu" data-canvas="body"><i class="fa fa-bars"></i></button>
+				</footer>
+			</div>
+			<div data-role="page" id="my-schedule2">
+				<div class="navbar navbar-default navbar-fixed-top header">
+					<button type="button" class="toggle-button navbar-toggle" data-toggle="offcanvas" data-target="#menu" data-canvas="body"><i class="fa fa-bars"></i></button>
+					<h1 >Schedule</h1>
+				</div>
+				<section class="content">
+					<div class="container">
+						<div class="row">
+							<div class="col-sm-12 col-xs-12 nopadding wow fadeInDown" data-wow-duration="1200ms"  data-wow-delay="1200ms">
+								<div class="currentschedule-container">
+									<div class="prevarrow pull-left">
+										<div class="innerarrowdiv">
+											<span class="nexticon"><a data-transition="flip" href="#my-schedule"><i class="fa fa-arrow-left"></i></a></span>
+										</div>
+									</div>
+									<a class="current-innercont" data-transition="flip" href="#my-schedule">
+										<div class="currentdate">
+											May 14<sup>th</sup> 2015
+										</div>
+										<div class="currentday">
+											Thursday
+										</div>
+									</a>
+								</div>
+							</div>
+							<div class="col-sm-12 col-xs-12">
+								<ul id="meetings2" class="meetinglist">
+								</ul>
+							</div>
+						</div>
+					</div>
+				</section>
+				<footer>
+					<a href="#" class="arrow-left"><i class="fa fa-arrow-left"></i></a>  
+					<a href="#home" data-transition="slide" class="btn-home"><i class="fa fa-home"></i></a> 
+					<button id="footermenu" type="button" class="toggle-button navbar-toggle" data-toggle="offcanvas" data-target="#menu" data-canvas="body"><i class="fa fa-bars"></i></button>
+				</footer>
+			</div>
+			<div data-role="page" id="program">
+				<div class="navbar navbar-default navbar-fixed-top header">
+					<button type="button" class="toggle-button navbar-toggle" data-toggle="offcanvas" data-target="#menu" data-canvas="body"><i class="fa fa-bars"></i></button>
+					<h1 >Event Program</h1>
+				</div>
+				<section class="content">
+					<div class="container">
+						<div class="row">
+							<div class="col-sm-12 col-xs-12 wow fadeInDown" data-wow-duration="1200ms"  data-wow-delay="1200ms">
+								<div class="eventdate">
+									<span class="pull-left">Tuesday</span>
+									<span class="pull-right">May 13th 2015</span>
+								</div>
+								<ul class="meetinglist programlisting">
+									<li class="col-sm-12 col-xs-12 wow fadeInDown" data-wow-duration="1200ms"  data-wow-delay="1200ms">
+										<div class="col-sm-3 col-xs-3">
+											<div class="timediv">
+												<span>
+													<p>
+														08:30 &nbsp; -
+													</p>
+													<p>
+														09:30
+													</p>
+												</span>
+											</div>
+										</div>
+										<div class="col-sm-9 col-xs-9">
+											<div class="detaildiv">
+												<span>
+													<h2>SEPLAT Petroleum Development Company Plc, Meeting</h2>
+													<p>
+														Board room 3
+													</p>
+												</span>
+											</div>
+										</div>
+									</li>
+									<li class="col-sm-12 col-xs-12 wow fadeInDown" data-wow-duration="1200ms"  data-wow-delay="1200ms">
+										<div class="col-sm-3 col-xs-3">
+											<div class="timediv">
+												<span>
+													<p>
+														08:30 &nbsp; -
+													</p>
+													<p>
+														09:30
+													</p>
+												</span>
+											</div>
+										</div>
+										<div class="col-sm-9 col-xs-9">
+											<div class="detaildiv">
+												<span>
+													<h2>SEPLAT Petroleum Development Company Plc, Meeting</h2>
+													<p>
+														Board room 3
+													</p>
+												</span>
+											</div>
+										</div>
+									</li>
+									<li class="col-sm-12 col-xs-12 wow fadeInDown" data-wow-duration="1200ms"  data-wow-delay="1200ms">
+										<div class="col-sm-3 col-xs-3">
+											<div class="timediv">
+												<span>
+													<p>
+														08:30 &nbsp; -
+													</p>
+													<p>
+														09:30
+													</p>
+												</span>
+											</div>
+										</div>
+										<div class="col-sm-9 col-xs-9">
+											<div class="detaildiv">
+												<span>
+													<h2>SEPLAT Petroleum Development Company Plc, Meeting</h2>
+													<p>
+														Board room 3
+													</p>
+												</span>
+											</div>
+										</div>
+									</li>
+									<li class="col-sm-12 col-xs-12 wow fadeInDown" data-wow-duration="1200ms"  data-wow-delay="1200ms">
+										<div class="col-sm-3 col-xs-3">
+											<div class="timediv">
+												<span>
+													<p>
+														08:30 &nbsp; -
+													</p>
+													<p>
+														09:30
+													</p>
+												</span>
+											</div>
+										</div>
+										<div class="col-sm-9 col-xs-9">
+											<div class="detaildiv">
+												<span>
+													<h2>SEPLAT Petroleum Development Company Plc, Meeting</h2>
+													<p>
+														Board room 3
+													</p>
+												</span>
+											</div>
+										</div>
+									</li>
+									<li class="col-sm-12 col-xs-12 wow fadeInDown" data-wow-duration="1200ms"  data-wow-delay="1200ms">
+										<div class="col-sm-3 col-xs-3">
+											<div class="timediv">
+												<span>
+													<p>
+														08:30 &nbsp; -
+													</p>
+													<p>
+														09:30
+													</p>
+												</span>
+											</div>
+										</div>
+										<div class="col-sm-9 col-xs-9">
+											<div class="detaildiv">
+												<span>
+													<h2>SEPLAT Petroleum Development Company Plc, Meeting</h2>
+													<p>
+														Board room 3
+													</p>
+												</span>
+											</div>
+										</div>
+									</li>
+								</ul>
+								<div class="eventdate">
+									<span class="pull-left">Wednesday</span>
+									<span class="pull-right">May 14th 2015</span>
+								</div>
+								<ul class="meetinglist programlisting">
+									<li class="col-sm-12 col-xs-12 wow fadeInDown" data-wow-duration="1200ms"  data-wow-delay="1200ms">
+										<div class="col-sm-3 col-xs-3">
+											<div class="timediv">
+												<span>
+													<p>
+														08:30 &nbsp; -
+													</p>
+													<p>
+														09:30
+													</p>
+												</span>
+											</div>
+										</div>
+										<div class="col-sm-9 col-xs-9">
+											<div class="detaildiv">
+												<span>
+													<h2>SEPLAT Petroleum Development Company Plc, Meeting</h2>
+													<p>
+														Board room 3
+													</p>
+												</span>
+											</div>
+										</div>
+									</li>
+									<li class="col-sm-12 col-xs-12 wow fadeInDown" data-wow-duration="1200ms"  data-wow-delay="1200ms">
+										<div class="col-sm-3 col-xs-3">
+											<div class="timediv">
+												<span>
+													<p>
+														08:30 &nbsp; -
+													</p>
+													<p>
+														09:30
+													</p>
+												</span>
+											</div>
+										</div>
+										<div class="col-sm-9 col-xs-9">
+											<div class="detaildiv">
+												<span>
+													<h2>SEPLAT Petroleum Development Company Plc, Meeting</h2>
+													<p>
+														Board room 3
+													</p>
+												</span>
+											</div>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</section>
+				<footer>
+					<a href="#" class="arrow-left"><i class="fa fa-arrow-left"></i></a>  
+					<a href="#home" data-transition="slide" class="btn-home"><i class="fa fa-home"></i></a> 
+					<button id="footermenu" type="button" class="toggle-button navbar-toggle" data-toggle="offcanvas" data-target="#menu" data-canvas="body"><i class="fa fa-bars"></i></button>
+				</footer>
+			</div>
+			<div data-role="page" id="participating-companies">
+				<div class="navbar navbar-default navbar-fixed-top header">
+					<button type="button" class="toggle-button navbar-toggle" data-toggle="offcanvas" data-target="#menu" data-canvas="body"><i class="fa fa-bars"></i></button>
+					<h1 >Corporates</h1>
+				</div>
+				<section class="content">
+					<div class="container maincont">
+						<div class="row mainrow">
+							<div class="col-sm-12 col-xs-12 maincols nopadding">
+								<ul id="invited-companies" class="companylist"></ul>
+							</div>
+						</div>
+					</div>
+				</section>
+				<footer>
+					<a href="#" class="arrow-left"><i class="fa fa-arrow-left"></i></a>  
+					<a href="#home" data-transition="slide" class="btn-home"><i class="fa fa-home"></i></a> 
+					<button id="footermenu" type="button" class="toggle-button navbar-toggle" data-toggle="offcanvas" data-target="#menu" data-canvas="body"><i class="fa fa-bars"></i></button>
+				</footer>
+			</div>
+			<!-- end invited companies -->
+			<div data-role="page" id="talk-to-us">
+				<div class="navbar navbar-default navbar-fixed-top header">
+					<button type="button" class="toggle-button navbar-toggle" data-toggle="offcanvas" data-target="#menu" data-canvas="body"><i class="fa fa-bars"></i></button>
+					<h1 >Talk to Us</h1>
+				</div>
+				<section class="content">
+					<div class="container maincont">
+						<div class="row mainrow">
+							<div class="col-sm-12 col-xs-12 maincols talktous wow fadeInDown" data-wow-duration="1200ms"  data-wow-delay="1200ms">
+								<div class="box box-warning direct-chat direct-chat-warning">
+									<div class="box-body">
+										<!-- Conversations are loaded here -->
+										<div class="direct-chat-messages">
+											<!-- Message. Default to the left -->
+											<div class="direct-chat-msg">
+												<div class='direct-chat-info clearfix'>
+													<span class='direct-chat-name pull-left'>Alexander Pierce</span>
+													<span class='direct-chat-timestamp pull-right'>23 Jan 2:00 pm</span>
+												</div>
+												<!-- /.direct-chat-info -->
+												<div class="direct-chat-text">
+													Is this template really for free? That's unbelievable!
+												</div>
+												<!-- /.direct-chat-text -->
+											</div>
+											<!-- /.direct-chat-msg -->
+											<!-- Message to the right -->
+											<div class="direct-chat-msg right">
+												<div class='direct-chat-info clearfix'>
+													<span class='direct-chat-name pull-right'>Sarah Bullock</span>
+													<span class='direct-chat-timestamp pull-left'>23 Jan 2:05 pm</span>
+												</div>
+												<!-- /.direct-chat-info -->
+												<div class="direct-chat-text">
+													You better believe it!
+												</div>
+												<!-- /.direct-chat-text -->
+											</div>
+											<!-- /.direct-chat-msg -->
+										</div>
+										<!--/.direct-chat-messages-->
+										<!-- /.direct-chat-pane -->
+									</div>
+									<!-- /.box-body -->
+									<div class="box-footer">
+										<form action="#" method="post">
+											<span class="input-wrapper">
+											<input class="msginput" id="txtMessage" type="text" name="message" placeholder="Compose your message here" />
+											<button type="button" id="sendPrivatemessage" class="btn sendbtn"><span class="fa fa-send"></span></button>
+											</span>
+										</form>
+									</div>
+									<!-- /.box-footer-->
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+				<footer>
+					<a href="#" class="arrow-left"><i class="fa fa-arrow-left"></i></a>  
+					<a href="#home" data-transition="slide" class="btn-home"><i class="fa fa-home"></i></a> 
+					<button id="footermenu" type="button" class="toggle-button navbar-toggle" data-toggle="offcanvas" data-target="#menu" data-canvas="body"><i class="fa fa-bars"></i></button>
+				</footer>
+			</div>
+			<!-- end talk to us -->
+			<div data-role="page" id="ask-a-quiz">
+				<div class="navbar navbar-default navbar-fixed-top header">
+					<button type="button" class="toggle-button navbar-toggle" data-toggle="offcanvas" data-target="#menu" data-canvas="body"><i class="fa fa-bars"></i></button>
+					<h1>Talk to Us</h1>
+				</div>
+				<section class="content cont-ask-a-quiz">
+					<div class="container maincont">
+						<div class="row mainrow">
+							<div class="col-sm-12 col-xs-12 maincols talktous wow fadeInDown" data-wow-duration="1200ms"  data-wow-delay="1200ms">
+								<div class="box box-warning direct-chat direct-chat-warning">
+									<div class="box-body">
+										<!-- Conversations are loaded here -->
+										<div class="direct-chat-messages">
+											<div class="col-sm-12 col-xs-12 maincols">
+												<ul class="meetinglist notificationlist">
+												</ul>
+											</div>
+										</div>
+										<!--/.direct-chat-messages-->
+										<!-- /.direct-chat-pane -->
+									</div>
+									<!-- /.box-body -->
+									<div class="box-footer">
+										<form id="frmQuiz" action="#" method="post">
+											<span class="input-wrapper">
+											<input class="txtQuiz" id="txtQuiz" type="text" name="txtQuestion" placeholder="Type your question" />
+											<button type="button" id="btnAskAQuiz" class="btn sendbtn"><span class="fa fa-send"></span></button>
+											</span>
+											<input type="hidden" class="userid" id="hfUserId" name="userid" />
+										</form>
+									</div>
+									<!-- /.box-footer-->
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+				<footer>
+					<a href="#" class="arrow-left"><i class="fa fa-arrow-left"></i></a>  
+					<a href="#home" data-transition="slide" class="btn-home"><i class="fa fa-home"></i></a> 
+					<button id="footermenu" type="button" class="toggle-button navbar-toggle" data-toggle="offcanvas" data-target="#menu" data-canvas="body"><i class="fa fa-bars"></i></button>
+				</footer>
+			</div>
+			<!-- end ask a quiz -->
+			<div data-role="page" id="event-program">
+				<div class="navbar navbar-default navbar-fixed-top header">
+					<button type="button" class="toggle-button navbar-toggle" data-toggle="offcanvas" data-target="#menu" data-canvas="body"><i class="fa fa-bars"></i></button>
+					<h1 >Event Program</h1>
+				</div>
+				<section class="content">
+					<div class="container maincont">
+						<div class="row mainrow">
+							<div class="col-sm-12 col-xs-12 maincols wow fadeInDown" data-wow-duration="1200ms"  data-wow-delay="1200ms">
+								<div class="eventdate">
+									<span class="pull-left">Tuesday</span>
+									<span class="pull-right">May 13th 2015</span>
+								</div>
+								<ul id="dayone" class="meetinglist programlisting">
+								</ul>
+								<div class="eventdate">
+									<span class="pull-left">Wednesday</span>
+									<span class="pull-right">May 14th 2015</span>
+								</div>
+								<ul id="daytwo" class="meetinglist programlisting">
+								</ul>
+								<div class="eventdate">
+									<span class="pull-left">Thursday</span>
+									<span class="pull-right">May 15th 2015</span>
+								</div>
+								<ul id="daythree" class="meetinglist programlisting">
+								</ul>
+								<div class="eventdate">
+									<span class="pull-left">Friday</span>
+									<span class="pull-right">May 16th 2015</span>
+								</div>
+								<ul id="dayfour" class="meetinglist programlisting">
+								</ul>
+							</div>
+						</div>
+					</div>
+				</section>
+				<footer>
+					<a href="#" class="arrow-left"><i class="fa fa-arrow-left"></i></a>  
+					<a href="#home" data-transition="slide" class="btn-home"><i class="fa fa-home"></i></a> 
+					<button id="footermenu" type="button" class="toggle-button navbar-toggle" data-toggle="offcanvas" data-target="#menu" data-canvas="body"><i class="fa fa-bars"></i></button>
+				</footer>
+			</div>
+			<!-- end program -->
+			<div data-role="page" id="notifications">
+				<div class="navbar navbar-default navbar-fixed-top header">
+					<button type="button" class="toggle-button navbar-toggle" data-toggle="offcanvas" data-target="#menu" data-canvas="body"><i class="fa fa-bars"></i></button>
+					<h1 >Notifications</h1>
+				</div>
+				<section class="content">
+					<div class="container maincont">
+						<div class="row mainrow">
+							<div class="col-sm-12 col-xs-12 maincols">
+								<ul class="meetinglist notificationlist">
+								</ul>
+							</div>
+						</div>
+					</div>
+				</section>
+				<footer>
+					<a href="#" class="arrow-left"><i class="fa fa-arrow-left"></i></a>  
+					<a href="#home" data-transition="slide" class="btn-home"><i class="fa fa-home"></i></a> 
+					<button id="footermenu" type="button" class="toggle-button navbar-toggle" data-toggle="offcanvas" data-target="#menu" data-canvas="body"><i class="fa fa-bars"></i></button>
+				</footer>
+			</div>
+			<!-- end notifications -->
+			<div data-role="page" id="survey">
+				<div class="navbar navbar-default navbar-fixed-top header">
+					<button type="button" class="toggle-button navbar-toggle" data-toggle="offcanvas" data-target="#menu" data-canvas="body"><i class="fa fa-bars"></i></button>
+					<h1 >Survey</h1>
+				</div>
+				<section class="content">
+					<div class="container maincont">
+						<div class="row mainrow">
+							<form id="frmSurvey">
+								<div id="surverycont" class="col-sm-12 col-xs-12 maincols talktous wow fadeInDown" data-wow-duration="1200ms"  data-wow-delay="1200ms">
+								</div>
+								<input type="hidden" class="userid" id="hfUserId" name="userid" />
+							</form>
+						</div>
+					</div>
+					<div class="surveylinks col-sm-12 col-xs-12 wow fadeInDown" data-wow-duration="1200ms"  data-wow-delay="1200ms">
+						<a href="#" class="prevlink">PREVIOUS</a>
+						<a href="#" class="nextlink pull-right">NEXT</a>
+						<a href="#" class="nextlink lnksubmit">Submit</a>
+					</div>
+				</section>
+				<footer>
+					<a href="#" class="arrow-left"><i class="fa fa-arrow-left"></i></a>  
+					<a href="#home" data-transition="slide" class="btn-home"><i class="fa fa-home"></i></a> 
+					<button id="footermenu" type="button" class="toggle-button navbar-toggle" data-toggle="offcanvas" data-target="#menu" data-canvas="body"><i class="fa fa-bars"></i></button>
+				</footer>
+			</div>
+			<!-- end survey -->
+			<div data-role="page" id="speakers">
+				<div class="navbar navbar-default navbar-fixed-top header">
+					<button type="button" class="toggle-button navbar-toggle" data-toggle="offcanvas" data-target="#menu" data-canvas="body"><i class="fa fa-bars"></i></button>
+					<h1 class="long" >Speakers / Dinner Hosts</h1>
+				</div>
+				<section class="content">
+					<div class="container maincont">
+						<div class="row mainrow">
+							<div class="col-sm-12 col-xs-12 maincols">
+								<ul class="innermenu-section-list" id="speakerslist">
+									<li class="active wow fadeInDown" data-wow-duration="1200ms"  data-wow-delay="1200ms">
+										<a href="#speaker-profile" data-transition="flip">
+											<span class="speakerprofilepic"><img src="images/speaker-pic_03.jpg" width="65px" height="65px" class="img-circle"></span>
+											<span class="speakerlist">
+												<h2 class="speakername">Daniel Mburu</h2>
+												<p class="speakertitle">CEO, Safaricom</p>
+											</span>
+											<span class="pull-right rightarrow"><i class="fa fa-angle-right"></i></span>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</section>
+				<footer>
+					<a href="#" class="arrow-left"><i class="fa fa-arrow-left"></i></a>  
+					<a href="#home" data-transition="slide" class="btn-home"><i class="fa fa-home"></i></a> 
+					<button id="footermenu" type="button" class="toggle-button navbar-toggle" data-toggle="offcanvas" data-target="#menu" data-canvas="body"><i class="fa fa-bars"></i></button>
+				</footer>
+			</div>
+			<!-- end speaker -->
+			<div data-role="page" id="speaker-profile">
+				<div class="navbar navbar-default navbar-fixed-top header">
+					<button type="button" class="toggle-button navbar-toggle" data-toggle="offcanvas" data-target="#menu" data-canvas="body"><i class="fa fa-bars"></i></button>
+					<h1 class="long">Speakers / Dinner Hosts</h1>
+				</div>
+				<section class="content">
+					<div class="container maincont">
+						<div id="single-speaker-profile" class="row mainrow">
+						</div>
+					</div>
+				</section>
+				<footer>
+					<a href="#" class="arrow-left"><i class="fa fa-arrow-left"></i></a>  
+					<a href="#home" data-transition="slide" class="btn-home"><i class="fa fa-home"></i></a> 
+					<button id="footermenu" type="button" class="toggle-button navbar-toggle" data-toggle="offcanvas" data-target="#menu" data-canvas="body"><i class="fa fa-bars"></i></button>
+				</footer>
+			</div>
+			<!-- end speaker profile-->    
+			<div data-role="page" id="thankyou">
+				<div class="navbar navbar-default navbar-fixed-top header">
+					<button type="button" class="toggle-button navbar-toggle" data-toggle="offcanvas" data-target="#menu" data-canvas="body"><i class="fa fa-bars"></i></button>
+					<h1 >Survey</h1>
+				</div>
+				<section class="content">
+					<div class="container maincont">
+						<div class="row mainrow">
+							<div class="col-sm-12 col-xs-12 maincols">
+								<ul class="meetinglist notificationlist">
+									<li style="border-bottom:none" class="col-sm-12 col-xs-12 wow fadeInDown" data-wow-duration="1200ms"  data-wow-delay="1200ms">
+										<div class="col-sm-12 col-xs-12 notificationtextdiv">
+											<div class="detaildiv">
+												<span>
+													<h2>Thank you for participating in the survey.</h2>
+													<p>
+														We value your feedback.
+													</p>
+												</span>
+											</div>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</section>
+				<footer>
+					<a href="#" class="arrow-left"><i class="fa fa-arrow-left"></i></a>  
+					<a href="#home" data-transition="slide" class="btn-home"><i class="fa fa-home"></i></a> 
+					<button id="footermenu" type="button" class="toggle-button navbar-toggle" data-toggle="offcanvas" data-target="#menu" data-canvas="body"><i class="fa fa-bars"></i></button>
+				</footer>
+			</div>
+			<!-- thankyou -->       
+			<!-- <input id="rooturl" type="hidden" value="http://localhost/africanalliance/mobile/">-->
+			<input id="rooturl" type="hidden" value="http://africanallianceconferences.com/mobile/">
+			<input id="username" type="hidden">
+			<input id="userid" class="userid" type="hidden">
+			<a class="lnkhome" data-transition="slide" href="#home" ></a>
+			<!--<a class="lnkhome" data-transition="flip" href="#survey" ></a>-->
+			<a class="lnklogin"  data-transition="slide"  href="#login" ></a>
+			<a class="lnkthankyou"  data-transition="slide"  href="#thankyou" ></a>
+			<a class="lnknotifications"  data-transition="slide"  href="#notifications" ></a>
+		</main>
+	</body>
+</html>
