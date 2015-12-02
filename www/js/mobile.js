@@ -1959,7 +1959,7 @@ function get_results (pageNum) {
 		db.transaction(function(tx){
 			tx.executeSql(all_crops_details_sql, [], function (tx, results) {
 			  	var length = results.rows.length, i;
-			  	if(length > 1){
+			  	if(length >= 1){
 				  	for (i = 0; i < length; i++) {
 				  		var crop_data = {};
 				    	//get crop name
@@ -2103,7 +2103,7 @@ function get_results (pageNum) {
 		db.transaction(function(tx){
 			tx.executeSql(all_crops_details_sql, [], function (tx, results) {
 			  	var length = results.rows.length, i;
-			  	if(length > 1){
+			  	if(length >= 1){
 				  	for (i = 0; i < length; i++) {
 				  		var crop_data = {};
 				    	//get crop name
