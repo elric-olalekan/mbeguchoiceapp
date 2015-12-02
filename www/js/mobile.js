@@ -10,8 +10,8 @@ document.addEventListener("deviceready", onDeviceReady, false);
 // Cordova is ready
 function onDeviceReady() {
 	
-	// db = window.openDatabase("mbeguchoicedb", "1.0", "MbeguChoice", 2 * 1024 * 1024); //100MB db
-	db = window.sqlitePlugin.openDatabase({name: "mbeguchoicesqllitedb.db"});
+	db = window.openDatabase("mbeguchoicedb", "1.0", "MbeguChoice", 2 * 1024 * 1024); //100MB db
+	// db = window.sqlitePlugin.openDatabase({name: "mbeguchoicesqllitedb.db"});
 	//testDB();
 	populateDB();
 	populate_counties_dropdown();
@@ -1623,7 +1623,7 @@ function populate_counties_dropdown () {
 //get altitude regions by county selected
 function get_alt_regions(county) {
 
-	$("#altitude_regions_english").html('<option value="">Select ecological zone using drop down</option>'); //reset ecological zones select
+	$("#altitude_regions_english").html('<option value="0">Select ecological zone using drop down</option>'); //reset ecological zones select
 	// $('#seed_choice_crop').val( $('#seed_choice_crop').prop('defaultSelected') ); //reset the crop select box
 
 	db.transaction(function(tx){
@@ -1689,7 +1689,7 @@ function get_alt_regions(county) {
 //get altitude regions by county selected
 function get_alt_regions_swa(county) {
 
-	$("#altitude_regions_swahili").html('<option value="">Chagua eneo (ekolojia)</option>'); //reset ecological zones select
+	$("#altitude_regions_swahili").html('<option value="0">Chagua eneo (ekolojia)</option>'); //reset ecological zones select
 	// $('#seed_choice_crop').val( $('#seed_choice_crop').prop('defaultSelected') ); //reset the crop select box
 
 	db.transaction(function(tx){
@@ -1755,7 +1755,7 @@ function get_alt_regions_swa(county) {
 
 function populate_crops_dropdown() {
 	if($('#language_selected').val() == 'swahili'){
-		$('#questions-swahili #seed_choice_crop').html('<option value="">Chagua mmea</option>');
+		$('#questions-swahili #seed_choice_crop').html('<option value="0">Chagua mmea</option>');
 		db.transaction(function(tx){
 			tx.executeSql('SELECT * FROM default_sid_crop_swa order by crop_name asc', [], function (tx, results) {
 			  	var length = results.rows.length, i;
@@ -1765,7 +1765,7 @@ function populate_crops_dropdown() {
 			});
 		});
 	}else{
-		$('#questions-english #seed_choice_crop').html('<option value="">Select crop using drop down.</option>');
+		$('#questions-english #seed_choice_crop').html('<option value="0">Select crop using drop down.</option>');
 		db.transaction(function(tx){
 			tx.executeSql('SELECT * FROM default_sid_crop order by crop_name asc', [], function (tx, results) {
 			  	var length = results.rows.length, i;
@@ -2278,29 +2278,61 @@ $(document).ready(function(e) {
 	$('.english').click(function(e) {
 	    $('.lnkenglish').trigger('click');
 	    $( "#language_selected" ).val('english');
+	   
 	    $( ".menu-section-list #language-menu-link a span" ).html("Choose Language");
 	    $( ".menu-section-list #home-menu-link a" ).attr("href", "#questions-english");
 	    $( ".menu-section-list #about-menu-link a span" ).html("About");
 	    $( ".menu-section-list #about-menu-link a" ).attr("href", "#about");
 	    $( ".menu-section-list #help-menu-link a span" ).html("Help");
 	    $( ".menu-section-list #help-menu-link a" ).attr("href", "#help");
+	    
+	    $( "#selected_county" ).val('');
+	    $( "#selected_altitude_region" ).val('');
+	    $( "#selected_eco_zone" ).val('');
+	    $( "#selected_crop_id" ).val('');
+	    $( "#selected_crop_name" ).val('');
+	    
 	    populate_crops_dropdown();
 	    populate_specialxtics_filter();
 	    populate_seasons_filter();
+
+	    //refresh and force rebuild
+	    $("#county-swahili").val('0');
+		$('#county-swahili').selectmenu('refresh', true);
+		$("#altitude_regions_swahili").val('0');
+		$('#altitude_regions_swahili').selectmenu('refresh', true);
+		$(".seed_choice_crop").val('0');
+		$('.seed_choice_crop').selectmenu('refresh', true);
 	});
 
 	$('.kiswahili').click(function(e) {
 	    $('.lnkkiswahili').trigger('click');
 	    $( "#language_selected" ).val('swahili');
+	    
 	    $( ".menu-section-list #language-menu-link a span" ).html("Chagua Lugha");
 	    $( ".menu-section-list #home-menu-link a" ).attr("href", "#questions-swahili");
 	    $( ".menu-section-list #about-menu-link a span" ).html("Kutuhusu");
 	    $( ".menu-section-list #about-menu-link a" ).attr("href", "#about-swahili");
 	    $( ".menu-section-list #help-menu-link a span" ).html("Pata Usaidizi");
 	    $( ".menu-section-list #help-menu-link a" ).attr("href", "#help-swahili");
+	    
+	    $( "#selected_county" ).val('');
+	    $( "#selected_altitude_region" ).val('');
+	    $( "#selected_eco_zone" ).val('');
+	    $( "#selected_crop_id" ).val('');
+	    $( "#selected_crop_name" ).val('');
+
 	    populate_crops_dropdown();
 	    populate_specialxtics_filter();
 	    populate_seasons_filter();
+
+	    //refresh and force rebuild
+	    $("#county-english").val('0');
+		$('#county-english').selectmenu('refresh', true);
+		$("#altitude_regions_english").val('0');
+		$('#altitude_regions_english').selectmenu('refresh', true);
+		$(".seed_choice_crop").val('0');
+		$('.seed_choice_crop').selectmenu('refresh', true);
 	});
 
 	$('#landing-english .lets').click(function(e) {
@@ -2317,13 +2349,23 @@ $(document).ready(function(e) {
 
 	$( "#county-english" ).change(function(e) {
     	$( "#selected_county" ).val( $(this).val() );
-    	$( "#altitude_regions_english" ).val('');
+
+    	$( "#altitude_regions_english" ).val('0');
+    	//refresh and force rebuild
+		$('#altitude_regions_english').selectmenu('refresh', true);
+    	$( "#selected_altitude_region" ).val('');
+
     	$('.results_container').html('');
     	get_alt_regions($(this).val()); //get ecological zones of the county
     });
     $( "#county-swahili" ).change(function(e) {
     	$( "#selected_county" ).val( $(this).val() );
-    	$( "#altitude_regions_swahili" ).val('');
+
+    	$( "#altitude_regions_swahili" ).val('0');
+    	//refresh and force rebuild
+		$('#altitude_regions_swahili').selectmenu('refresh', true);
+    	$( "#selected_altitude_region" ).val('');
+
     	$('.results_container').html('');
     	get_alt_regions_swa($(this).val()); //get ecological zones of the county
     });
