@@ -1929,7 +1929,7 @@ function get_results (pageNum) {
 		var all_crops_details_sql_with_no_limit = "SELECT sssc.*,crops.crop_name,cropcategory.category_name,seedtype.seedtype_name,licensetype.license_type,comm_level.comm_level_name,comm_potential.comm_potential_name,season.season_name FROM default_sid_seedchoice_seedworks_combined as sssc INNER JOIN default_sid_crop as crops on crops.crop_id = sssc.crop_id INNER JOIN default_sid_cropcategory as cropcategory on cropcategory.category_id = sssc.category_id INNER JOIN default_sid_seedtype as seedtype on seedtype.seedtype_id = sssc.seedtype_id INNER JOIN default_sid_license_type as licensetype on licensetype.license_type_id = sssc.license_type_id INNER JOIN default_sid_comm_level as comm_level on comm_level.comm_level_id = sssc.comm_level_id INNER JOIN default_sid_comm_potential as comm_potential on comm_potential.comm_potential_id = sssc.comm_potential_id INNER JOIN default_sid_season as season on season.season_id = sssc.season_id WHERE sssc.crop_id = '"+selected_crop_id+"' "+sql_where+" GROUP BY sssc.sw_id ORDER BY sw_releaseyr DESC;";
 	
 		$('#current_page_num_english').val(pageNum);
-		$('#displayed_results').val(results_per_page*pageNum);
+		$('#results-page-english #displayed_results').val(results_per_page*pageNum);
 		//get total results
 		db.transaction(function(tx){
 			tx.executeSql(all_crops_details_sql_with_no_limit, [], function (tx, results) {
@@ -1937,8 +1937,8 @@ function get_results (pageNum) {
 			  	var pages = Math.ceil(total_results/results_per_page);
 			  	if(total_results < (results_per_page*pageNum)) { var results_displayed=total_results; }else{ var results_displayed=results_per_page*pageNum }
 			  	
-			  	$('#results_found').html(total_results);
-			  	$('#results_displayed').html(results_displayed);
+			  	$('#results-page-english #results_found').html(total_results);
+			  	$('#results-page-english #results_displayed').html(results_displayed);
 			  // 	$('.pagination ul').pagination({
 			  //       pages: pages,
 			  //       currentPage: pageNum,
@@ -2051,13 +2051,13 @@ function get_results (pageNum) {
 								resultsitems += '</table>';
 								
 								// $('.results_container').prepend(resultsitems);
-								$('#results-page-english .results_container').append(resultsitems);
+								$('#results_container_english').append(resultsitems);
 						// 	});
 						// });
 						
 					});
 				}else{
-					$('#results-page-english .results_container').html('<p class="no_results_found">There are no results that match your search criteria. Please try changing your search criteria.</p>');
+					$('#results_container_english').html('<p class="no_results_found">There are no results that match your search criteria. Please try changing your search criteria.</p>');
 					
 				}
 			});
@@ -2073,7 +2073,7 @@ function get_results (pageNum) {
 		var all_crops_details_sql_with_no_limit = "SELECT sssc.*,crops.crop_name,cropcategory.category_name,seedtype.seedtype_name,licensetype.license_type,comm_level.comm_level_name,comm_potential.comm_potential_name,season.season_name FROM default_sid_seedchoice_seedworks_combined_swa as sssc INNER JOIN default_sid_crop_swa as crops on crops.crop_id = sssc.crop_id INNER JOIN default_sid_cropcategory_swa as cropcategory on cropcategory.category_id = sssc.category_id INNER JOIN default_sid_seedtype_swa as seedtype on seedtype.seedtype_id = sssc.seedtype_id INNER JOIN default_sid_license_type_swa as licensetype on licensetype.license_type_id = sssc.license_type_id INNER JOIN default_sid_comm_level as comm_level on comm_level.comm_level_id = sssc.comm_level_id INNER JOIN default_sid_comm_potential_swa as comm_potential on comm_potential.comm_potential_id = sssc.comm_potential_id INNER JOIN default_sid_season_swa as season on season.season_id = sssc.season_id WHERE sssc.crop_id = '"+selected_crop_id+"' "+sql_where+" GROUP BY sssc.sw_id ORDER BY sw_releaseyr DESC;";		
 		
 		$('#current_page_num_swahili').val(pageNum);
-		$('#displayed_results').val(results_per_page*pageNum);
+		$('#results-page-swahili #displayed_results').val(results_per_page*pageNum);
 		//get total results
 		db.transaction(function(tx){
 			tx.executeSql(all_crops_details_sql_with_no_limit, [], function (tx, results) {
@@ -2195,13 +2195,13 @@ function get_results (pageNum) {
 								resultsitems += '</table>';
 								
 								// $('.results_container').prepend(resultsitems);
-								$('#results-page-swahili .results_container').append(resultsitems);
+								$('#results_container_swahili').append(resultsitems);
 						// 	});
 						// });
 						
 					});
 				}else{
-					$('#results-page-swahili .results_container').html('<p class="no_results_found">Hakuna matokeo yamepatikana. Tafadhali jaribu kubadilisha vigezo.</p>');
+					$('#results_container_swahili').html('<p class="no_results_found">Hakuna matokeo yamepatikana. Tafadhali jaribu kubadilisha vigezo.</p>');
 				}
 			});
 
@@ -2221,11 +2221,11 @@ function joinObj(a, attr) {
 function generateResultsPDF() {
 	var doc = new jsPDF();
 	if($('#language_selected').val() == 'english'){
-		doc.fromHTML($('#results-page-english #results_container').get(0), 15, 15, {
+		doc.fromHTML($('#results_container_english').get(0), 15, 15, {
 			'width': 170
 		});
 	}else if($('#language_selected').val() == 'swahili'){
-		doc.fromHTML($('#results-page-swahili #results_container').get(0), 15, 15, {
+		doc.fromHTML($('#results_container_swahili').get(0), 15, 15, {
 			'width': 170
 		});
 	}
