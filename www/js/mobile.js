@@ -1932,11 +1932,12 @@ function get_results (pageNum) {
 		$('#results-page-english #displayed_results').val(results_per_page*pageNum);
 		//get total results
 		db.transaction(function(tx){
+			$('#results_container_english').append('<p class="no_results_found">Total results</p>');
 			tx.executeSql(all_crops_details_sql_with_no_limit, [], function (tx, results) {
 			  	var total_results = results.rows.length;
 			  	var pages = Math.ceil(total_results/results_per_page);
 			  	if(total_results < (results_per_page*pageNum)) { var results_displayed=total_results; }else{ var results_displayed=results_per_page*pageNum }
-			  	$('#results_container_english').append('<p class="no_results_found">Total results '+total_results+'</p>');
+			  	
 			  	$('#results-page-english #results_found').html(total_results);
 			  	$('#results-page-english #results_displayed').html(results_displayed);
 			  // 	$('.pagination ul').pagination({
@@ -1950,7 +1951,7 @@ function get_results (pageNum) {
 					// }
 			  //   });
 			});
-		});
+		}, function(error){$('#results_container_english').append('<p class="no_results_found">Error '+error+'</p>');});
 
 		var fetched_crops = [];
 		db.transaction(function(tx){
@@ -2062,7 +2063,7 @@ function get_results (pageNum) {
 				}
 			});
 
-		});
+		}, function(error){$('#results_container_english').append('<p class="no_results_found">Error 2 '+error+'</p>');});
 	}else if($('#language_selected').val() == 'swahili'){
 		$( "#results-page-swahili #selected-crop-name" ).html($( "#selected_crop_name" ).val());
 		$( "#results-page-swahili #selected-eco-zone" ).html($( "#selected_eco_zone" ).val());
