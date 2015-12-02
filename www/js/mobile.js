@@ -1578,7 +1578,7 @@ function seedtypes_tbl(){
 			tx.executeSql(populatetablesql);
 
 		},
-		function(error){console.dir(error);}
+		function(error){alert(error);}
 	);
 }
 
