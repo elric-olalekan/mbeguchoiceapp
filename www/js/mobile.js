@@ -10,8 +10,9 @@ document.addEventListener("deviceready", onDeviceReady, false);
 // Cordova is ready
 function onDeviceReady() {
 	
-	// db = window.openDatabase("mbeguchoicedb", "1.0", "MbeguChoice", 2 * 1024 * 1024); //100MB db
-	db = window.sqlitePlugin.openDatabase({name: "mbeguchoicesqllitedb.db"});
+	db = window.openDatabase("mbeguchoicedb", "1.0", "MbeguChoice", 2 * 1024 * 1024); //100MB db
+	// db = window.sqlitePlugin.openDatabase({name: "mbeguchoiceappdb.db"});
+	
 	//testDB();
 	populateDB();
 	populate_counties_dropdown();
@@ -76,6 +77,7 @@ function populateDB(){
 	swa_seasons_tbl();
 	cropvarieties_tbl();		
 	swa_cropvarieties_tbl();		
+	seedtypes_tbl();
 	swa_seedtypes_tbl();
 }
 
@@ -1578,7 +1580,7 @@ function seedtypes_tbl(){
 			tx.executeSql(populatetablesql);
 
 		},
-		function(error){alert(error);}
+		function(error){console.dir(error);}
 	);
 }
 
@@ -1930,9 +1932,9 @@ function get_results (pageNum) {
 	
 		$('#current_page_num_english').val(pageNum);
 		$('#results-page-english #displayed_results').val(results_per_page*pageNum);
+		
 		//get total results
 		db.transaction(function(tx){
-			$('#results_container_english').append('<p class="no_results_found">Total results</p>');
 			tx.executeSql(all_crops_details_sql_with_no_limit, [], function (tx, results) {
 			  	var total_results = results.rows.length;
 			  	var pages = Math.ceil(total_results/results_per_page);
@@ -1951,7 +1953,7 @@ function get_results (pageNum) {
 					// }
 			  //   });
 			});
-		}, function(error){$('#results_container_english').append('<p class="no_results_found">Error '+error+'</p>');});
+		}, function(error){console.log(error);});
 
 		var fetched_crops = [];
 		db.transaction(function(tx){
@@ -2426,7 +2428,7 @@ $(document).ready(function(e) {
     	// if(window.plugins && window.plugins.emailComposer) {
             window.plugins.emailComposer.showEmailComposerWithCallback(function(result) {
                 console.log("Response -> " + result);
-                alert("Response -> " + result);
+                // alert("Response -> " + result);
             }, 
             "Feedback for your App", // Subject
             "Feedback for your App",                      // Body
@@ -2437,7 +2439,7 @@ $(document).ready(function(e) {
             null,                    // Attachments
             null);                   // Attachment Data
         // }
-        alert("Response -> ");
+        // alert("Response -> ");
 	});
 
 	
