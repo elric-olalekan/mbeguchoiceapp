@@ -10,8 +10,8 @@ document.addEventListener("deviceready", onDeviceReady, false);
 // Cordova is ready
 function onDeviceReady() {
 	
-	// db = window.openDatabase("mbeguchoicedb", "1.0", "MbeguChoice", 2 * 1024 * 1024); //100MB db
-	db = window.sqlitePlugin.openDatabase({name: "mbeguchoiceappdb.db"});
+	db = window.openDatabase("mbeguchoicedb", "1.0", "MbeguChoice", 2 * 1024 * 1024); //100MB db
+	// db = window.sqlitePlugin.openDatabase({name: "mbeguchoiceappdb.db"});
 	
 	//testDB();
 	populateDB();
@@ -2071,7 +2071,7 @@ function get_results (pageNum) {
 		$( "#results-page-swahili #selected-crop-name" ).html($( "#selected_crop_name" ).val());
 		$( "#results-page-swahili #selected-eco-zone" ).html($( "#selected_eco_zone" ).val());
 		$( "#results-page-swahili #selected-county" ).html($( "#selected_county" ).val());
-
+		
 		var all_crops_details_sql_v1 = "SELECT sssc.*,crops.crop_name,cropcategory.category_name,seedtype.seedtype_name,licensetype.license_type,comm_level.comm_level_name,comm_potential.comm_potential_name,season.season_name,GROUP_CONCAT(institution.institution_name) commercializing_agents FROM default_sid_seedchoice_seedworks_combined_swa as sssc INNER JOIN default_sid_crop_swa as crops on crops.crop_id = sssc.crop_id INNER JOIN default_sid_cropcategory_swa as cropcategory on cropcategory.category_id = sssc.category_id INNER JOIN default_sid_seedtype as seedtype on seedtype.seedtype_id = sssc.seedtype_id INNER JOIN default_sid_license_type as licensetype on licensetype.license_type_id = sssc.license_type_id INNER JOIN default_sid_comm_level as comm_level on comm_level.comm_level_id = sssc.comm_level_id INNER JOIN default_sid_comm_potential as comm_potential on comm_potential.comm_potential_id = sssc.comm_potential_id INNER JOIN default_sid_season as season on season.season_id = sssc.season_id INNER JOIN default_sid_institution as institution ON FIND_IN_SET(institution.institution_id, sssc.sw_comm_agent) > 0 WHERE sssc.crop_id = '"+selected_crop_id+"' "+sql_where+" GROUP BY sssc.sw_id ORDER BY sw_releaseyr DESC";
 		var all_crops_details_sql = "SELECT sssc.*,crops.crop_name,cropcategory.category_name,seedtype.seedtype_name,licensetype.license_type,comm_level.comm_level_name,comm_potential.comm_potential_name,season.season_name FROM default_sid_seedchoice_seedworks_combined_swa as sssc INNER JOIN default_sid_crop_swa as crops on crops.crop_id = sssc.crop_id INNER JOIN default_sid_cropcategory_swa as cropcategory on cropcategory.category_id = sssc.category_id INNER JOIN default_sid_seedtype_swa as seedtype on seedtype.seedtype_id = sssc.seedtype_id INNER JOIN default_sid_license_type_swa as licensetype on licensetype.license_type_id = sssc.license_type_id INNER JOIN default_sid_comm_level as comm_level on comm_level.comm_level_id = sssc.comm_level_id INNER JOIN default_sid_comm_potential_swa as comm_potential on comm_potential.comm_potential_id = sssc.comm_potential_id INNER JOIN default_sid_season_swa as season on season.season_id = sssc.season_id WHERE sssc.crop_id = '"+selected_crop_id+"' "+sql_where+" GROUP BY sssc.sw_id ORDER BY sw_releaseyr DESC LIMIT "+query_start+","+results_per_page+";";
 		var all_crops_details_sql_with_no_limit = "SELECT sssc.*,crops.crop_name,cropcategory.category_name,seedtype.seedtype_name,licensetype.license_type,comm_level.comm_level_name,comm_potential.comm_potential_name,season.season_name FROM default_sid_seedchoice_seedworks_combined_swa as sssc INNER JOIN default_sid_crop_swa as crops on crops.crop_id = sssc.crop_id INNER JOIN default_sid_cropcategory_swa as cropcategory on cropcategory.category_id = sssc.category_id INNER JOIN default_sid_seedtype_swa as seedtype on seedtype.seedtype_id = sssc.seedtype_id INNER JOIN default_sid_license_type_swa as licensetype on licensetype.license_type_id = sssc.license_type_id INNER JOIN default_sid_comm_level as comm_level on comm_level.comm_level_id = sssc.comm_level_id INNER JOIN default_sid_comm_potential_swa as comm_potential on comm_potential.comm_potential_id = sssc.comm_potential_id INNER JOIN default_sid_season_swa as season on season.season_id = sssc.season_id WHERE sssc.crop_id = '"+selected_crop_id+"' "+sql_where+" GROUP BY sssc.sw_id ORDER BY sw_releaseyr DESC;";		
@@ -2086,7 +2086,7 @@ function get_results (pageNum) {
 			  	if(total_results < (results_per_page*pageNum)) { var results_displayed=total_results; }else{ var results_displayed=results_per_page*pageNum }
 			  	
 			  	$('#results-page-swahili #results_found').html(total_results);
-			  	// $('#results-page-swahili #results_displayed').html(results_displayed);
+			  	$('#results-page-swahili #results_displayed').html(results_displayed);
 			  // 	$('.pagination ul').pagination({
 			  //       pages: pages,
 			  //       currentPage: pageNum,
