@@ -452,6 +452,8 @@ background: rgb(218,131,40)}
     font-size: 18px;
     text-align: center; }
 
+#errors{margin: 25px 0 25px 0;}
+
 table{
     padding:20px 15px;
     border-collapse: collapse;

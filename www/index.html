@@ -68,7 +68,6 @@
 		</header>
 		<!-- ./Header -->
 		
-		
 		<main id="panel">
 			<!-- ================= Home Page ====================== -->
 			<div data-role="page" id="home">
@@ -178,24 +177,21 @@
 						<!--table-->
 						<div class="table_results" id="table_results">
 							<div class="results_container" id="results_container_english"></div>
-							<div class="pagination" id="pagination">
-								
-								<input type="hidden" id="current_page_num_english" name="current_page_num" />
-								<input type="hidden" id="displayed_results" name="displayed_results" />
-                                <ul></ul>
-                            </div>
                             <div id="errors"></div>
 							<div class="download" id="download">
 								<a href="#" id="load-more" class="load-more">LOAD MORE</a>
 								<a href="#" id="generate-pdf" class="generate-pdf">DOWNLOAD RESULTS</a>
 								<a href="#questions-english" data-transition="slide">START OVER</a>
+
+								<input type="hidden" id="current_page_num_english" name="current_page_num" />
+								<input type="hidden" id="displayed_results" name="displayed_results" />
 							</div>
 							<!--download-->
 						</div>
 						<!--table_results-->
 
-						<div id="lower">
-							<div id="bar"><a href="#" id="toggle" class="more-options-toggle">more selection options<span> (Click to expand)</span></a> </div>
+						<div id="lower" class="more-options-toggle">
+							<div id="bar"><a href="#" id="toggle" >more selection options<span> (Click to expand)</span></a> </div>
 							<div id="selectoptions" class="selectoptions">
 								<form class="form-inline" role="form">
 									<div class="maturity-filter-container" style="float: left;">
@@ -598,24 +594,22 @@
 						<!--table-->
 						<div class="table_results" id="table_results">
 							<div class="results_container" id="results_container_swahili"></div>
-							<div class="pagination" id="pagination">
-								
-								<input type="hidden" id="current_page_num_swahili" name="current_page_num" />
-								<input type="hidden" id="displayed_results" name="displayed_results" />
-                                <ul></ul>
-                            </div>
+							
                             <div id="errors"></div>
 							<div class="download" id="download">
 								<a href="#" id="load-more" class="load-more">ONYESHA MATOKEO ZAIDI</a>
 								<a href="#" id="generate-pdf" class="generate-pdf">PAKUA MATOKEO</a>
 								<a href="#questions-swahili" data-transition="slide">ANZA TENA</a>
+
+								<input type="hidden" id="current_page_num_swahili" name="current_page_num" />
+								<input type="hidden" id="displayed_results" name="displayed_results" />
 							</div>
 							<!--download-->
 						</div>
 						<!--table_results-->
 
-						<div id="lower">
-							<div id="bar"><a href="#" id="toggle" class="more-options-toggle">Chaguo Zaidi<span> (Bonyeza)</span></a> </div>
+						<div id="lower" class="more-options-toggle">
+							<div id="bar"><a href="#" id="toggle" class="">Chaguo Zaidi<span> (Bonyeza)</span></a> </div>
 							<div id="selectoptions" class="selectoptions">
 								<form class="form-inline" role="form">
 									<div class="maturity-filter-container" style="float: left;">
@@ -905,5 +899,4 @@
 		<a class="lnknotifications"  data-transition="slide"  href="#notifications" ></a>
 		
 	</body>
-	</head>
 </html>

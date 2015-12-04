@@ -10,8 +10,8 @@ document.addEventListener("deviceready", onDeviceReady, false);
 // Cordova is ready
 function onDeviceReady() {
 	
-	// db = window.openDatabase("mbeguchoicedb", "1.0", "MbeguChoice", 2 * 1024 * 1024); //100MB db
-	db = window.sqlitePlugin.openDatabase({name: "mbeguchoiceappdb.db"});
+	db = window.openDatabase("mbeguchoicedb", "1.0", "MbeguChoice", 2 * 1024 * 1024); //100MB db
+	// db = window.sqlitePlugin.openDatabase({name: "mbeguchoiceappdb.db"});
 	
 	//testDB();
 	populateDB();
@@ -1780,16 +1780,6 @@ function populate_crops_dropdown() {
 	}
 }
 
-// function populate_crops_dropdown_swa () {
-// 	db.transaction(function(tx){
-// 		tx.executeSql('SELECT * FROM default_sid_crop_swa order by crop_name asc', [], function (tx, results) {
-// 		  	var length = results.rows.length, i;
-// 		  	for (i = 0; i < length; i++) {
-// 		    	$('#questions-swahili #seed_choice_crop').append('<option value="'+results.rows.item(i).crop_id+'">'+results.rows.item(i).crop_name+'</option>')
-// 		  	}
-// 		});
-// 	});
-// }
 
 function populate_maturity_filter () {
 	var maturities = ["'EXTRA EARLY'","'EARLY'","'MEDIUM'","'LATE'"];
@@ -2060,6 +2050,9 @@ function get_results (pageNum) {
 						// });
 						
 					});
+				}else if(length != 1 && pageNum > 1){
+					$('#results-page-english #errors').html('<p class="no_results_found">No more results to show.</p>');
+					
 				}else{
 					$('#results_container_english').html('<p class="no_results_found">There are no results that match your search criteria. Please try changing your search criteria.</p>');
 					
@@ -2204,6 +2197,9 @@ function get_results (pageNum) {
 						// });
 						
 					});
+				}else if(length != 1 && pageNum > 1){
+					$('#results-page-swahili #errors').html('<p class="no_results_found">Umefikia mwisho wa matokeo.</p>');
+					
 				}else{
 					$('#results_container_swahili').html('<p class="no_results_found">Hakuna matokeo yamepatikana. Tafadhali jaribu kubadilisha vigezo.</p>');
 				}
