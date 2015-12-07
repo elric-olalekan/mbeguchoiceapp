@@ -38,14 +38,21 @@ function onDeviceReady() {
 
 		// Add app alias
 		cordova.plugins.email.addAlias('gmail', 'com.google.android.gm');
-		cordova.plugins.email.open({
-			app: 'gmail',
-		    to:      'e.wamugu@creativeyr.co.ke',
-		    cc:  	 contact_email,
-		    subject: 'From MbeguChoice App',
-		    body:    email_body,
-		    isHtml:  true
-		});
+		
+		cordova.plugins.email.isAvailable(function() {
+		   // not available
+			alert('Please configure your email client app');
+		 }, function() {
+		   // is available
+		   cordova.plugins.email.open({
+				app: 	 'gmail',
+				to:      'e.wamugu@creativeyr.co.ke',
+				cc:  	 contact_email,
+				subject: 'From MbeguChoice App',
+				body:    email_body,
+				isHtml:  true
+			});
+		 });
 	}); 
 
 	uuid=device.uuid;
