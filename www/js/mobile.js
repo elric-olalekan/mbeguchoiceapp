@@ -2242,16 +2242,14 @@ function generateResultsPDF() {
 
 	// doc.save('Test.pdf'); //uncomment to test on development browser(chrome with the Ripple emulator extension)
 	var pdfOutput = doc.output();
-	// alert('Download called');
+
 	// // NEXT SAVE IT TO THE DEVICE'S LOCAL FILE SYSTEM
 	window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem) {
 		
 		fileSystem.root.getDirectory('/Download/MbeguChoice_Results', {create: true}, function(dirEntry) {
 			var filename = 'MbeguChoice_Results_'+$( "#selected_crop_name" ).val()+'_'+$( "#selected_eco_zone" ).val()+'_'+$( "#selected_county" ).val()+'.pdf';
-			// alert(filename);
 			fileSystem.root.getFile("/Download/MbeguChoice_Results/"+filename, {create: true}, function(entry) {
 				var fileEntry = entry;
-
 				entry.createWriter(function(writer) {
 					writer.onwrite = function(evt) {
 
@@ -2262,21 +2260,18 @@ function generateResultsPDF() {
 					alert("Results downloaded to your device's memory successfully.")
 					window.plugins.fileOpener.open("/storage/sdcard0/Download/MbeguChoice_Results/"+filename);
 				}, function(error) {
-					alert( "error3: "+error );
+					alert( "Error: : "+error );
 				});
 
 			}, function(error){
-				alert( "error2: "+error );
+				alert( "Error: "+error );
 			});
 		});
 		
 	},
 	function(event){
-		//$('#errors').html( "error3: "+event.target.error.code );
-		alert( "error1: "+event.target.error.code );
+		alert( "Error: : "+event.target.error.code );
 	});
-
-	// window.plugins.fileOpener.open("/storage/sdcard0/Download/MbeguChoice_Results/"+filename);
 
 }
 
@@ -2434,6 +2429,4 @@ $(document).ready(function(e) {
 	});
 
 
-
-	
 }); // document.ready	
