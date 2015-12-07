@@ -92,7 +92,7 @@ table {
     background-color: transparent;
     border-color: #BBB;
     color: #333;
-    text-shadow: 0px 1px 0px #F3F3F3;
+    text-shadow: none;
 }
 .ui-page-theme-a a:visited, html .ui-bar-a a:visited, html .ui-body-a a:visited, html body .ui-group-theme-a a:visited {
     color: white;
@@ -108,7 +108,7 @@ html {
   background-size: cover;
   height: 100%;
 }
-body{background: transparent;font-family: 'open_sansregular', Arial, sans-serif; width: 100%;height: 100%;}
+body{background: transparent;font-family: 'ralewayregular'; width: 100%;height: 100%;}
 
 img{max-width: 100%;}
 
@@ -134,6 +134,9 @@ input:focus { outline: none;box-shadow: none;}
   background-size: cover;
 }*/
 
+#about a, #about-swahili a{
+    color: #da8328;
+}
 /** HEADER **/
 
 .header{background-color:transparent; width:100%; padding:20px 0;}
@@ -170,7 +173,7 @@ input:focus { outline: none;box-shadow: none;}
 
 .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus{background:none;}
 
-
+.col-sm-2.col-xs-3{padding-left: 0}
 /** CONTENT AREA**/
 
 .whitebg{background:#fff;}
@@ -226,9 +229,13 @@ input:focus { outline: none;box-shadow: none;}
 #ecozones-help,#maturity-help,#special-attributes-help{margin-bottom: 25px;}
 .specialcharitem, .maturityitem, .rainsitem{margin-bottom: 10px;}
 .contactCont .contactSeparator{width: 100%;}
-.contactCont .contactSeparator .contactLabel{width: 35%;float: left;}
-.contactCont .contactSeparator input,.contactCont .contactSeparator textarea{width: 65%;float: right;}
+.contactCont .contactSeparator input,.contactCont .contactSeparator textarea{width: 100%;float: right;}
 
+#contact textarea{width: 100%; height: 100px}
+
+#contact .submit-btn{background: #da8328; border:none; width: 100px;height: 35px; text-transform: uppercase;}
+
+#contact .row{margin-bottom: 15px}
 
 /*** MAIN MENU **/
 
