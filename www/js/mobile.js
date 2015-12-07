@@ -28,15 +28,25 @@ function onDeviceReady() {
     	//window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
 	});
 
-	// $('.kiswahili').click(function(e) {
-	//     // $('.lnkkiswahili').trigger('click');
-	//     console.log('swa selected');
-	//     super.loadUrl("file:///android_asset/www/index-swa.html");
-	// });
+	$('#submit-btn').click(function(e) {
+		var email_body = '';
 
-	
+		if($( "#contact_name" ).val() !=''){ email_body += 'Name: '+$( "#contact_name" ).val()+'<br>'; };
+		if($( "#contact_email" ).val() !=''){ var contact_email = $( "#contact_email" ).val() }else{ var contact_email = ''};
+		if($( "#contact_phone" ).val() !=''){ email_body += 'Phone Number: '+$( "#contact_phone" ).val()+'<br>';};
+		if($( "#contact_message" ).val() !=''){ email_body += $( "#contact_message" ).val();};
 
-	//setTimeout(function(){ $('.lnkhome').click(); }, 3000); 
+		// Add app alias
+		cordova.plugins.email.addAlias('gmail', 'com.google.android.gm');
+		cordova.plugins.email.open({
+			app: 'gmail',
+		    to:      'e.wamugu@creativeyr.co.ke',
+		    cc:  	 contact_email,
+		    subject: 'From MbeguChoice App',
+		    body:    email_body,
+		    isHtml:  true
+		});
+	}); 
 
 	uuid=device.uuid;
 }
@@ -2232,13 +2242,13 @@ function generateResultsPDF() {
 
 	// doc.save('Test.pdf'); //uncomment to test on development browser(chrome with the Ripple emulator extension)
 	var pdfOutput = doc.output();
-		 
+	// alert('Download called');
 	// // NEXT SAVE IT TO THE DEVICE'S LOCAL FILE SYSTEM
 	window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem) {
 		
 		fileSystem.root.getDirectory('/Download/MbeguChoice_Results', {create: true}, function(dirEntry) {
 			var filename = 'MbeguChoice_Results_'+$( "#selected_crop_name" ).val()+'_'+$( "#selected_eco_zone" ).val()+'_'+$( "#selected_county" ).val()+'.pdf';
-			alert(filename);
+			// alert(filename);
 			fileSystem.root.getFile("/Download/MbeguChoice_Results/"+filename, {create: true}, function(entry) {
 				var fileEntry = entry;
 
@@ -2314,6 +2324,7 @@ $(document).ready(function(e) {
 	    $( ".menu-section-list #home-menu-link a" ).attr("href", "#questions-swahili");
 	    $( ".menu-section-list #about-menu-link a span" ).html("Kutuhusu");
 	    $( ".menu-section-list #about-menu-link a" ).attr("href", "#about-swahili");
+	    $( ".menu-section-list #contact-menu-link a span" ).html("Wasiliana Nasi");
 	    $( ".menu-section-list #help-menu-link a span" ).html("Pata Usaidizi");
 	    $( ".menu-section-list #help-menu-link a" ).attr("href", "#help-swahili");
 	    
@@ -2422,23 +2433,7 @@ $(document).ready(function(e) {
 	    get_results(pageNumber+1);
 	});
 
-	$('#submit-btn').click(function(e) {
-    	// if(window.plugins && window.plugins.emailComposer) {
-            window.plugins.emailComposer.showEmailComposerWithCallback(function(result) {
-                console.log("Response -> " + result);
-                // alert("Response -> " + result);
-            }, 
-            "Feedback for your App", // Subject
-            "Feedback for your App",                      // Body
-            ["e.wamugu@creativeyr.co.ke"],    // To
-            null,                    // CC
-            null,                    // BCC
-            true,                   // isHTML
-            null,                    // Attachments
-            null);                   // Attachment Data
-        // }
-        // alert("Response -> ");
-	});
+
 
 	
 }); // document.ready	

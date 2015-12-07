@@ -159,7 +159,6 @@ input:focus { outline: none;box-shadow: none;}
     margin-top: -100px;
 }
 
-
 /* English landing Toggle */
 .header .navbar-toggle.english-landing{margin-top: 30px; width: 50px; padding-left: 8px;}
 
@@ -231,7 +230,7 @@ input:focus { outline: none;box-shadow: none;}
 .contactCont .contactSeparator{width: 100%;}
 .contactCont .contactSeparator input,.contactCont .contactSeparator textarea{width: 100%;float: right;}
 
-#contact textarea{width: 100%; height: 100px;   color: black}
+#contact textarea{width: 100%; height: 100px; color: #666; border-radius: 4px; padding: 10px; border:none}
 
 #contact .submit-btn{background: #da8328; border:none; width: 100px;height: 35px; text-transform: uppercase;}
 
@@ -420,10 +419,12 @@ background: rgb(218,131,40)}
 }
 .table_wrapper{ background:  rgba(0, 0, 0, 0) url("../images/background2.png") no-repeat;
     width: 100%;
-    height: 100%;
+    height: auto;
+    min-height: 100%;
     margin: 0 auto;
     position: absolute;
-    background-size: cover
+    background-size: cover;
+    background-attachment: fixed;
 }
 .table{
     font-family:'ralewaythin'; 
@@ -663,7 +664,7 @@ text-align: center;}
     font-family: 'ralewaylight';
     display: none;
    /* height: auto;*/
-    height: 300px;
+    height: 360px;
     background-color: #005d81;
     padding: 10px;
     color: white;

@@ -37,6 +37,7 @@
 		<script src="js/jspdf.from_html.js"></script>
 		<script src="js/jspdf.split_text_to_size.js"></script>
 		<script src="js/jspdf.standard_fonts_metrics.js"></script>
+		<script src="js/EmailComposer.js" type="text/javascript"></script>
 		<script src="js/mobile.js" type="text/javascript"></script>
 		<!--<script src="js/jquery.simplePagination.js"></script>
 		<link type="text/css" rel="stylesheet" href="css/simplePagination.css"/> -->
@@ -503,7 +504,7 @@
                                             <span class="contactLabel"><label for="name">Name: </label></span>
                                          </div>
                                          <div class="col-sm-6 col-xs-9">
-                                            <input type="text" name="name" class="form-control" value="">
+                                            <input type="text" name="name" id="contact_name" class="form-control" value="">
                                          </div>
                                     </div>
                                     <div class="row">   
@@ -511,7 +512,7 @@
 			                                <span class="contactLabel"><label for="email">Email: </label></span>
                                         </div>
                                         <div class="col-sm-6 col-xs-9">
-			                                <input type="text" class="form-control" name="email" value="">
+			                                <input type="text" class="form-control" id="contact_email" name="email" value="">
                                         </div>
                                     </div>
 			                        <div class="row"> 
@@ -519,7 +520,7 @@
 			                                <span class="contactLabel"><label for="phone">Phone Number: </label></span>
                                         </div>
                                         <div class="col-sm-6 col-xs-9">
-			                                <input type="text" name="phone" class="form-control" value="">
+			                                <input type="text" name="phone" class="form-control" id="contact_phone" value="">
                                         </div>
 			                        </div>
 
@@ -528,7 +529,7 @@
 			                                <span class="contactLabel"><label for="message">Message: </label></span>
                                         </div>
                                         <div class="col-sm-6 col-xs-9">
-			                                <textarea name="message" id="message"></textarea>
+			                                <textarea name="message" id="contact_message"></textarea>
                                         </div>
 			                        </div>
 			                        
