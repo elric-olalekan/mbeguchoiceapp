@@ -10,8 +10,8 @@ document.addEventListener("deviceready", onDeviceReady, false);
 // Cordova is ready
 function onDeviceReady() {
 	
-	db = window.openDatabase("mbeguchoicedb", "1.0", "MbeguChoice", 2 * 1024 * 1024); //100MB db
-	// db = window.sqlitePlugin.openDatabase({name: "mbeguchoiceappdb.db"});
+	// db = window.openDatabase("mbeguchoicedb", "1.0", "MbeguChoice", 2 * 1024 * 1024); //100MB db
+	db = window.sqlitePlugin.openDatabase({name: "mbeguchoiceappdb.db"});
 	
 	//testDB();
 	populateDB();
@@ -2238,7 +2238,7 @@ function generateResultsPDF() {
 		
 		fileSystem.root.getDirectory('/Download/MbeguChoice_Results', {create: true}, function(dirEntry) {
 			var filename = 'MbeguChoice_Results_'+$( "#selected_crop_name" ).val()+'_'+$( "#selected_eco_zone" ).val()+'_'+$( "#selected_county" ).val()+'.pdf';
-			
+			alert(filename);
 			fileSystem.root.getFile("/Download/MbeguChoice_Results/"+filename, {create: true}, function(entry) {
 				var fileEntry = entry;
 
