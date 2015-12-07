@@ -420,7 +420,7 @@ background: rgb(218,131,40)}
 }
 .table_wrapper{ background:  rgba(0, 0, 0, 0) url("../images/background2.png") no-repeat;
     width: 100%;
-    height: auto;
+    height: 100%;
     margin: 0 auto;
     position: absolute;
     background-size: cover
