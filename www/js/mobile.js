@@ -36,7 +36,7 @@ function onDeviceReady() {
 
 	
 
-	//setTimeout(function(){ $('.lnkhome').click(); }, 3000);
+	//setTimeout(function(){ $('.lnkhome').click(); }, 3000); 
 
 	uuid=device.uuid;
 }

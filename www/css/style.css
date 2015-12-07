@@ -164,7 +164,7 @@ input:focus { outline: none;box-shadow: none;}
 .header .navbar-toggle.english-questions{margin-top: 30px;}
 
 /* Questions  Toggle */
-.header .navbar-toggle.results {margin: 30 0px 0px;}
+.header .navbar-toggle.results {margin: 50px 0px 0px;}
 
 .toggle-button{margin-left:10px !important;}
 
@@ -723,24 +723,38 @@ text-align: center;}
 }
 
 @media  (min-width:540px ) and (max-width:768px){
-    .header .navbar-toggle.english-landing, .header .navbar-toggle.english-questions {margin-top: 8%;}
+    .header .navbar-toggle.english-landing, 
+    .header .navbar-toggle.english-questions,
+    .header .navbar-toggle.results{margin-top: 8%;}
 }
 
 @media  (min-width:400px ) and (max-width:450px){
-    .header .navbar-toggle.english-landing, .header .navbar-toggle.english-questions {margin-top: 6%;}
+    .header .navbar-toggle.english-landing, 
+    .header .navbar-toggle.english-questions,
+    .header .navbar-toggle.results{margin-top: 6%;}
 }
 @media  (min-width:379px ) and (max-width:399px){
-    .header .navbar-toggle.english-landing, .header .navbar-toggle.english-questions {margin-top: 4%;}
+    .header .navbar-toggle.english-landing, 
+    .header .navbar-toggle.english-questions,
+    .header .navbar-toggle.results{margin-top: 4%;}
 }
 @media  (min-width:325px ) and (max-width:378px){
-    .header .navbar-toggle.english-landing, .header .navbar-toggle.english-questions {margin-top: 3.2%;}
+    .header .navbar-toggle.english-landing, 
+    .header .navbar-toggle.english-questions,
+    .header .navbar-toggle.results{margin-top: 3.2%;}
 }
 @media  (min-width:280px ) and (max-width:324px){
-    .header .navbar-toggle.english-landing, .header .navbar-toggle.english-questions {margin-top: 0;}
+    .header .navbar-toggle.english-landing,
+    .header .navbar-toggle.english-questions,
+    .header .navbar-toggle.results{margin-top: 0;}
 }
 @media  (min-width:255px ) and (max-width:279px){
-    .header .navbar-toggle.english-landing, .header .navbar-toggle.english-questions {margin-top: -1%;}
+    .header .navbar-toggle.english-landing,
+    .header .navbar-toggle.english-questions,
+    .header .navbar-toggle.results{margin-top: -1%;}
 }
 @media  (min-width:235px ) and (max-width:254px){
-    .header .navbar-toggle.english-landing, .header .navbar-toggle.english-questions {margin-top: -2.5%;}
+    .header .navbar-toggle.english-landing,
+    .header .navbar-toggle.english-questions,
+    .header .navbar-toggle.results{margin-top: -2.5%;}
 }
