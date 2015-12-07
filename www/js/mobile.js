@@ -2252,17 +2252,18 @@ function generateResultsPDF() {
 					alert("Results downloaded to your device's memory successfully.")
 					window.plugins.fileOpener.open("/storage/sdcard0/Download/MbeguChoice_Results/"+filename);
 				}, function(error) {
-					//$('#errors').html( "error1: "+error );
+					alert( "error3: "+error );
 				});
 
 			}, function(error){
-				//$('#errors').html( "error2: "+error );
+				alert( "error2: "+error );
 			});
 		});
 		
 	},
 	function(event){
 		//$('#errors').html( "error3: "+event.target.error.code );
+		alert( "error1: "+event.target.error.code );
 	});
 
 	// window.plugins.fileOpener.open("/storage/sdcard0/Download/MbeguChoice_Results/"+filename);
