@@ -231,7 +231,7 @@ input:focus { outline: none;box-shadow: none;}
 .contactCont .contactSeparator{width: 100%;}
 .contactCont .contactSeparator input,.contactCont .contactSeparator textarea{width: 100%;float: right;}
 
-#contact textarea{width: 100%; height: 100px}
+#contact textarea{width: 100%; height: 100px;   color: black}
 
 #contact .submit-btn{background: #da8328; border:none; width: 100px;height: 35px; text-transform: uppercase;}
 

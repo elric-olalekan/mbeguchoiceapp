@@ -16,7 +16,7 @@
     <preference name="auto-hide-splash-screen" value="true" />
     <preference name="show-splash-screen-spinner" value="true" />
     <preference name="AndroidPersistentFileLocation" value="Compatibility" />
-	<gap:splash src="splash.png" />
+	<gap:splash src="res/screen/android/screen-hdpi-portrait.png" />
    
     <icon src="icon.png" />
     <icon gap:platform="android" gap:density="ldpi" gap:qualifier="ldpi" src="res/icon/android/icon-36-ldpi.png" />
@@ -36,7 +36,6 @@
     <gap:plugin name="com.jcjee.plugins.emailcomposer" version="1.4.6" />
     <gap:plugin name="org.apache.cordova.console" />
     <gap:plugin name="org.apache.cordova.contacts" />
-    <gap:plugin name="org.apache.cordova.device" />
     <gap:plugin name="org.apache.cordova.device-motion" />
     <gap:plugin name="org.apache.cordova.device-orientation" />
     <gap:plugin name="org.apache.cordova.dialogs" />
@@ -46,9 +45,7 @@
     <gap:plugin name="org.apache.cordova.globalization" />
     <gap:plugin name="org.apache.cordova.inappbrowser" />
     <gap:plugin name="org.apache.cordova.media" />
-    <gap:plugin name="org.apache.cordova.network-information" />
     <gap:plugin name="org.apache.cordova.splashscreen" />
-    <gap:plugin name="org.apache.cordova.vibration" />
 
     <access origin="*" />
     <plugin name="cordova-plugin-whitelist" version="1" />
