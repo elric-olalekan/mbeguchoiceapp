@@ -2246,14 +2246,15 @@ function generateResultsPDF() {
 			'width': 170
 		});
 	}
-	alert('pdf called');
+	
 	// doc.save('Test.pdf'); //uncomment to test on development browser(chrome with the Ripple emulator extension)
 	var pdfOutput = doc.output();
 
 	// // NEXT SAVE IT TO THE DEVICE'S LOCAL FILE SYSTEM
 	window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem) {
-		
+		alert('requestFileSystem called');
 		fileSystem.root.getDirectory('/Download/MbeguChoice_Results', {create: true}, function(dirEntry) {
+			alert('requestFileSystem called and direcroty created');
 			var filename = 'MbeguChoice_Results_'+$( "#selected_crop_name" ).val()+'_'+$( "#selected_eco_zone" ).val()+'_'+$( "#selected_county" ).val()+'.pdf';
 			fileSystem.root.getFile("/Download/MbeguChoice_Results/"+filename, {create: true}, function(entry) {
 				var fileEntry = entry;
