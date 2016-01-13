@@ -2436,7 +2436,11 @@ $(document).ready(function(e) {
 	});
 
 	$('#exit-menu-link').click(function(e) {
-    	navigator.app.exitApp();
+    	if (navigator && navigator.app) {
+			navigator.app.exitApp();
+		} else if (navigator && navigator.device) {
+		navigator.device.exitApp();
+		}
 	});
 
 
