@@ -40,6 +40,7 @@
 	
     <gap:plugin name="com.brodysoft.sqliteplugin" version="1.0.6" />
     <gap:plugin name="de.appplant.cordova.plugin.email-composer" />
+    <gap:plugin name="com.cordova.plugins.fileopener" />
 
     <gap:plugin name="org.apache.cordova.contacts" />
     <gap:plugin name="org.apache.cordova.device-orientation" />
