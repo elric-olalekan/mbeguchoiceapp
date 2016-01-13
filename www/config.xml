@@ -11,10 +11,9 @@
     <preference name="android-minSdkVersion" value="16" />
     <preference name="android-maxSdkVersion" value="18" />
     <preference name="android-targetSdkVersion" value="17" />
-    <preference name="fullscreen" value="false" />
+    <preference name="fullscreen" value="true" />
     <preference name="show-splash-screen-spinner" value="true" />
     <preference name="auto-hide-splash-screen" value="true" />
-    <preference name="show-splash-screen-spinner" value="true" />
     <preference name="AndroidPersistentFileLocation" value="Compatibility" />
 	<gap:splash src="res/screen/android/screen-hdpi-portrait.png" />
    
