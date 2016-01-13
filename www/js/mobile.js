@@ -2264,8 +2264,10 @@ function generateResultsPDF() {
 
 					writer.write( pdfOutput );
 					var filename = 'MbeguChoice_Results_'+$( "#selected_crop_name" ).val()+'_'+$( "#selected_eco_zone" ).val()+'_'+$( "#selected_county" ).val()+'.pdf';
-					alert("Results downloaded to your device's memory successfully.")
-					window.plugins.fileOpener.open("/storage/sdcard0/Download/MbeguChoice_Results/"+filename);
+					alert("Results downloaded to your device's memory successfully.");
+					if (!window.plugins.fileOpener) {
+						window.plugins.fileOpener.open("/storage/sdcard0/Download/MbeguChoice_Results/"+filename);
+					}else if { alert('window.plugins.fileOpener not activated'); }
 				}, function(error) {
 					alert( "Error: : "+error );
 				});
