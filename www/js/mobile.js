@@ -2246,7 +2246,7 @@ function generateResultsPDF() {
 			'width': 170
 		});
 	}
-
+	alert('pdf called');
 	// doc.save('Test.pdf'); //uncomment to test on development browser(chrome with the Ripple emulator extension)
 	var pdfOutput = doc.output();
 
@@ -2357,7 +2357,6 @@ $(document).ready(function(e) {
 	});
 
 	$('#landing-english .results').click(function(e) {
-	    //get_results();
 	    $('.lnkgetresults-english').trigger('click');
 	});
 
@@ -2414,7 +2413,6 @@ $(document).ready(function(e) {
     	$('.results_container').html('');
     });
 
-
 	$('a,button,input[type=text],input[type=password],textarea').attr('data-role','none'); // remove default formating
 	$('.toSchedule').click();
 
@@ -2431,7 +2429,6 @@ $(document).ready(function(e) {
     	}else if($('#language_selected').val() == 'english'){
     		var pageNumber = parseInt($('#current_page_num_english').val());
     	}
-    	//console.log(pageNumber+1);
 	    get_results(pageNumber+1);
 	});
 
