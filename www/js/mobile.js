@@ -2435,5 +2435,9 @@ $(document).ready(function(e) {
 	    get_results(pageNumber+1);
 	});
 
+	$('#exit-menu-link').click(function(e) {
+    	navigator.app.exitApp();
+	});
+
 
 }); // document.ready	
