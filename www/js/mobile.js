@@ -1819,7 +1819,7 @@ function populate_specialxtics_filter () {
 		var specialxtics = [drought_tolerant,disease_tolerant,storage_pest_resistant,consumer_preferences];
 
 		$.each(specialxtics, function( index, specialxtic ) {
-			$('#results-page-english .specialxtics-filter-container').append('<div class="col-xs-5" style=""><label><input data-role="none" name="'+specialxtic.value+'" id="'+specialxtic.value+'" type="checkbox" class="sw_special_attr" value="1" class="sw_seasons" onchange="javascript: return get_results();"> '+specialxtic.name+'</label></div>');
+			$('#results-page-english .specialxtics-filter-container').append('<div class="col-xs-12" style=""><label><input data-role="none" name="'+specialxtic.value+'" id="'+specialxtic.value+'" type="checkbox" class="sw_special_attr" value="1" class="sw_seasons" onchange="javascript: return get_results();"> '+specialxtic.name+'</label></div>');
 		});
 
 	}else if($('#language_selected').val() == 'swahili'){
@@ -1832,7 +1832,7 @@ function populate_specialxtics_filter () {
 		var specialxtics = [drought_tolerant,disease_tolerant,storage_pest_resistant,consumer_preferences];
 
 		$.each(specialxtics, function( index, specialxtic ) {
-			$('#results-page-swahili .specialxtics-filter-container').append('<div class="col-xs-5" style=""><label><input data-role="none" name="'+specialxtic.value+'" id="'+specialxtic.value+'" type="checkbox" class="sw_special_attr" value="1" class="sw_seasons" onchange="javascript: return get_results();"> '+specialxtic.name+'</label></div>');
+			$('#results-page-swahili .specialxtics-filter-container').append('<div class="col-xs-12" style=""><label><input data-role="none" name="'+specialxtic.value+'" id="'+specialxtic.value+'" type="checkbox" class="sw_special_attr" value="1" class="sw_seasons" onchange="javascript: return get_results();"> '+specialxtic.name+'</label></div>');
 		});
 	}
 	
@@ -2252,9 +2252,9 @@ function generateResultsPDF() {
 
 	// // NEXT SAVE IT TO THE DEVICE'S LOCAL FILE SYSTEM
 	window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem) {
-		alert('requestFileSystem called');
+		
 		fileSystem.root.getDirectory('/Download/MbeguChoice_Results', {create: true}, function(dirEntry) {
-			alert('requestFileSystem called and direcroty created');
+			
 			var filename = 'MbeguChoice_Results_'+$( "#selected_crop_name" ).val()+'_'+$( "#selected_eco_zone" ).val()+'_'+$( "#selected_county" ).val()+'.pdf';
 			fileSystem.root.getFile("/Download/MbeguChoice_Results/"+filename, {create: true}, function(entry) {
 				var fileEntry = entry;
