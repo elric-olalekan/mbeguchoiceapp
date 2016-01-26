@@ -60,12 +60,11 @@
 						<li id="about-menu-link"><a href="#about" data-transition="slide"><span>About</span></a></li>
 						<li id="contact-menu-link"><a href="#contact" data-transition="slide" ><span>Contact</span></a></li>
 						<li id="help-menu-link"><a href="#help" data-transition="slide" ><span>Help</span></a></li>
+						<li id="sync"><a href="javascript:void(0);" id="data-sync" onclick="javascript:return sync_with_live_db();" data-transition="slide" ><span>Update Data</span></a></li>
+						<li id="disclaimer"><a href="#disclaimer" data-transition="slide" ><span>Disclaimer</span></a></li>
 						<li id="exit-menu-link"><a href="javascript:void(0);" data-transition="slide" ><span>Exit</span></a></li>
-						<li id="sync"><a href="javascript:void(0);" data-transition="slide" ><span>Update Data</span></a></li>
-						<div class="conditions">
-							<p><b>DISCLAIMER:</b> The data in MbeguChoice has been carefully gathered from KALRO, KEPHIS and seed companies. All information about suitable agroecological zones has been gathered from breeders and seed companies, based on their testing and knowledge about product performance. However, farmers, retailers and farmer advisors should not rely solely on information provided in MbeguChoice. Variety suitability and adaptability must always be carefully tested and confirmed by farmers, based on their specific location and growing conditions. The MbeguChoice app, its managers, and partners bear no responsibility for the outcome of variety selection based on information provided on the app.</p>
-							<p>&copy; 2015 MbeguChoice. All Rights Reserved.</p>
-						</div>
+						<li id="followfbicon"><a href="https://www.facebook.com/MbeguChoice" data-transition="slide" ><span><img src="images/followfbicon.png"></span></a></li>
+						
 					</ul>
 				</section>
 			</nav>
@@ -131,6 +130,7 @@
 				</section>
 			</div>
 			<!-- ================= ./Landing Page ====================== -->
+
 			<!-- ================= Questions ====================== -->
 			<div data-role="page" id="questions-english">
 				<div class="navbar-default navbar-fixed-top header">
@@ -172,9 +172,9 @@
 					</div>
 				</div>
 			</div>
-			<!-- ================= ./Settings ====================== -->
+			<!-- ================= ./Questions ====================== -->
+
 			<!-- ================= Results ====================== -->
-			
 			<div data-role="page" id="results-page-english">
 				<div class="navbar-default navbar-fixed-top header">
 					<button type="button" class="toggle-button navbar-toggle results" data-toggle="offcanvas" data-target="#menu" data-canvas="body">
@@ -196,7 +196,7 @@
 							<div class="download" id="download">
 								<a href="#" id="load-more" class="load-more">LOAD MORE</a>
 								<a href="javascript:void(0);" id="generate-pdf" class="generate-pdf">DOWNLOAD RESULTS</a>
-								<a href="#landing-english" data-rel="back" data-transition="slide">START OVER</a>
+								<a href="#landing-english" id="last-button" data-rel="back" data-transition="slide">START OVER</a>
 
 								<input type="hidden" id="current_page_num_english" name="current_page_num" />
 								<input type="hidden" id="displayed_results" name="displayed_results" />
@@ -550,8 +550,24 @@
 			    </section>
 			</div>
 
-			<!-- SWAHILI -->
+			<!-- ================= disclaimer Page ====================== -->
+			<div data-role="page" id="disclaimer">
+			  	<div class="navbar navbar-default navbar-fixed-top header">
+					<button type="button" class="toggle-button navbar-toggle english-landing" data-toggle="offcanvas" data-target="#menu" data-canvas="body">
+					<i class="fa fa-bars"></i></button>
+				</div>
+				<section id="#disclaimer" class="content landingbg">
+					<div class="content">
+						<div class="about-info-title"><h4>DISCLAIMER</h4></div>
+						<div class="about-align-left"><p>The data in MbeguChoice has been carefully gathered from KALRO, KEPHIS and seed companies. All information about suitable agroecological zones has been gathered from breeders and seed companies, based on their testing and knowledge about product performance. However, farmers, retailers and farmer advisors should not rely solely on information provided in MbeguChoice. Variety suitability and adaptability must always be carefully tested and confirmed by farmers, based on their specific location and growing conditions. The MbeguChoice app, its managers, and partners bear no responsibility for the outcome of variety selection based on information provided on the app.</p>
+						<p>&copy; 2015 MbeguChoice. All Rights Reserved.</p></div>
+					</div>
+				</section>
+				<!--#disclaimer-->
+			</div>
+			<!-- ================= ./disclaimer Page ====================== -->
 
+			<!-- SWAHILI -->
 			<!-- ================= Landing Page ====================== -->
 			<div data-role="page" id="landing-swahili">
 			<div class="navbar navbar-default navbar-fixed-top header">

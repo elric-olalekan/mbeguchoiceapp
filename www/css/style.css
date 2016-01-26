@@ -79,8 +79,6 @@
 
 }
 
-
-
 @font-face {
     font-family: 'pt_sansbold';
     src: url('PTS75F-webfont.eot');
@@ -204,7 +202,7 @@ input:focus { outline: none;box-shadow: none;}
 
 .whitebg{background:#fff;}
 .content{clear:left; height:89.9%;width:100%;padding-bottom:60px;}
-#landing-english .content, #about .content, #help .content, #contact .content{margin-top:100px}
+#landing-english .content, #about .content, #help .content, #contact .content, #disclaimer .content{margin-top:100px}
 #landing-swahili .content, #about-swahili .content, #help-swahili .content, #contact-swahili .content{margin-top:100px}
 
 .even{background:#eeeeee;}
@@ -249,6 +247,23 @@ input:focus { outline: none;box-shadow: none;}
 .menu-section-list li a{padding:12px 10px; clear:left; float:left; width:100%; border-top:2px solid rgb(195,116,34);  font-size:1em; font-weight:300;}
 .menu-section-list li a:hover, .menu-section-list li a.active,.menu-section-list li a:visitedddd{background:#f39d4a; text-decoration:none;}
 .fa{margin-right:10px;}
+#ajax-spinner{display: none !important;margin-left: 25%;}
+#sync a {border-bottom: 0px !important;}
+@keyframes blink {  
+    0% { color: #c37422; }
+    100% { color: white; }
+}
+@-webkit-keyframes blink {
+    0% { color: #c37422; }
+    100% { color: white; }
+}
+.blink {
+    -webkit-animation: blink 2s linear infinite;
+    -moz-animation: blink 2s linear infinite;
+    -ms-animation: blink 2s linear infinite;
+    -o-animation: blink 2s linear infinite;
+    animation: blink 2s linear infinite;
+} 
 
 .about-align-left{text-align: left;text-align: justify;text-justify: inter-word;}
 .maturityitemname{font-weight: bold; padding-bottom: 5px}
@@ -546,8 +561,11 @@ table td:nth-child(2){
     padding: 5px;
 }
 .download {
-/*padding-top: 10px;*/
-text-align: center;}
+    float: left;
+    padding-bottom: 50px;
+    text-align: center;
+    width: 95%;
+}
 .download a{
     border:1px solid white; 
     border-radius: 7px;
@@ -751,7 +769,7 @@ line-height: 17px;
         height: 110%;
     }
 
-    #landing-english .content, #about .content, #help .content, #contact .content {
+    #landing-english .content, #about .content, #help .content, #contact .content, #disclaimer .content {
       margin-top: 30px;
       position: relative;
     }
@@ -777,7 +795,7 @@ line-height: 17px;
 }
 
 @media  (min-width:320px ) and (max-width:360px){
-    #landing-english .content, #about .content, #help .content, #contact .content {
+    #landing-english .content, #about .content, #help .content, #contact .content, #disclaimer .content {
       margin-top: 50px;
       position: relative;
     }
@@ -787,7 +805,7 @@ line-height: 17px;
     }
 }
 @media  (min-width:361px ) and (max-width:500px){
-    #landing-english .content, #about .content, #help .content, #contact .content {
+    #landing-english .content, #about .content, #help .content, #contact .content, #disclaimer .content {
       margin-top: 70px;
       position: relative;
     }
