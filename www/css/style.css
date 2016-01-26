@@ -265,7 +265,7 @@ input:focus { outline: none;box-shadow: none;}
     animation: blink 2s linear infinite;
 } 
 
-.about-align-left{text-align: left;text-align: justify;text-justify: inter-word;}
+.about-align-left{text-align: left;/*text-align: justify;text-justify: inter-word;*/letter-spacing: 1px;line-height: 24px;}
 .maturityitemname{font-weight: bold; padding-bottom: 5px}
 #ecozones-help,#maturity-help,#special-attributes-help{margin-bottom: 25px;}
 .specialcharitem, .maturityitem, .rainsitem{margin-bottom: 20px;}
