@@ -95,20 +95,20 @@
 *{outline:none;margin:0; padding:0; box-sizing:border-box;}
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, footer, header, hgroup, nav, section, main {
-	display: block;
+  display: block;
 }
 
 ul,ol,li, h1,h2,h3,h4,h5,h6{list-style:none; margin:0; padding:0;}
 blockquote, q {
-	quotes: none;
+  quotes: none;
 }
 blockquote:before, blockquote:after, q:before, q:after {
-	content: '';
-	content: none;
+  content: '';
+  content: none;
 }
 table {
-	border-collapse: collapse;
-	border-spacing: 0;
+  border-collapse: collapse;
+  border-spacing: 0;
 }
 /* jQuery mobile UI elements */
 /* Overlay */
@@ -627,7 +627,7 @@ table td:nth-child(2){
 #surverycont .quizcont{display:none}
 
 #surverycont .quizcont.active{
-   display:block;	
+   display:block; 
 }
 .prevlink{display:none}
 .logindiv input{
@@ -717,7 +717,7 @@ line-height: 17px;
     font-family: 'ralewaylight';
     display: none;
    /* height: auto;*/
-    height: 360px;
+    height: 395px;
     background-color: #005d81;
     padding: 10px;
     color: white;
@@ -901,9 +901,12 @@ line-height: 26px;
 
 }
 
-input[type=radio], input[type=checkbox] { vertical-align: -1px;}
+input[type=radio], input[type=checkbox] { 
+  width:27px;
+  height:27px;
+  vertical-align: -7px;
+}
 
-
-
-
-
+/*input[type='radio']:checked, input[type='checkbox']:checked {
+    background: rgb(218,131,40);
+}*/
