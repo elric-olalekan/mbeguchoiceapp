@@ -18,7 +18,7 @@ function onDeviceReady() {
 	populate_counties_dropdown();
 	populate_maturity_filter();
 	
-	// sync_with_live_db();
+	sync_with_live_db();
 
 	$('.generate-pdf').click(function(e) {
     	generateResultsPDF();
@@ -3345,7 +3345,7 @@ function populate_maturity_filter () {
 	var maturities = ["'EXTRA EARLY'","'EARLY'","'MEDIUM'","'LATE'"];
 	$.each(maturities, function( index, maturity ) {
 		var maturity_name = maturity.replace("'","");
-		$('.maturity-filter-container').append('<div class="col-xs-6" style=""><label><input data-role="none" name="sw_maturity" type="checkbox" value="'+maturity+'" class="sw_seasons" onchange="javascript: return get_results();"> '+maturity_name.replace("'","")+'</label></div>');
+		$('.maturity-filter-container').append('<div class="col-xs-6" style=""><label><input data-role="none" name="sw_maturity" type="checkbox" value="'+maturity+'" class="sw_seasons" > '+maturity_name.replace("'","")+'</label></div>');
 	});
 		
 }
@@ -3362,7 +3362,7 @@ function populate_specialxtics_filter () {
 		var specialxtics = [drought_tolerant,disease_tolerant,storage_pest_resistant,consumer_preferences];
 
 		$.each(specialxtics, function( index, specialxtic ) {
-			$('#results-page-english .specialxtics-filter-container').append('<div class="col-xs-12" style=""><label><input data-role="none" name="'+specialxtic.value+'" id="'+specialxtic.value+'" type="checkbox" class="sw_special_attr" value="1" class="sw_seasons" onchange="javascript: return get_results();"> '+specialxtic.name+'</label></div>');
+			$('#results-page-english .specialxtics-filter-container').append('<div class="col-xs-12" style=""><label><input data-role="none" name="'+specialxtic.value+'" id="'+specialxtic.value+'" type="checkbox" class="sw_special_attr" value="1" class="sw_seasons" > '+specialxtic.name+'</label></div>');
 		});
 
 	}else if($('#language_selected').val() == 'swahili'){
@@ -3375,7 +3375,7 @@ function populate_specialxtics_filter () {
 		var specialxtics = [drought_tolerant,disease_tolerant,storage_pest_resistant,consumer_preferences];
 
 		$.each(specialxtics, function( index, specialxtic ) {
-			$('#results-page-swahili .specialxtics-filter-container').append('<div class="col-xs-12" style=""><label><input data-role="none" name="'+specialxtic.value+'" id="'+specialxtic.value+'" type="checkbox" class="sw_special_attr" value="1" class="sw_seasons" onchange="javascript: return get_results();"> '+specialxtic.name+'</label></div>');
+			$('#results-page-swahili .specialxtics-filter-container').append('<div class="col-xs-12" style=""><label><input data-role="none" name="'+specialxtic.value+'" id="'+specialxtic.value+'" type="checkbox" class="sw_special_attr" value="1" class="sw_seasons" > '+specialxtic.name+'</label></div>');
 		});
 	}
 	
@@ -3389,7 +3389,7 @@ function populate_seasons_filter () {
 			tx.executeSql('SELECT * FROM default_sid_season where season_name !="NULL" order by season_name desc', [], function (tx, results) {
 			  	var length = results.rows.length, i;
 			  	for (i = 0; i < length; i++) {
-			  		$('#results-page-english .seasons-filter-container').append('<div class="col-xs-4" style=""><label><input data-role="none" type="radio" name="sw_season" id="season_'+results.rows.item(i).season_id+'" value="'+results.rows.item(i).season_id+'" class="sw_seasons" onchange="javascript: return get_results();"> '+results.rows.item(i).season_name+'</label></div>');
+			  		$('#results-page-english .seasons-filter-container').append('<div class="col-xs-4" style=""><label><input data-role="none" type="radio" name="sw_season" id="season_'+results.rows.item(i).season_id+'" value="'+results.rows.item(i).season_id+'" class="sw_seasons" > '+results.rows.item(i).season_name+'</label></div>');
 			  	}
 			});
 		});
@@ -3399,7 +3399,7 @@ function populate_seasons_filter () {
 			tx.executeSql('SELECT * FROM default_sid_season_swa where season_name !="NULL" order by season_name desc', [], function (tx, results) {
 			  	var length = results.rows.length, i;
 			  	for (i = 0; i < length; i++) {
-			  		$('#results-page-swahili .seasons-filter-container').append('<div class="col-xs-4" style=""><label><input data-role="none" type="radio" name="sw_season" id="season_'+results.rows.item(i).season_id+'" value="'+results.rows.item(i).season_id+'" class="sw_seasons" onchange="javascript: return get_results();"> '+results.rows.item(i).season_name+'</label></div>');
+			  		$('#results-page-swahili .seasons-filter-container').append('<div class="col-xs-4" style=""><label><input data-role="none" type="radio" name="sw_season" id="season_'+results.rows.item(i).season_id+'" value="'+results.rows.item(i).season_id+'" class="sw_seasons" > '+results.rows.item(i).season_name+'</label></div>');
 			  	}
 			});
 		});
@@ -3869,17 +3869,7 @@ function sync_with_live_db () {
 	        db.transaction(
 				function(tx) {
 					var crop_name = crop.crop_name;
-					
-					// if(crop.crop_id == appdb_crop_ids[i]){
-					// 	var update_crops_sql = 'UPDATE default_sid_crop SET crop_name ="'+crop_name+'", category_id='+crop.category_id+' WHERE crop_id ='+crop.crop_id+';';
-					// 	tx.executeSql(update_crops_sql);
-						
-					// }else{
-					// 	var insert_crops_sql = 'INSERT OR IGNORE INTO default_sid_crop (crop_id, crop_name, category_id) VALUES '+
-					// 	'(NULL, "'+crop_name+'", '+crop.category_id+');';
-					// 	tx.executeSql(insert_crops_sql);
-					// }
-					
+										
 					var insert_crops_sql = 'INSERT OR IGNORE INTO default_sid_crop (crop_id, crop_name, category_id) VALUES '+
 					'("'+crop.crop_id+'", "'+crop_name+'", '+crop.category_id+');';
 					tx.executeSql(insert_crops_sql);
@@ -3922,19 +3912,7 @@ function sync_with_live_db () {
 			);
      	 });
 
-		var appdb_cropvarieties_ids = [];
-        db.transaction(
-			function(tx) {		
-				tx.executeSql('SELECT sw_id FROM default_sid_seedchoice_seedworks_combined order by sw_id asc', [], function (tx, results) {
-				  	var length = results.rows.length, i;
-				  	for (i = 0; i < length; i++) {
-				    	appdb_cropvarieties_ids.push(results.rows.item(i).sw_id);
-				  	}
-				});
-			},
-			function(error){console.dir(error);}
-		);
-
+		
 		//update/insert into cropvarieties table
 		db.transaction(
 			function(tx) {
@@ -3980,38 +3958,9 @@ function sync_with_live_db () {
 		$.each( cropvarieties, function( i, cropvariety ) {
 	        db.transaction(
 				function(tx) {
-												
-					// if(cropvariety.sw_id == appdb_cropvarieties_ids[i]){
-					// 	var update_cropvarieties_sql = 'UPDATE default_sid_seedchoice_seedworks_combined SET '+
-					// 	'sw_variety = "'+cropvariety.sw_variety+'", '+
-					// 	'sw_comm_agent = "'+cropvariety.sw_comm_agent+'", '+
-					// 	'sw_alt_optimal = "'+cropvariety.sw_alt_optimal+'", '+
-					// 	'sw_maturity_age = "'+cropvariety.sw_maturity_age+'", '+
-					// 	'sw_special_attrib = "'+cropvariety.sw_special_attrib+'", '+
-					// 	'sw_drought_tolerant = "'+cropvariety.sw_drought_tolerant+'", '+
-					// 	'sw_disease_tolerant = "'+cropvariety.sw_disease_tolerant+'", '+
-					// 	'sw_storage_pest_resistant = "'+cropvariety.sw_storage_pest_resistant+'", '+
-					// 	'sw_consumer_preferences = "'+cropvariety.sw_consumer_preferences+'", '+
-					// 	'county = "'+cropvariety.county+'", '+
-					// 	'lowland = "'+cropvariety.lowland+'", '+
-					// 	'lowland_transitional = "'+cropvariety.lowland_transitional+'", '+
-					// 	'mid_altitude = "'+cropvariety.mid_altitude+'", '+
-					// 	'highland_transitional = "'+cropvariety.highland_transitional+'", '+
-					// 	'highland = "'+cropvariety.highland+'" '+
-					// 	' WHERE sw_id = '+cropvariety.sw_id+';';
-						
-					// 	// tx.executeSql(update_cropvarieties_sql);
-					// 	// console.dir(update_cropvarieties_sql);
-						
-					// }else{
-					// 	var insert_cropvarieties_sql = 'INSERT OR IGNORE INTO default_sid_seedchoice_seedworks_combined (sw_id, sw_variety, category_id, crop_id, seedtype_id, season_id, license_type_id, comm_potential_id, comm_level_id, sw_releaseyr, sw_breed_institution, sw_maintainer, sw_comm_agent, sw_alt_optimal, sw_alt_min, sw_alt_max, sw_maturity, sw_maturity_age, sw_special_attrib, sw_drought_tolerant, sw_disease_tolerant, sw_storage_pest_resistant, sw_consumer_preferences, county, lowland, lowland_transitional, mid_altitude, highland_transitional, highland) VALUES '+
-					// 	'(NULL, "'+cropvariety.sw_variety+'", "'+cropvariety.category_id+'", "'+cropvariety.crop_id+'", "'+cropvariety.seedtype_id+'", "'+cropvariety.season_id+'", "'+cropvariety.license_type_id+'", "'+cropvariety.comm_potential_id+'", "'+cropvariety.comm_level_id+'", "'+cropvariety.sw_releaseyr+'", "'+cropvariety.sw_breed_institution+'", "'+cropvariety.sw_maintainer+'", "'+cropvariety.sw_comm_agent+'", "'+cropvariety.sw_alt_optimal+'", "'+cropvariety.sw_alt_min+'", "'+cropvariety.sw_alt_max+'", "'+cropvariety.sw_maturity+'", "'+cropvariety.sw_maturity_age+'", "'+cropvariety.sw_special_attrib+'", "'+cropvariety.sw_drought_tolerant+'", "'+cropvariety.sw_disease_tolerant+'", "'+cropvariety.sw_storage_pest_resistant+'", "'+cropvariety.sw_consumer_preferences+'", "'+cropvariety.county+'", "'+cropvariety.lowland+'", "'+cropvariety.lowland_transitional+'", "'+cropvariety.mid_altitude+'", "'+cropvariety.highland_transitional+'", "'+cropvariety.highland+'"'+');';
-					// 	// tx.executeSql(insert_cropvarieties_sql);
-					// 	// console.dir(insert_cropvarieties_sql);
-					// }
 
 					var insert_cropvarieties_sql = 'INSERT OR IGNORE INTO default_sid_seedchoice_seedworks_combined (sw_id, sw_variety, category_id, crop_id, seedtype_id, season_id, license_type_id, comm_potential_id, comm_level_id, sw_releaseyr, sw_breed_institution, sw_maintainer, sw_comm_agent, sw_alt_optimal, sw_alt_min, sw_alt_max, sw_maturity, sw_maturity_age, sw_special_attrib, sw_drought_tolerant, sw_disease_tolerant, sw_storage_pest_resistant, sw_consumer_preferences, county, lowland, lowland_transitional, mid_altitude, highland_transitional, highland) VALUES '+
-					'("'+cropvariety.sw_id+'", "'+cropvariety.sw_variety+'", "'+cropvariety.category_id+'", "'+cropvariety.crop_id+'", "'+cropvariety.seedtype_id+'", "'+cropvariety.season_id+'", "'+cropvariety.license_type_id+'", "'+cropvariety.comm_potential_id+'", "'+cropvariety.comm_level_id+'", "'+cropvariety.sw_releaseyr+'", "'+cropvariety.sw_breed_institution+'", "'+cropvariety.sw_maintainer+'", "'+cropvariety.sw_comm_agent+'", "'+cropvariety.sw_alt_optimal+'", "'+cropvariety.sw_alt_min+'", "'+cropvariety.sw_alt_max+'", "'+cropvariety.sw_maturity+'", "'+cropvariety.sw_maturity_age+'", "'+cropvariety.sw_special_attrib+'", "'+cropvariety.sw_drought_tolerant+'", "'+cropvariety.sw_disease_tolerant+'", "'+cropvariety.sw_storage_pest_resistant+'", "'+cropvariety.sw_consumer_preferences+'", "'+cropvariety.county+'", "'+cropvariety.lowland+'", "'+cropvariety.lowland_transitional+'", "'+cropvariety.mid_altitude+'", "'+cropvariety.highland_transitional+'", "'+cropvariety.highland+'"'+');';
+					'('+cropvariety.sw_id+', "'+cropvariety.sw_variety+'", '+cropvariety.category_id+', '+cropvariety.crop_id+', '+cropvariety.seedtype_id+', '+cropvariety.season_id+', '+cropvariety.license_type_id+', '+cropvariety.comm_potential_id+', '+cropvariety.comm_level_id+', "'+cropvariety.sw_releaseyr+'", "'+cropvariety.sw_breed_institution+'", "'+cropvariety.sw_maintainer+'", "'+cropvariety.sw_comm_agent+'", "'+cropvariety.sw_alt_optimal+'", "'+cropvariety.sw_alt_min+'", "'+cropvariety.sw_alt_max+'", "'+cropvariety.sw_maturity+'", "'+cropvariety.sw_maturity_age+'", "'+cropvariety.sw_special_attrib+'", "'+cropvariety.sw_drought_tolerant+'", "'+cropvariety.sw_disease_tolerant+'", "'+cropvariety.sw_storage_pest_resistant+'", "'+cropvariety.sw_consumer_preferences+'", "'+cropvariety.county+'", "'+cropvariety.lowland+'", "'+cropvariety.lowland_transitional+'", "'+cropvariety.mid_altitude+'", "'+cropvariety.highland_transitional+'", "'+cropvariety.highland+'"'+');';
 					// console.dir(insert_cropvarieties_sql);
 					tx.executeSql(insert_cropvarieties_sql);
 				},
@@ -4177,9 +4126,13 @@ $(document).ready(function(e) {
 	$('.toSchedule').click();
 
 	// Toggle the panel
-    $(".more-options-toggle").click(function(){
+    $("#bar, .filter-results").click(function(){
         $(".selectoptions").slideToggle("fast");
     });
+    $("#more-filters").click(function(){
+        $(".selectoptions").slideToggle("fast");
+    });
+    
     
     $(".selectoptions input").attr("data-role", "none");
 

@@ -586,6 +586,7 @@ table td:nth-child(2){
 .download a:nth-child(3){
     background: #008EC6; 
 }
+.download #filter-results{margin-top: 15px;background: #da8328;}
 /* ============ Continuing CSS ================ */
 .ui-body-c .ui-link {
     color: white;
@@ -717,7 +718,7 @@ line-height: 17px;
     font-family: 'ralewaylight';
     display: none;
    /* height: auto;*/
-    height: 395px;
+    height: 500px;
     background-color: #005d81;
     padding: 10px;
     color: white;
