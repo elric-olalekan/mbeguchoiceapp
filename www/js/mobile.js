@@ -18,7 +18,7 @@ function onDeviceReady() {
 	populate_counties_dropdown();
 	populate_maturity_filter();
 	
-	sync_with_live_db();
+	//sync_with_live_db();
 
 	$('.generate-pdf').click(function(e) {
     	generateResultsPDF();
@@ -3318,22 +3318,22 @@ function get_alt_regions_swa(county) {
 function populate_crops_dropdown() {
 
 	if($('#language_selected').val() == 'swahili'){
-		$('#questions-swahili #seed_choice_crop').html('<option value="0">Chagua mmea</option>');
+		$('#questions-swahili #seed_choice_crop_swahili').html('<option value="0">Chagua mmea</option>');
 		db.transaction(function(tx){
 			tx.executeSql('SELECT * FROM default_sid_crop_swa order by crop_name asc', [], function (tx, results) {
 			  	var length = results.rows.length, i;
 			  	for (i = 0; i < length; i++) {
-			    	$('#questions-swahili #seed_choice_crop').append('<option value="'+results.rows.item(i).crop_id+'">'+results.rows.item(i).crop_name+'</option>')
+			    	$('#questions-swahili #seed_choice_crop_swahili').append('<option value="'+results.rows.item(i).crop_id+'">'+results.rows.item(i).crop_name+'</option>')
 			  	}
 			});
 		});
 	}else{
-		$('#questions-english #seed_choice_crop').html('<option value="0">Select crop using drop down.</option>');
+		$('#questions-english #seed_choice_crop_english').html('<option value="0">Select crop using drop down.</option>');
 		db.transaction(function(tx){
 			tx.executeSql('SELECT * FROM default_sid_crop order by crop_name asc', [], function (tx, results) {
 			  	var length = results.rows.length, i;
 			  	for (i = 0; i < length; i++) {
-			    	$('#questions-english #seed_choice_crop').append('<option value="'+results.rows.item(i).crop_id+'">'+results.rows.item(i).crop_name+'</option>')
+			    	$('#questions-english #seed_choice_crop_english').append('<option value="'+results.rows.item(i).crop_id+'">'+results.rows.item(i).crop_name+'</option>')
 			  	}
 			});
 		});
@@ -3406,12 +3406,13 @@ function populate_seasons_filter () {
 	}
 }
 
-
 function get_results (pageNum) {
 
 	var selected_county = $( "#selected_county" ).val();
 	var selected_altitude_region = $( "#selected_altitude_region" ).val();
 	var selected_crop_id = $( "#selected_crop_id" ).val();
+	$('#results-page-english #errors').html('');
+	$('#results-page-swahili #errors').html('');
 
 	var sql_where = '';
 		
@@ -3712,17 +3713,6 @@ function get_results (pageNum) {
 
 				  	$.each(fetched_crops, function( index, crop_data ) {
 						
-						// db.transaction(function(tx){
-							
-						// 	tx.executeSql('SELECT institution_name FROM default_sid_institution where institution_id IN('+crop_data.sw_comm_agents_ids+') order by institution_name asc', [], function (tx, results) {
-						// 	  	var length = results.rows.length, i;
-						// 	  	for (i = 0; i < length; i++) {
-						// 	  		var comm_agents_names = joinObj(results.rows,'institution_name');
-						// 	  		// console.dir(comm_agents_names);
-						// 	  		crop_data.comm_agents_names = comm_agents_names;
-									
-						// 	  	}
-
 							  	var resultsitems = '<table class="resultitemcontainer" cellpadding="0" cellspacing="0">';
 						
 								if ((typeof(crop_data.crop_name) 		!== 'undefined') && (crop_data.crop_name 		!== null) && (crop_data.crop_name 	 !='')) { resultsitems += '<tr class="resultitemdiv"><td class="resultitemlabel"><p>Jina la mmea</p></td><td class="resultitemdesc"><p>'+crop_data.crop_name+'</p></td></tr>';};
@@ -3741,8 +3731,6 @@ function get_results (pageNum) {
 								
 								// $('.results_container').prepend(resultsitems);
 								$('#results_container_swahili').append(resultsitems);
-						// 	});
-						// });
 						
 					});
 				}else if(length != 1 && pageNum > 1){
@@ -3822,6 +3810,8 @@ function sync_with_live_db () {
 
 	$(document).ajaxStart(function(){
 		$("#sync a").addClass("blink");
+		reset_questions();
+
     });
     
 	$.ajax({
@@ -3968,8 +3958,6 @@ function sync_with_live_db () {
 			);
      	});
 		
-		$('#language-menu-link').trigger('click');
-		
 	}).fail(function(jqxhr, textStatus, error) {
 	    var err = textStatus + ", " + error;
 		console.dir( "Request Failed: " + err );
@@ -3977,8 +3965,33 @@ function sync_with_live_db () {
 
 	$(document).ajaxComplete(function(event, request, settings){
   		$("#sync a").removeClass("blink");
+  		// $('#language-menu-link a')[0].click();
+  		window.location = $('#language-menu-link a').attr('href');
     });
 	
+}
+
+function reset_questions () {
+	//refresh and force rebuild
+    $("#county-english").val('0');
+	$('#county-english').selectmenu().selectmenu('refresh', true);
+	$("#altitude_regions_english").val('0');
+	$('#altitude_regions_english').selectmenu().selectmenu('refresh', true);
+	$("#seed_choice_crop_english").val('0');
+	$('#seed_choice_crop_english').selectmenu().selectmenu('refresh', true);
+
+	$("#county-swahili").val('0');
+	$('#county-swahili').selectmenu().selectmenu('refresh', true);
+	$("#altitude_regions_swahili").val('0');
+	$('#altitude_regions_swahili').selectmenu().selectmenu('refresh', true);
+	$("#seed_choice_crop_swahili").val('0');
+	$('#seed_choice_crop_swahili').selectmenu().selectmenu('refresh', true);
+
+	$( "#selected_county" ).val('');
+    $( "#selected_altitude_region" ).val('');
+    $( "#selected_eco_zone" ).val('');
+    $( "#selected_crop_id" ).val('');
+    $( "#selected_crop_name" ).val('');
 }
 
 $(document).ready(function(e) {
@@ -3986,10 +3999,6 @@ $(document).ready(function(e) {
 	$('.menu-section-list a, .memberprofile,.toggle-button fa').click(function(e) {
 	    $('.toggle-button').click();
 	});
-
-	// $('#data-sync').click(function(e) {
-
-	// });
 
 	$('#home-menu-link').click(function(e) {
 		populate_crops_dropdown();
@@ -4008,23 +4017,12 @@ $(document).ready(function(e) {
 	    $( ".menu-section-list #help-menu-link a span" ).html("Help");
 	    $( ".menu-section-list #help-menu-link a" ).attr("href", "#help");
 	    
-	    $( "#selected_county" ).val('');
-	    $( "#selected_altitude_region" ).val('');
-	    $( "#selected_eco_zone" ).val('');
-	    $( "#selected_crop_id" ).val('');
-	    $( "#selected_crop_name" ).val('');
-	    
 	    populate_crops_dropdown();
 	    populate_specialxtics_filter();
 	    populate_seasons_filter();
 
-	    //refresh and force rebuild
-	    $("#county-swahili").val('0');
-		$('#county-swahili').selectmenu().selectmenu('refresh', true);
-		$("#altitude_regions_swahili").val('0');
-		$('#altitude_regions_swahili').selectmenu().selectmenu('refresh', true);
-		$(".seed_choice_crop").val('0');
-		$('.seed_choice_crop').selectmenu().selectmenu('refresh', true);
+	    reset_questions();
+	    
 	});
 
 	$('.kiswahili').click(function(e) {
@@ -4038,24 +4036,12 @@ $(document).ready(function(e) {
 	    $( ".menu-section-list #contact-menu-link a span" ).html("Wasiliana Nasi");
 	    $( ".menu-section-list #help-menu-link a span" ).html("Pata Usaidizi");
 	    $( ".menu-section-list #help-menu-link a" ).attr("href", "#help-swahili");
-	    
-	    $( "#selected_county" ).val('');
-	    $( "#selected_altitude_region" ).val('');
-	    $( "#selected_eco_zone" ).val('');
-	    $( "#selected_crop_id" ).val('');
-	    $( "#selected_crop_name" ).val('');
 
 	    populate_crops_dropdown();
 	    populate_specialxtics_filter();
 	    populate_seasons_filter();
 
-	    //refresh and force rebuild
-	    $("#county-english").val('0');
-		$('#county-english').selectmenu().selectmenu('refresh', true);
-		$("#altitude_regions_english").val('0');
-		$('#altitude_regions_english').selectmenu().selectmenu('refresh', true);
-		$(".seed_choice_crop").val('0');
-		$('.seed_choice_crop').selectmenu().selectmenu('refresh', true);
+		reset_questions();	    
 	});
 
 	$('#landing-english .lets').click(function(e) {
@@ -4076,8 +4062,20 @@ $(document).ready(function(e) {
     	//refresh and force rebuild
 		$('#altitude_regions_english').selectmenu().selectmenu('refresh', true);
     	$( "#selected_altitude_region" ).val('');
+    	$( "#selected_eco_zone" ).val('');
+
+    	$( "#seed_choice_crop_english" ).val('0');
+    	//refresh and force rebuild
+		$('#seed_choice_crop_english').selectmenu().selectmenu('refresh', true);
+    	$( "#selected_crop_id" ).val('');
+	    $( "#selected_crop_name" ).val('');
 
     	$('.results_container').html('');
+
+    	//reset filters
+    	$('input[type=checkbox]').attr('checked',false);
+    	$('input[type=radio]').attr('checked',false);
+
     	get_alt_regions($(this).val()); //get ecological zones of the county
     });
     $( "#county-swahili" ).change(function(e) {
@@ -4087,31 +4085,47 @@ $(document).ready(function(e) {
     	//refresh and force rebuild
 		$('#altitude_regions_swahili').selectmenu().selectmenu('refresh', true);
     	$( "#selected_altitude_region" ).val('');
+    	$( "#selected_eco_zone" ).val('');
+
+    	$( "#seed_choice_crop_swahili" ).val('0');
+    	//refresh and force rebuild
+		$('#seed_choice_crop_swahili').selectmenu().selectmenu('refresh', true);
+    	$( "#selected_crop_id" ).val('');
+	    $( "#selected_crop_name" ).val('');
 
     	$('.results_container').html('');
+
+    	//reset filters
+    	$('input[type=checkbox]').attr('checked',false);
+    	$('input[type=radio]').attr('checked',false);
+
     	get_alt_regions_swa($(this).val()); //get ecological zones of the county
     });
 
     $( "#altitude_regions_english" ).change(function(e) {
     	$( "#selected_altitude_region" ).val( $(this).val() );
-    	// $( "#selected_eco_zone" ).val( $("#altitude_regions option[value='"+$(this).val()+"']").text() );
-    	// $( "#selected_eco_zone" ).val( $("#altitude_regions option:selected").text() );
-    	// $( "#selected_eco_zone" ).val( $(this).find(":selected").text() );
+    	
     	//$( "#selected_eco_zone" ).val( $("#altitude_regions").children("option").filter(":selected").text() ); // 49% slower
     	$( "#selected_eco_zone" ).val( $("#altitude_regions_english").children(":selected").text() ); // fastest and more optimized
 
     	$('.results_container').html('');
+
+    	//reset filters
+    	$('input[type=checkbox]').attr('checked',false);
+    	$('input[type=radio]').attr('checked',false);
     	
     });
     $( "#altitude_regions_swahili" ).change(function(e) {
     	$( "#selected_altitude_region" ).val( $(this).val() );
-    	// $( "#selected_eco_zone" ).val( $("#altitude_regions option[value='"+$(this).val()+"']").text() );
-    	// $( "#selected_eco_zone" ).val( $("#altitude_regions option:selected").text() );
-    	// $( "#selected_eco_zone" ).val( $(this).find(":selected").text() );
+  
     	//$( "#selected_eco_zone" ).val( $("#altitude_regions").children("option").filter(":selected").text() ); // 49% slower
     	$( "#selected_eco_zone" ).val( $("#altitude_regions_swahili").children(":selected").text() ); // fastest and more optimized
 
     	$('.results_container').html('');
+
+    	//reset filters
+    	$('input[type=checkbox]').attr('checked',false);
+    	$('input[type=radio]').attr('checked',false);
     	
     });
 
@@ -4120,10 +4134,13 @@ $(document).ready(function(e) {
     	$( "#selected_crop_name" ).val( $(this).children(":selected").text() );
 
     	$('.results_container').html('');
+
+    	//reset filters
+    	$('input[type=checkbox]').attr('checked',false);
+    	$('input[type=radio]').attr('checked',false);
     });
 
 	$('a,button,input[type=text],input[type=password],textarea').attr('data-role','none'); // remove default formating
-	$('.toSchedule').click();
 
 	// Toggle the panel
     $("#bar, .filter-results").click(function(){
@@ -4132,7 +4149,6 @@ $(document).ready(function(e) {
     $("#more-filters").click(function(){
         $(".selectoptions").slideToggle("fast");
     });
-    
     
     $(".selectoptions input").attr("data-role", "none");
 
@@ -4153,9 +4169,4 @@ $(document).ready(function(e) {
 		}
 	});
 
-	// $('#sync').click(function(e) {
-    	
-		
-	// });
-
-}); // document.ready
+});

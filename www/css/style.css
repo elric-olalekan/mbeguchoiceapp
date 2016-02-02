@@ -566,7 +566,12 @@ table td:nth-child(2){
     text-align: center;
     width: 95%;
 }
-.download a{
+#filter-div {
+    float: left;
+    text-align: center;
+    width: 95%;
+}
+.download a,#filter-div a{
     border:1px solid white; 
     border-radius: 7px;
     color:white;
@@ -586,7 +591,7 @@ table td:nth-child(2){
 .download a:nth-child(3){
     background: #008EC6; 
 }
-.download #filter-results{margin-top: 15px;background: #da8328;}
+#filter-results{margin-left: 5px;margin-right: 5px;margin-top: 15px;background: #da8328;}
 /* ============ Continuing CSS ================ */
 .ui-body-c .ui-link {
     color: white;
@@ -694,7 +699,6 @@ line-height: 17px;
     width: 100%;
     position: fixed;
     bottom: 0;
-    /*display: none;*/
 }
 
 .ui-btn-inner{overflow: visible; }
@@ -718,11 +722,11 @@ line-height: 17px;
     font-family: 'ralewaylight';
     display: none;
    /* height: auto;*/
-    height: 500px;
+    height: 480px;
     background-color: #005d81;
     padding: 10px;
     color: white;
-    font-size: 12px
+    font-size: 12px;
 }
 #selectoptions label{
     font-weight: 400;
@@ -735,7 +739,7 @@ line-height: 17px;
 
 
 @media (max-width:480px){
-  .download a {
+  .download a,#filter-div a {
     border: 1px solid #FFF;
     border-radius: 7px;
     color: #FFF;
@@ -750,6 +754,7 @@ line-height: 17px;
 }  
     
     .download a:nth-child(2){margin-right: 0; margin-left: 0}
+    #filter-results{margin-right: 0; margin-left: 0}
 }
 
 
