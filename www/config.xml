@@ -39,7 +39,6 @@
     <gap:splash gap:platform="android" gap:density="port-xhdpi" gap:qualifier="port-xhdpi" src="res/screen/android/screen-xhdpi-portrait.png" />
 	
     <plugin name="com.brodysoft.sqliteplugin" source="pgb" spec="1.0.6" />
-    <plugin name="SQLitePlugin" value="org.pgsqlite.SQLitePlugin"/>
     <plugin name="com.cordova.plugins.fileopener" source="pgb" spec="1.0.1" />
     <plugin name="cordova-plugin-whitelist" spec="1.2.1" />
     <plugin name="de.appplant.cordova.plugin.email-composer" source="pgb" spec="0.8.2" />
