@@ -149,7 +149,7 @@ input:focus { outline: none;box-shadow: none;}
     background-image: none;
     border:none;
     border-radius: 0;
-  z-index:9999;
+  z-index:9000;
   display:block !important;
     margin-top: -100px;
 }
@@ -264,6 +264,7 @@ background: rgb(218,131,40)}
     width: 100%;
     left: 0;
     top: 0;
+    z-index: 1000;
 }
 .mainheader{
    background:white;
@@ -271,7 +272,9 @@ background: rgb(218,131,40)}
 .logo img{
     display: block;
     margin: 0 auto;
-    padding: 10px 20px;}
+    /*padding: 10px 20px;*/
+    padding: 15px 70px;
+}
 
 .selectLangCont {
     color: white;
@@ -675,6 +678,7 @@ line-height: 17px;
     width: 100%;
     position: fixed;
     bottom: 0;
+    z-index: 9999;
 }
 
 .ui-btn-inner{overflow: visible; }

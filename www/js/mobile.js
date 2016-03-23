@@ -3489,7 +3489,6 @@ function get_results (pageNum) {
 		db.transaction(function(tx){
 			tx.executeSql(all_crops_details_sql_with_no_limit, [], function (tx, results) {
 			  	var total_results = results.rows.length;
-			  	console.log(total_results);
 			  	var pages = Math.ceil(total_results/results_per_page);
 			  	if(total_results < (results_per_page*pageNum)) { var results_displayed=total_results; }else{ var results_displayed=results_per_page*pageNum }
 			  	
