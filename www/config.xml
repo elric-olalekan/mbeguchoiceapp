@@ -15,6 +15,9 @@
     <preference name="android-installLocation" value="auto" />
     <preference name="AndroidPersistentFileLocation" value="Compatibility" />
     <preference name="permissions" value="none"/>
+    <preference name="android-minSdkVersion" value="15" />
+    <preference name="android-maxSdkVersion" value="23" />
+    <preference name="android-targetSdkVersion" value="19" />
 
     <access origin="*" />
     <access origin="cdvfile://*" />
