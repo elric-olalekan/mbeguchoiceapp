@@ -10,8 +10,8 @@ document.addEventListener("deviceready", onDeviceReady, false);
 // Cordova is ready
 function onDeviceReady() {
 	
-	// db = window.openDatabase("mbeguchoicedb", "1.0", "MbeguChoice", 2 * 1024 * 1024); //100MB db
-	db = window.sqlitePlugin.openDatabase({name: "mbeguchoiceappdb.db"});
+	db = window.openDatabase("mbeguchoicedb", "1.0", "MbeguChoice", 2 * 1024 * 1024); //100MB db
+	// db = window.sqlitePlugin.openDatabase({name: "mbeguchoiceappdb.db"});
 
 	//testDB();
 	populateDB();
@@ -37,7 +37,7 @@ function onDeviceReady() {
 		
 		cordova.plugins.email.isAvailable(function() {
 		   // not available
-			console.dir('Please configure your email client app');
+			console.log('Please configure your email client app');
 		 }, function() {
 		   // is available
 		   cordova.plugins.email.open({
@@ -63,14 +63,14 @@ function testDB(){
 			//List All Tables
 			tx.executeSql("SELECT * FROM sqlite_master where type='table'", [], function (tx, results) {
 			  	var length = results.rows.length, i;
-			  	console.dir(length);
+			  	console.log(length);
 			  	// for (i = 0; i < length; i++) {
-			   //  	console.dir(results.rows.item(i));
+			   //  	console.log(results.rows.item(i));
 			  	// }
 			});
 
 		},
-		function(error){console.dir(error);}
+		function(error){console.log(error);}
 	);
 }
 
@@ -119,12 +119,12 @@ function comm_levels_tbl(){
 			// tx.executeSql('SELECT * FROM default_sid_comm_level', [], function (tx, results) {
 			//   	var length = results.rows.length, i;
 			//   	for (i = 0; i < length; i++) {
-			//     	console.dir(results.rows.item(i));
+			//     	console.log(results.rows.item(i));
 			//   	}
 			// });
 
 		},
-		function(error){console.dir(error);}
+		function(error){console.log(error);}
 	);
 }
 
@@ -149,7 +149,7 @@ function comm_potential_tbl(){
 			tx.executeSql(populatetablesql);
 
 		},
-		function(error){console.dir(error);}
+		function(error){console.log(error);}
 	);
 }
 
@@ -174,7 +174,7 @@ function swa_comm_potential_tbl(){
 			tx.executeSql(populatetablesql);
 
 		},
-		function(error){console.dir(error);}
+		function(error){console.log(error);}
 	);
 }
 
@@ -241,7 +241,7 @@ function counties_tbl(){
 			tx.executeSql(populatetablesql);
 
 		},
-		function(error){console.dir(error);}
+		function(error){console.log(error);}
 	);
 }
 
@@ -282,7 +282,7 @@ function crops_tbl(){
 			tx.executeSql(populatetablesql);
 
 		},
-		function(error){console.dir(error);}
+		function(error){console.log(error);}
 	);
 }
 
@@ -323,7 +323,7 @@ function swa_crops_tbl(){
 			tx.executeSql(populatetablesql);
 
 		},
-		function(error){console.dir(error);}
+		function(error){console.log(error);}
 	);
 }
 
@@ -347,7 +347,7 @@ function cropcategories_tbl(){
 			tx.executeSql(populatetablesql);
 
 		},
-		function(error){console.dir(error);}
+		function(error){console.log(error);}
 	);
 }
 
@@ -371,7 +371,7 @@ function swa_cropcategories_tbl(){
 			tx.executeSql(populatetablesql);
 
 		},
-		function(error){console.dir(error);}
+		function(error){console.log(error);}
 	);
 }
 
@@ -450,7 +450,7 @@ function institutions_tbl(){
 			tx.executeSql(populatetablesql);
 
 		},
-		function(error){console.dir(error);}
+		function(error){console.log(error);}
 	);
 }
 
@@ -472,7 +472,7 @@ function institutiontypes_tbl(){
 			tx.executeSql(populatetablesql);
 
 		},
-		function(error){console.dir(error);}
+		function(error){console.log(error);}
 	);
 }
 
@@ -498,7 +498,7 @@ function license_types_tbl(){
 			tx.executeSql(populatetablesql);
 
 		},
-		function(error){console.dir(error);}
+		function(error){console.log(error);}
 	);
 }
 
@@ -524,7 +524,7 @@ function swa_license_types_tbl(){
 			tx.executeSql(populatetablesql);
 
 		},
-		function(error){console.dir(error);}
+		function(error){console.log(error);}
 	);
 }
 
@@ -548,7 +548,7 @@ function seasons_tbl(){
 			tx.executeSql(populatetablesql);
 
 		},
-		function(error){console.dir(error);}
+		function(error){console.log(error);}
 	);
 }
 
@@ -572,7 +572,7 @@ function swa_seasons_tbl(){
 			tx.executeSql(populatetablesql);
 
 		},
-		function(error){console.dir(error);}
+		function(error){console.log(error);}
 	);
 }
 
@@ -1072,7 +1072,7 @@ function cropvarieties_tbl(){
 			tx.executeSql(populatetablesql);
 
 		},
-		function(error){console.dir(error);}
+		function(error){console.log(error);}
 	);
 }
 
@@ -1571,7 +1571,7 @@ function swa_cropvarieties_tbl(){
 			tx.executeSql(populatetablesql);
 
 		},
-		function(error){console.dir(error);}
+		function(error){console.log(error);}
 	);
 }
 
@@ -3107,7 +3107,7 @@ function variety_institutions_joins_tbl(){
 			tx.executeSql(populatetablesql);
 
 		},
-		function(error){console.dir(error);}
+		function(error){console.log(error);}
 	);
 }
 
@@ -3132,7 +3132,7 @@ function seedtypes_tbl(){
 			tx.executeSql(populatetablesql);
 
 		},
-		function(error){console.dir(error);}
+		function(error){console.log(error);}
 	);
 }
 
@@ -3158,7 +3158,7 @@ function swa_seedtypes_tbl(){
 			tx.executeSql(populatetablesql);
 
 		},
-		function(error){console.dir(error);}
+		function(error){console.log(error);}
 	);
 }
 
@@ -3167,7 +3167,7 @@ function populate_counties_dropdown () {
 		tx.executeSql('SELECT * FROM default_sid_counties', [], function (tx, results) {
 		  	var length = results.rows.length, i;
 		  	for (i = 0; i < length; i++) {
-		    	// console.dir(results.rows.item(i));
+		    	// console.log(results.rows.item(i));
 		    	$('.county').append('<option value="'+results.rows.item(i).county_name+'">'+results.rows.item(i).county_name+'</option>')
 		  	}
 		});
@@ -3240,7 +3240,7 @@ function get_alt_regions(county) {
 			}
 
 		});
-	}, function(error){console.dir(error);});
+	}, function(error){console.log(error);});
 
 }
 
@@ -3310,7 +3310,7 @@ function get_alt_regions_swa(county) {
 			}
 
 		});
-	}, function(error){console.dir(error);});
+	}, function(error){console.log(error);});
 
 }
 
@@ -3481,7 +3481,7 @@ function get_results (pageNum) {
 		var all_crops_details_sql_v1 = "SELECT sssc.*,crops.crop_name,cropcategory.category_name,seedtype.seedtype_name,licensetype.license_type,comm_level.comm_level_name,comm_potential.comm_potential_name,season.season_name FROM default_sid_seedchoice_seedworks_combined as sssc INNER JOIN default_sid_crop as crops on crops.crop_id = sssc.crop_id INNER JOIN default_sid_cropcategory as cropcategory on cropcategory.category_id = sssc.category_id INNER JOIN default_sid_seedtype as seedtype on seedtype.seedtype_id = sssc.seedtype_id INNER JOIN default_sid_license_type as licensetype on licensetype.license_type_id = sssc.license_type_id INNER JOIN default_sid_comm_level as comm_level on comm_level.comm_level_id = sssc.comm_level_id INNER JOIN default_sid_comm_potential as comm_potential on comm_potential.comm_potential_id = sssc.comm_potential_id INNER JOIN default_sid_season as season on season.season_id = sssc.season_id WHERE sssc.crop_id = '"+selected_crop_id+"' "+sql_where+" GROUP BY sssc.sw_id ORDER BY sw_releaseyr DESC LIMIT "+query_start+","+results_per_page+";"; //omitting the commercializing agents in this query.
 		var all_crops_details_sql = "SELECT sssc.*,crops.crop_name,cropcategory.category_name,seedtype.seedtype_name,licensetype.license_type,comm_level.comm_level_name,comm_potential.comm_potential_name,season.season_name,institution.institution_name FROM default_sid_seedchoice_seedworks_combined as sssc INNER JOIN default_sid_crop as crops on crops.crop_id = sssc.crop_id INNER JOIN default_sid_cropcategory as cropcategory on cropcategory.category_id = sssc.category_id INNER JOIN default_sid_seedtype as seedtype on seedtype.seedtype_id = sssc.seedtype_id INNER JOIN default_sid_license_type as licensetype on licensetype.license_type_id = sssc.license_type_id INNER JOIN default_sid_comm_level as comm_level on comm_level.comm_level_id = sssc.comm_level_id INNER JOIN default_sid_comm_potential as comm_potential on comm_potential.comm_potential_id = sssc.comm_potential_id INNER JOIN default_sid_season as season on season.season_id = sssc.season_id INNER JOIN `default_sid_variety_institutions_join` as vij on vij.sw_id = sssc.sw_id INNER JOIN `default_sid_institution` as institution on institution.institution_id = vij.instution_id WHERE sssc.crop_id = '"+selected_crop_id+"' AND vij.instutiontype_id=3 "+sql_where+" ORDER BY sw_releaseyr DESC LIMIT "+query_start+","+results_per_page+";";
 		var all_crops_details_sql_with_no_limit = "SELECT sssc.*,crops.crop_name,cropcategory.category_name,seedtype.seedtype_name,licensetype.license_type,comm_level.comm_level_name,comm_potential.comm_potential_name,season.season_name,institution.institution_name FROM default_sid_seedchoice_seedworks_combined as sssc INNER JOIN default_sid_crop as crops on crops.crop_id = sssc.crop_id INNER JOIN default_sid_cropcategory as cropcategory on cropcategory.category_id = sssc.category_id INNER JOIN default_sid_seedtype as seedtype on seedtype.seedtype_id = sssc.seedtype_id INNER JOIN default_sid_license_type as licensetype on licensetype.license_type_id = sssc.license_type_id INNER JOIN default_sid_comm_level as comm_level on comm_level.comm_level_id = sssc.comm_level_id INNER JOIN default_sid_comm_potential as comm_potential on comm_potential.comm_potential_id = sssc.comm_potential_id INNER JOIN default_sid_season as season on season.season_id = sssc.season_id INNER JOIN `default_sid_variety_institutions_join` as vij on vij.sw_id = sssc.sw_id INNER JOIN `default_sid_institution` as institution on institution.institution_id = vij.instution_id WHERE sssc.crop_id = '"+selected_crop_id+"' AND vij.instutiontype_id=3 "+sql_where+" GROUP BY sssc.sw_id ORDER BY sw_releaseyr DESC;";//GROUP BY to remove duplicate varieties
-		
+
 		$('#current_page_num_english').val(pageNum);
 		$('#results-page-english #displayed_results').val(results_per_page*pageNum);
 		
@@ -3489,6 +3489,7 @@ function get_results (pageNum) {
 		db.transaction(function(tx){
 			tx.executeSql(all_crops_details_sql_with_no_limit, [], function (tx, results) {
 			  	var total_results = results.rows.length;
+			  	console.log(total_results);
 			  	var pages = Math.ceil(total_results/results_per_page);
 			  	if(total_results < (results_per_page*pageNum)) { var results_displayed=total_results; }else{ var results_displayed=results_per_page*pageNum }
 			  	
@@ -3668,7 +3669,7 @@ function get_results (pageNum) {
 						//get commercializing agents
 						var sw_comm_agents_ids = results.rows.item(i).sw_comm_agent;
 						// var comm_agents = get_comm_agents_names(sw_comm_agents_ids);
-						// console.dir(comm_agents);
+						// console.log(comm_agents);
 
 						//get Type of Licence
 						var sw_license_type_name = results.rows.item(i).license_type;
@@ -3784,24 +3785,24 @@ function generateResultsPDF() {
 
 					writer.write( pdfOutput );
 					var filename = 'MbeguChoice_Results_'+$( "#selected_crop_name" ).val()+'_'+$( "#selected_eco_zone" ).val()+'_'+$( "#selected_county" ).val()+'.pdf';
-					console.dir("Results downloaded to your device's memory successfully.");
+					console.log("Results downloaded to your device's memory successfully.");
 					
 					//window.plugins.fileOpener.open("/storage/sdcard0/Download/MbeguChoice_Results/"+filename);
 					window.plugins.fileOpener.open("file:///sdcard/Download/MbeguChoice_Results/"+filename);
 					// window.plugins.fileOpener.open("cdvfile://localhost/persistent/Download/MbeguChoice_Results/"+filename);
 					
 				}, function(error) {
-					console.dir( "Error: : "+error );
+					console.log( "Error: : "+error );
 				});
 
 			}, function(error){
-				console.dir( "Error: "+error );
+				console.log( "Error: "+error );
 			});
 		});
 		
 	},
 	function(event){
-		console.dir( "Error: : "+event.target.error.code );
+		console.log( "Error: : "+event.target.error.code );
 	});
 
 }
@@ -3825,7 +3826,8 @@ function sync_with_live_db () {
         var cropcategories 	= $.parseJSON(sync_data.cropcategories);
         var institutions 	= $.parseJSON(sync_data.institutions);
         var cropvarieties 	= $.parseJSON(sync_data.cropvarieties);
-
+        // console.dir(cropvarieties);
+        
         var appdb_crop_ids = [];
         db.transaction(
 			function(tx) {		
@@ -3836,7 +3838,7 @@ function sync_with_live_db () {
 				  	}
 				});
 			},
-			function(error){console.dir(error);}
+			function(error){console.log(error);}
 		);
 		
         //update/insert into crops table
@@ -3852,7 +3854,7 @@ function sync_with_live_db () {
 				");";
         		tx.executeSql(create_cropstable_sql);
 			},
-			function(error){console.dir(error);}
+			function(error){console.log(error);}
 		);
 
 		$.each( crops, function( i, crop ) {
@@ -3864,7 +3866,7 @@ function sync_with_live_db () {
 					'("'+crop.crop_id+'", "'+crop_name+'", '+crop.category_id+');';
 					tx.executeSql(insert_crops_sql);
 				},
-				function(error){console.dir(error);}
+				function(error){console.log(error);}
 			);
 
      	 });
@@ -3879,7 +3881,7 @@ function sync_with_live_db () {
 				  	}
 				});
 			},
-			function(error){console.dir(error);}
+			function(error){console.log(error);}
 		);
 
 		//update/insert into cropcategories table
@@ -3898,11 +3900,52 @@ function sync_with_live_db () {
 						tx.executeSql(insert_cropcategories_sql);
 					}
 				},
-				function(error){console.dir(error);}
+				function(error){console.log(error);}
 			);
      	 });
 
-		
+		var appdb_institutions_ids = [];
+        db.transaction(
+			function(tx) {		
+				tx.executeSql('SELECT institution_id FROM default_sid_institution order by institution_id asc', [], function (tx, results) {
+				  	var length = results.rows.length, i;
+				  	for (i = 0; i < length; i++) {
+				    	appdb_institutions_ids.push(results.rows.item(i).institution_id);
+				  	}
+				});
+			},
+			function(error){console.log(error);}
+		);
+
+  //       var deletetablesql = "DROP TABLE IF EXISTS default_sid_institution;";
+
+		// var creattablesql = "CREATE TABLE IF NOT EXISTS default_sid_institution ( "+
+		// 		"institution_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+		// 		"institution_name varchar(255) " + ");";
+
+		// tx.executeSql(deletetablesql);
+		// tx.executeSql(creattablesql);
+
+		//update/insert into institutions table
+		$.each( institutions, function( i, institution ) {
+	        db.transaction(
+				function(tx) {
+					var institution_name = institution.institution_name;
+					
+					if(institution.institution_id == appdb_institutions_ids[i]){
+						var update_institutions_sql = 'UPDATE default_sid_institution SET institution_name ="'+institution_name+'"'+' WHERE institution_id ='+institution.institution_id+';';
+						tx.executeSql(update_institutions_sql);
+						
+					}else{
+						var insert_institutions_sql = 'INSERT OR IGNORE INTO default_sid_institution (institution_id, institution_name) VALUES '+
+						'(NULL, "'+institution_name+'"'+');';
+						tx.executeSql(insert_institutions_sql);
+					}
+				},
+				function(error){console.log(error);}
+			);
+     	 });
+
 		//update/insert into cropvarieties table
 		db.transaction(
 			function(tx) {
@@ -3942,7 +3985,7 @@ function sync_with_live_db () {
 				");";
         		tx.executeSql(create_cropsvarietiestable_sql);
 			},
-			function(error){console.dir(error);}
+			function(error){console.log(error);}
 		);
 
 		$.each( cropvarieties, function( i, cropvariety ) {
@@ -3951,16 +3994,50 @@ function sync_with_live_db () {
 
 					var insert_cropvarieties_sql = 'INSERT OR IGNORE INTO default_sid_seedchoice_seedworks_combined (sw_id, sw_variety, category_id, crop_id, seedtype_id, season_id, license_type_id, comm_potential_id, comm_level_id, sw_releaseyr, sw_breed_institution, sw_maintainer, sw_comm_agent, sw_alt_optimal, sw_alt_min, sw_alt_max, sw_maturity, sw_maturity_age, sw_special_attrib, sw_drought_tolerant, sw_disease_tolerant, sw_storage_pest_resistant, sw_consumer_preferences, county, lowland, lowland_transitional, mid_altitude, highland_transitional, highland) VALUES '+
 					'('+cropvariety.sw_id+', "'+cropvariety.sw_variety+'", '+cropvariety.category_id+', '+cropvariety.crop_id+', '+cropvariety.seedtype_id+', '+cropvariety.season_id+', '+cropvariety.license_type_id+', '+cropvariety.comm_potential_id+', '+cropvariety.comm_level_id+', "'+cropvariety.sw_releaseyr+'", "'+cropvariety.sw_breed_institution+'", "'+cropvariety.sw_maintainer+'", "'+cropvariety.sw_comm_agent+'", "'+cropvariety.sw_alt_optimal+'", "'+cropvariety.sw_alt_min+'", "'+cropvariety.sw_alt_max+'", "'+cropvariety.sw_maturity+'", "'+cropvariety.sw_maturity_age+'", "'+cropvariety.sw_special_attrib+'", "'+cropvariety.sw_drought_tolerant+'", "'+cropvariety.sw_disease_tolerant+'", "'+cropvariety.sw_storage_pest_resistant+'", "'+cropvariety.sw_consumer_preferences+'", "'+cropvariety.county+'", "'+cropvariety.lowland+'", "'+cropvariety.lowland_transitional+'", "'+cropvariety.mid_altitude+'", "'+cropvariety.highland_transitional+'", "'+cropvariety.highland+'"'+');';
-					// console.dir(insert_cropvarieties_sql);
+					// console.log(insert_cropvarieties_sql);
 					tx.executeSql(insert_cropvarieties_sql);
+
+					var sw_breed_institutions = cropvariety.sw_breed_institution;
+					var sw_breed_institutions_array = sw_breed_institutions.split(',');
+					
+					var populate_joinstable_sql = "INSERT OR IGNORE INTO default_sid_variety_institutions_join (id, sw_id, instution_id, instutiontype_id) VALUES ";
+					$.each(sw_breed_institutions_array, function( index, value ) {
+						populate_joinstable_sql += "(NULL, "+cropvariety.sw_id+", "+value+", 1),";
+					});
+					var pos = populate_joinstable_sql.lastIndexOf(',');
+					populate_joinstable_sql = populate_joinstable_sql.substring(0,pos) + ';' + populate_joinstable_sql.substring(pos+1);
+					tx.executeSql(populate_joinstable_sql);
+
+					var sw_maintainer_institutions = cropvariety.sw_maintainer;
+					var sw_maintainer_institutions_array = sw_maintainer_institutions.split(',');
+					
+					var populate_joinstable_sql = "INSERT OR IGNORE INTO default_sid_variety_institutions_join (id, sw_id, instution_id, instutiontype_id) VALUES ";
+					$.each(sw_maintainer_institutions_array, function( index, value ) {
+						populate_joinstable_sql += "(NULL, "+cropvariety.sw_id+", "+value+", 2),";
+					});
+					var pos = populate_joinstable_sql.lastIndexOf(',');
+					populate_joinstable_sql = populate_joinstable_sql.substring(0,pos) + ';' + populate_joinstable_sql.substring(pos+1);
+					tx.executeSql(populate_joinstable_sql);
+
+					var comm_agents = cropvariety.sw_comm_agent;
+					var comm_agents_array = comm_agents.split(',');
+					
+					var populate_joinstable_sql = "INSERT OR IGNORE INTO default_sid_variety_institutions_join (id, sw_id, instution_id, instutiontype_id) VALUES ";
+					$.each(comm_agents_array, function( index, value ) {
+						populate_joinstable_sql += "(NULL, "+cropvariety.sw_id+", "+value+", 3),";
+					});
+					var pos = populate_joinstable_sql.lastIndexOf(',');
+					populate_joinstable_sql = populate_joinstable_sql.substring(0,pos) + ';' + populate_joinstable_sql.substring(pos+1);
+					tx.executeSql(populate_joinstable_sql);
+					
 				},
-				function(error){console.dir(error);}
+				function(error){console.log(error);}
 			);
      	});
 		
 	}).fail(function(jqxhr, textStatus, error) {
 	    var err = textStatus + ", " + error;
-		console.dir( "Request Failed: " + err );
+		console.log( "Request Failed: " + err );
 	});
 
 	$(document).ajaxComplete(function(event, request, settings){

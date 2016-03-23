@@ -10,7 +10,7 @@
     <preference name="phonegap-version" value="cli-5.2.0" />
     <preference name="orientation"      value="default" />
     <preference name="target-device"    value="universal" />
-    <preference name="fullscreen"       value="true" />
+    <preference name="fullscreen"       value="false" />
     <preference name="show-splash-screen-spinner" value="true" />
     <preference name="android-installLocation" value="auto" />
     <preference name="AndroidPersistentFileLocation" value="Compatibility" />
@@ -41,11 +41,23 @@
     <gap:plugin name="com.cordova.plugins.fileopener" />
     <gap:plugin name="org.apache.cordova.file" />
     <gap:plugin name="org.apache.cordova.file-transfer" />
+    <gap:plugin name="org.apache.cordova.device-orientation" />
+    <gap:plugin name="org.apache.cordova.dialogs" />
     <gap:plugin name="org.apache.cordova.inappbrowser" />
     <gap:plugin name="org.apache.cordova.splashscreen" />
 
+    <plugin name="cordova-plugin-whitelist" version="1" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <allow-intent href="mailto:*" />
+    <platform name="android">
+        <allow-intent href="market:*" />
+    </platform>
+    <feature name="File">
+        <param name="android-package" value="org.apache.cordova.file.FileUtils" />
+    </feature>
+    <feature name="FileTransfer">
+        <param name="android-package" value="org.apache.cordova.filetransfer.FileTransfer" />
+    </feature>
 
 </widget>
