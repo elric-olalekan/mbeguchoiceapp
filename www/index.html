@@ -31,6 +31,7 @@
 		
 		<script src="js/jquery.mobile-1.4.5.min.js" type="text/javascript"></script>
 		<script src="js/modernizr.custom.js" type="text/javascript"></script>
+		<!-- <script src="js/SQLitePlugin.js" type="text/javascript"></script> -->
 		<script src="js/jspdf.min.js"></script>
 		<script src="js/jspdf.from_html.js"></script>
 		<script src="js/jspdf.split_text_to_size.js"></script>
@@ -207,12 +208,15 @@
 								<form class="form-inline" role="form">
 									<div class="maturity-filter-container" style="float: left;">
 										<h1>Which maturity of the crop are you interested in?</h1>
+										
 									</div>
 									<div class="specialxtics-filter-container" style="float: left;">
 										<h1>Which special characteristics of the crop are you interested in?</h1>
+										
 									</div>
 									<div class="seasons-filter-container" style="float: left;">
 										<h1>Are you looking for a variety for long or short rains? </h1>
+										
 									</div>
 									<div class="filter-div" id="filter-div">
 										<a href="javascript:void(0);" onclick="javascript: return get_results();" id="filter-results" class="filter-results">SHOW RESULTS</a>
@@ -892,6 +896,22 @@
 			        </div>
 			    </section>
 			</div>
+
+			<!-- ================= disclaimer Page ====================== -->
+			<div data-role="page" id="ilani">
+			  	<div class="navbar navbar-default navbar-fixed-top header">
+					<button type="button" class="toggle-button navbar-toggle english-landing" data-toggle="offcanvas" data-target="#menu" data-canvas="body">
+					<i class="fa fa-bars"></i></button>
+				</div>
+				<section id="#ilani" class="content landingbg">
+					<div class="content">
+						<div class="about-info-title"><h4>ILANI</h4></div>
+						<div class="about-align-left"><p>Data iliyomo kwenye tovuti hii ya MbeguChoice imekusanywa kwa umakini kutoka KALRO, KEPHIS na kampuni za mbegu. Habari zote kuhusu maeneo yanayofaa kwa ukuzaji aina tofauti tofauti za mimea zimekusanywa kutoka kwa watayarishaji mbegu na kampuni za mbegu kuambatana na vipimo vyao na ufahamu kuhusu zinavyokua. Hata hivyo wakulima, wauzaji na washauri wa wakulima hawapasi kutegemea tu maelezo yanayopatikana katika tovuti ya MbeguChoice. Ubora wa mbegu ni sharti upitishwe katika majaribio na kuthibitishwa na wakulima kuambatana na maeneo yao ya ukuzaji.</p>
+						<p>&copy; 2016 MbeguChoice. Haki zote zimehifadhiwa.</p></div>
+					</div>
+				</section>
+			</div>
+			<!-- ================= ./disclaimer Page ====================== -->
 
 			<input type="hidden" name="language_selected" id="language_selected" value="">
 		</main>	

@@ -10,8 +10,8 @@ document.addEventListener("deviceready", onDeviceReady, false);
 // Cordova is ready
 function onDeviceReady() {
 	
-	// db = window.openDatabase("mbeguchoicedb", "1.0", "MbeguChoice", 2 * 1024 * 1024); //100MB db
-	db = window.sqlitePlugin.openDatabase({name: "mbeguchoiceappdb.db"});
+	db = window.openDatabase("mbeguchoicedb", "1.0", "MbeguChoice", 2 * 1024 * 1024); //100MB db
+	// db = window.sqlitePlugin.openDatabase({name: "mbeguchoiceappdb.db"});
 
 	//testDB();
 	populateDB();
@@ -4016,6 +4016,11 @@ $(document).ready(function(e) {
 	    $( ".menu-section-list #about-menu-link a" ).attr("href", "#about");
 	    $( ".menu-section-list #help-menu-link a span" ).html("Help");
 	    $( ".menu-section-list #help-menu-link a" ).attr("href", "#help");
+
+	    // $( ".menu-section-list #sync a span" ).html("Update Data");
+	    $( ".menu-section-list #disclaimer a span" ).html("Disclaimer");
+	    $( ".menu-section-list #disclaimer a" ).attr("href", "#disclaimer");
+	    $( ".menu-section-list #exit-menu-link a span" ).html("Exit");
 	    
 	    populate_crops_dropdown();
 	    populate_specialxtics_filter();
@@ -4037,11 +4042,16 @@ $(document).ready(function(e) {
 	    $( ".menu-section-list #help-menu-link a span" ).html("Pata Usaidizi");
 	    $( ".menu-section-list #help-menu-link a" ).attr("href", "#help-swahili");
 
+	    // $( ".menu-section-list #sync a span" ).html("Update Data");
+	    $( ".menu-section-list #disclaimer a span" ).html("Ilani");
+	    $( ".menu-section-list #disclaimer a" ).attr("href", "#ilani");
+	    $( ".menu-section-list #exit-menu-link a span" ).html("Funga");
+
 	    populate_crops_dropdown();
 	    populate_specialxtics_filter();
 	    populate_seasons_filter();
 
-		reset_questions();	     
+		reset_questions();	    
 	});
 
 	$('#landing-english .lets').click(function(e) {
