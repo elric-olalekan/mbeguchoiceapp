@@ -4041,7 +4041,7 @@ $(document).ready(function(e) {
 	    populate_specialxtics_filter();
 	    populate_seasons_filter();
 
-		reset_questions();	    
+		reset_questions();	     
 	});
 
 	$('#landing-english .lets').click(function(e) {
