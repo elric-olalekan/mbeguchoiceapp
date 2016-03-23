@@ -10,8 +10,8 @@ document.addEventListener("deviceready", onDeviceReady, false);
 // Cordova is ready
 function onDeviceReady() {
 	
-	db = window.openDatabase("mbeguchoicedb", "1.0", "MbeguChoice", 2 * 1024 * 1024); //100MB db
-	// db = window.sqlitePlugin.openDatabase({name: "mbeguchoiceappdb.db"});
+	// db = window.openDatabase("mbeguchoicedb", "1.0", "MbeguChoice", 2 * 1024 * 1024); //100MB db
+	db = window.sqlitePlugin.openDatabase({name: "mbeguchoiceappdb.db"});
 
 	//testDB();
 	populateDB();
