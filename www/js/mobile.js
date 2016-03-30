@@ -18,7 +18,7 @@ function onDeviceReady() {
 	populate_counties_dropdown();
 	populate_maturity_filter();
 	
-	//sync_with_live_db();
+	sync_with_live_db();
 
 	$('.generate-pdf').click(function(e) {
     	generateResultsPDF();
