@@ -5,7 +5,7 @@
 		<title>MbeguChoice</title>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="viewport" content="width=device-width, user-scalable=no" />
 		<meta name="description" content="">
 		<meta name="author" content="">
 		
@@ -51,13 +51,13 @@
 			<nav id="menu" class="navmenu navmenu-fixed-left offcanvas" role="navigation">
 				<section class="menu-section bgmenu">
 					<ul class="menu-section-list bgmenu">
-						<li id="home-menu-link"><a href="#questions-english" data-transition="slide"><span>Home</span></a></li>
 						<li id="language-menu-link"><a href="#home" data-transition="slide"><span>Choose Language</span></a></li>
+						<li id="home-menu-link"><a href="#questions-english" data-transition="slide"><span>Home</span></a></li>
 						<li id="about-menu-link"><a href="#about" data-transition="slide"><span>About</span></a></li>
-						<li id="contact-menu-link"><a href="#contact" data-transition="slide" ><span>Contact</span></a></li>
 						<li id="help-menu-link"><a href="#help" data-transition="slide" ><span>Help</span></a></li>
 						<li id="sync"><a href="javascript:void(0);" id="data-sync" onclick="javascript:return sync_with_live_db();" data-transition="slide" ><span>Update Data</span></a></li>
 						<li id="disclaimer"><a href="#disclaimer" data-transition="slide" ><span>Disclaimer</span></a></li>
+						<li id="contact-menu-link"><a href="#contact" data-transition="slide" ><span>Contact</span></a></li>
 						<li id="exit-menu-link"><a href="javascript:void(0);" data-transition="slide" ><span>Exit</span></a></li>
 						<li id="followfbicon"><a href="https://www.facebook.com/MbeguChoice" data-transition="slide" ><span><img src="images/followfbicon.png"></span></a></li>
 						
@@ -911,6 +911,25 @@
 				</section>
 			</div>
 			<!-- ================= ./disclaimer Page ====================== -->
+
+			<!-- ================= App Data Updating Page ====================== -->
+			<div data-role="page" id="data_sync">
+			  	<!-- <div class="navbar navbar-default navbar-fixed-top header">
+					<button type="button" class="toggle-button navbar-toggle english-landing" data-toggle="offcanvas" data-target="#menu" data-canvas="body">
+					<i class="fa fa-bars"></i></button>
+				</div> -->
+				<section id="#data_sync" class="content landingbg">
+					<div class="content">
+						<div class="about-info-title"><h4>UPDATING DATA</h4></div>
+						<div class="about-align-left">
+							<p>Data Update already in progress. Please wait for the update to complete before searching for crops... This will take about one minute.</p>
+						</div>
+						<div id="loading"><img src="images/data-sync.gif"></div>
+					</div>
+				</section>
+				
+			</div>
+			<!-- ================= ./App Data Updating Page ====================== -->
 
 			<input type="hidden" name="language_selected" id="language_selected" value="">
 		</main>	

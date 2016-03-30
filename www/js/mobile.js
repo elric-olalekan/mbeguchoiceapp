@@ -10,8 +10,8 @@ document.addEventListener("deviceready", onDeviceReady, false);
 // Cordova is ready
 function onDeviceReady() {
 	
-	db = window.openDatabase("mbeguchoicedb", "1.0", "MbeguChoice", 2 * 1024 * 1024); //100MB db
-	// db = window.sqlitePlugin.openDatabase({name: "mbeguchoiceappdb.db"});
+	// db = window.openDatabase("mbeguchoicedb", "1.0", "MbeguChoice", 2 * 1024 * 1024); //100MB db
+	db = window.sqlitePlugin.openDatabase({name: "mbeguchoiceappdb.db"});
 
 	//testDB();
 	populateDB();
@@ -37,12 +37,12 @@ function onDeviceReady() {
 		
 		cordova.plugins.email.isAvailable(function() {
 		   // not available
-			console.log('Please configure your email client app');
+			alert('Please configure your email client app');
 		 }, function() {
 		   // is available
 		   cordova.plugins.email.open({
 				app: 	 'gmail',
-				to:      'e.wamugu@creativeyr.co.ke',
+				to:      'mbeguchoice@agri-experience.com',
 				cc:  	 contact_email,
 				subject: 'From MbeguChoice App',
 				body:    email_body,
@@ -3811,7 +3811,7 @@ function sync_with_live_db () {
 	$(document).ajaxStart(function(){
 		$("#sync a").addClass("blink");
 		reset_questions();
-
+		window.location = '#data_sync';
     });
     
 	$.ajax({
@@ -3825,7 +3825,8 @@ function sync_with_live_db () {
         var cropcategories 	= $.parseJSON(sync_data.cropcategories);
         var institutions 	= $.parseJSON(sync_data.institutions);
         var cropvarieties 	= $.parseJSON(sync_data.cropvarieties);
-        // console.dir(cropvarieties);
+        var cropvarieties_institutions_joins 	= $.parseJSON(sync_data.variety_institutions_joins);
+        // console.dir(cropvarieties_institutions_joins);
         
         var appdb_crop_ids = [];
         db.transaction(
@@ -3916,15 +3917,6 @@ function sync_with_live_db () {
 			function(error){console.log(error);}
 		);
 
-  //       var deletetablesql = "DROP TABLE IF EXISTS default_sid_institution;";
-
-		// var creattablesql = "CREATE TABLE IF NOT EXISTS default_sid_institution ( "+
-		// 		"institution_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-		// 		"institution_name varchar(255) " + ");";
-
-		// tx.executeSql(deletetablesql);
-		// tx.executeSql(creattablesql);
-
 		//update/insert into institutions table
 		$.each( institutions, function( i, institution ) {
 	        db.transaction(
@@ -3996,39 +3988,41 @@ function sync_with_live_db () {
 					// console.log(insert_cropvarieties_sql);
 					tx.executeSql(insert_cropvarieties_sql);
 
-					var sw_breed_institutions = cropvariety.sw_breed_institution;
-					var sw_breed_institutions_array = sw_breed_institutions.split(',');
-					
-					var populate_joinstable_sql = "INSERT OR IGNORE INTO default_sid_variety_institutions_join (id, sw_id, instution_id, instutiontype_id) VALUES ";
-					$.each(sw_breed_institutions_array, function( index, value ) {
-						populate_joinstable_sql += "(NULL, "+cropvariety.sw_id+", "+value+", 1),";
-					});
-					var pos = populate_joinstable_sql.lastIndexOf(',');
-					populate_joinstable_sql = populate_joinstable_sql.substring(0,pos) + ';' + populate_joinstable_sql.substring(pos+1);
-					tx.executeSql(populate_joinstable_sql);
+				},
+				function(error){console.log(error);}
+			);
+     	});
 
-					var sw_maintainer_institutions = cropvariety.sw_maintainer;
-					var sw_maintainer_institutions_array = sw_maintainer_institutions.split(',');
-					
-					var populate_joinstable_sql = "INSERT OR IGNORE INTO default_sid_variety_institutions_join (id, sw_id, instution_id, instutiontype_id) VALUES ";
-					$.each(sw_maintainer_institutions_array, function( index, value ) {
-						populate_joinstable_sql += "(NULL, "+cropvariety.sw_id+", "+value+", 2),";
-					});
-					var pos = populate_joinstable_sql.lastIndexOf(',');
-					populate_joinstable_sql = populate_joinstable_sql.substring(0,pos) + ';' + populate_joinstable_sql.substring(pos+1);
-					tx.executeSql(populate_joinstable_sql);
 
-					var comm_agents = cropvariety.sw_comm_agent;
-					var comm_agents_array = comm_agents.split(',');
-					
-					var populate_joinstable_sql = "INSERT OR IGNORE INTO default_sid_variety_institutions_join (id, sw_id, instution_id, instutiontype_id) VALUES ";
-					$.each(comm_agents_array, function( index, value ) {
-						populate_joinstable_sql += "(NULL, "+cropvariety.sw_id+", "+value+", 3),";
-					});
-					var pos = populate_joinstable_sql.lastIndexOf(',');
-					populate_joinstable_sql = populate_joinstable_sql.substring(0,pos) + ';' + populate_joinstable_sql.substring(pos+1);
-					tx.executeSql(populate_joinstable_sql);
-					
+		db.transaction(
+			function(tx) {
+				var deletetablesql = "DROP TABLE IF EXISTS default_sid_variety_institutions_join;";
+				var creattablesql = "CREATE TABLE IF NOT EXISTS default_sid_variety_institutions_join ( "+
+						"id INTEGER PRIMARY KEY AUTOINCREMENT, "+
+						"sw_id INTEGER(11), "+
+						"instution_id INTEGER(11), "+
+						"instutiontype_id INTEGER(11) "+
+					");";
+				tx.executeSql(deletetablesql);
+				tx.executeSql(creattablesql);
+			},
+			function(error){console.log(error);}
+		);
+		
+
+		$.each( cropvarieties_institutions_joins, function( i, cropvariety_institutions_join ) {
+	        db.transaction(
+				function(tx) {
+					var insert_cropvarieties_sql = "INSERT OR IGNORE INTO default_sid_variety_institutions_join (id, sw_id, instution_id, instutiontype_id) VALUES ";
+					insert_cropvarieties_sql += "("+cropvariety_institutions_join.id+", "+cropvariety_institutions_join.sw_id+", "+cropvariety_institutions_join.instution_id+", "+cropvariety_institutions_join.instutiontype_id+");";
+					tx.executeSql(insert_cropvarieties_sql);
+
+					var counter = i+1;
+					if(counter == cropvarieties_institutions_joins.length){
+						$("#sync a").removeClass("blink");
+				  		// $('#language-menu-link a')[0].click();
+				  		window.location = $('#language-menu-link a').attr('href');
+					}
 				},
 				function(error){console.log(error);}
 			);
@@ -4040,9 +4034,7 @@ function sync_with_live_db () {
 	});
 
 	$(document).ajaxComplete(function(event, request, settings){
-  		$("#sync a").removeClass("blink");
-  		// $('#language-menu-link a')[0].click();
-  		window.location = $('#language-menu-link a').attr('href');
+  		//
     });
 	
 }
@@ -4080,6 +4072,15 @@ $(document).ready(function(e) {
 		populate_crops_dropdown();
 	    populate_specialxtics_filter();
 	    populate_seasons_filter();
+
+	    reset_questions();
+
+	    var language_selected = $( "#language_selected" ).val();
+	    if(language_selected == ''){
+	    	$('#language-menu-link a').trigger('click');
+	    	return false;
+	    }
+
 	});
 
 	$('.english').click(function(e) {
@@ -4087,11 +4088,14 @@ $(document).ready(function(e) {
 	    $( "#language_selected" ).val('english');
 	   
 	    $( ".menu-section-list #language-menu-link a span" ).html("Choose Language");
+	    $( ".menu-section-list #language-menu-link a" ).attr("href", "#home");
+	    $( ".menu-section-list #home-menu-link a span" ).html("Home");
 	    $( ".menu-section-list #home-menu-link a" ).attr("href", "#questions-english");
 	    $( ".menu-section-list #about-menu-link a span" ).html("About");
 	    $( ".menu-section-list #about-menu-link a" ).attr("href", "#about");
 	    $( ".menu-section-list #help-menu-link a span" ).html("Help");
 	    $( ".menu-section-list #help-menu-link a" ).attr("href", "#help");
+	    $( ".menu-section-list #contact-menu-link a span" ).html("Contact Us");
 
 	    // $( ".menu-section-list #sync a span" ).html("Update Data");
 	    $( ".menu-section-list #disclaimer a span" ).html("Disclaimer");
@@ -4111,7 +4115,9 @@ $(document).ready(function(e) {
 	    $( "#language_selected" ).val('swahili');
 	    
 	    $( ".menu-section-list #language-menu-link a span" ).html("Chagua Lugha");
+	    $( ".menu-section-list #language-menu-link a" ).attr("href", "#home");
 	    $( ".menu-section-list #home-menu-link a" ).attr("href", "#questions-swahili");
+	    $( ".menu-section-list #home-menu-link a span" ).html("Mwanzo");
 	    $( ".menu-section-list #about-menu-link a span" ).html("Kutuhusu");
 	    $( ".menu-section-list #about-menu-link a" ).attr("href", "#about-swahili");
 	    $( ".menu-section-list #contact-menu-link a span" ).html("Wasiliana Nasi");
@@ -4251,7 +4257,7 @@ $(document).ready(function(e) {
     	if (navigator && navigator.app) {
 			navigator.app.exitApp();
 		} else if (navigator && navigator.device) {
-		navigator.device.exitApp();
+			navigator.device.exitApp();
 		}
 	});
 
