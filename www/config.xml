@@ -45,6 +45,7 @@
     <gap:plugin name="org.apache.cordova.dialogs" />
     <gap:plugin name="org.apache.cordova.inappbrowser" />
     <gap:plugin name="org.apache.cordova.splashscreen" />
+    <gap:plugin name="cordova-plugin-x-toast" source="npm" />
 
     <plugin name="cordova-plugin-whitelist" version="1" />
     <allow-intent href="http://*/*" />
@@ -58,6 +59,9 @@
     </feature>
     <feature name="FileTransfer">
         <param name="android-package" value="org.apache.cordova.filetransfer.FileTransfer" />
+    </feature>
+    <feature name="Toast">
+        <param name="android-package" value="nl.xservices.plugins.Toast" />
     </feature>
 
 </widget>
