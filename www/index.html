@@ -6,6 +6,7 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, user-scalable=no" />
+		<meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; img-src 'self' data:;"/>
 		<meta name="description" content="">
 		<meta name="author" content="">
 		
@@ -35,15 +36,15 @@
 		<script src="js/jspdf.from_html.js"></script>
 		<script src="js/jspdf.split_text_to_size.js"></script>
 		<script src="js/jspdf.standard_fonts_metrics.js"></script>
-		<script src="js/EmailComposer.js" type="text/javascript"></script>
-		<script src="js/fileopener.js" type="text/javascript"></script>
-		<script src="js/Toast.js" type="text/javascript"></script>
+		<script src="js/email_composer.js" type="text/javascript"></script>
+		<script src="js/FileOpener.js" type="text/javascript"></script>
+		<!-- <script src="js/Toast.js" type="text/javascript"></script> -->
 		<script src="js/websqldump.js" type="text/javascript"></script>
 		
 		<script src="js/mobile.js" type="text/javascript"></script>
 				
 	</head>
-	<body>
+	<body onload="onLoad()">
 		<header class="mainheader">
 			<!-- Header -->
 			<div class="logo">
@@ -58,7 +59,7 @@
 						<li id="home-menu-link"><a href="#questions-english" data-transition="slide"><span>Home</span></a></li>
 						<li id="about-menu-link"><a href="#about" data-transition="slide"><span>About</span></a></li>
 						<li id="help-menu-link"><a href="#help" data-transition="slide" ><span>Help</span></a></li>
-						<li id="sync"><a href="javascript:void(0);" id="data-sync" onclick="javascript:return sync_with_live_db();" data-transition="slide" ><span>Update Data</span></a></li>
+						<li id="sync"><a href="javascript:void(0);" id="data-sync" onclick="javascript:return ask_user_if_to_sync();" data-transition="slide" ><span>Update Data</span></a></li>
 						<li id="disclaimer"><a href="#disclaimer" data-transition="slide" ><span>Disclaimer</span></a></li>
 						<li id="contact-menu-link"><a href="#contact" data-transition="slide" ><span>Contact</span></a></li>
 						<li id="exit-menu-link"><a href="javascript:void(0);" data-transition="slide" ><span>Exit</span></a></li>
@@ -141,7 +142,7 @@
 					<div class="questions">
 						<form>
 							<p>In which county in Kenya is your farm located?
-								<select name="county" id="county-english" class="county">
+								<select name="county" id="county-english" class="county" data-role="none" >
 									<option value="0">Select county using drop down.</option>
 									
 								</select>
@@ -494,7 +495,7 @@
 			                                <span class="contactLabel"><label for="email">Email: </label></span>
                                         </div>
                                         <div class="col-sm-6 col-xs-12 nopadding">
-			                                <input type="text" class="form-control" id="contact_email" name="email" value="">
+			                                <input type="email" class="form-control" id="contact_email" name="email" value="">
                                         </div>
                                     </div>
 			                        <div class="row"> 
@@ -502,7 +503,7 @@
 			                                <span class="contactLabel"><label for="phone">Phone Number: </label></span>
                                         </div>
                                         <div class="col-sm-6 col-xs-12 nopadding">
-			                                <input type="text" name="phone" class="form-control" id="contact_phone" value="">
+			                                <input type="tel" name="phone" class="form-control" id="contact_phone" value="">
                                         </div>
 			                        </div>
 
@@ -582,7 +583,7 @@
 					<div class="questions">
 						<form>
 							<p>Shamba lako liko katika Kaunti gani?
-								<select name="county" id="county-swahili" class="county">
+								<select name="county" id="county-swahili" class="county" data-role="none" >
 									<option value="0">Chagua Kaunti.</option>
 									
 								</select>

@@ -5,10 +5,14 @@ var value;
 var internet_connection;
 
 // Wait for Cordova to load
-document.addEventListener("deviceready", onDeviceReady, false);
+function onLoad()
+{
+    document.addEventListener("deviceready", onDeviceReady, false);
+}
 
 // Cordova is ready
 function onDeviceReady() {
+
 	/* 
 		UNCOMMENT BELOW TO TEST ON CHROME'S RIPPLE EMULATOR. BUT MAKE SURE YOU COMMENT THE db = window.sqlitePlugin.openDatabase() LINE BEFORE successDB 
 		COMMENT THEM BACK AND UNCOMMENT THE db = window.sqlitePlugin.openDatabase() LINE TO COMPILE .APK FILE FOR DEPLOYING
@@ -18,8 +22,9 @@ function onDeviceReady() {
 	// populate_counties_dropdown();
 	// populate_maturity_filter();
 	
-
-	db = window.sqlitePlugin.openDatabase({name: 'mbeguchoiceapp.db', createFromLocation: 1}, successDB, errorDB);
+	
+	// db = window.sqlitePlugin.openDatabase({name: 'mbeguchoiceapp.db', createFromLocation: 1}, successDB, successDB);
+	db = window.sqlitePlugin.openDatabase({name: 'mbeguchoiceapp.db', location: 'default', createFromLocation: 1}, successDB, successDB);
 	
 	function successDB() {
 	    testDB();
@@ -27,20 +32,40 @@ function onDeviceReady() {
 	}
 
 	function errorDB(err) {
-	    alert("Error created created: "+err.code);
+	    alert("Error creating database: "+err.code);
 
-	    //ON ERROR CREATE A NEW INSTANCE AND POPULATE IT WITH OUR PRE-DEFINED QUERY STATEMENTS
+	    // // ON ERROR CREATE A NEW INSTANCE AND POPULATE IT WITH OUR PRE-DEFINED QUERY STATEMENTS
 	    db = window.sqlitePlugin.openDatabase({name: "mbeguchoiceapp.db"});
 	    populateDB();
 	    populate_counties_dropdown();
 	    populate_maturity_filter();
 	}
 
-	internet_connection = check_internet_connection()
+	internet_connection = check_internet_connection();
+
+	var not_first_launch = window.localStorage.getItem('first_launch');
+	if(not_first_launch){
+
+		//jump to questions page
+		$( "#language_selected" ).val('english'); //set default language
+		$('.lnkhome').trigger('click');
+		
+		populate_crops_dropdown();
+		populate_specialxtics_filter();
+		populate_seasons_filter();
+		reset_questions();
+
+		populate_user_contact_info();
+	}else{
+	  	// first time app launch. set variable in localstore
+	 	window.localStorage.setItem('first_launch',1);
+		$( "#language_selected" ).val('english'); //set default language
+	}
 		
 	$('.generate-pdf').click(function(e) {
     	generateResultsPDF();
 	});
+
 
 	$('#submit-btn').click(function(e) {
 		var email_body = '';
@@ -50,26 +75,44 @@ function onDeviceReady() {
 		if($( "#contact_phone" ).val() !=''){ email_body += 'Phone Number: '+$( "#contact_phone" ).val()+'<br>';};
 		if($( "#contact_message" ).val() !=''){ email_body += $( "#contact_message" ).val();};
 
-		// Add app alias
+		// // Add app alias
 		cordova.plugins.email.addAlias('gmail', 'com.google.android.gm');
-		
-		cordova.plugins.email.isAvailable(function() {
-		   // not available
-			alert('Please configure your email client app');
-		 }, function() {
-		   // is available
-		   cordova.plugins.email.open({
-				app: 	 'gmail',
-				to:      'mbeguchoice@agri-experience.com',
-				cc:  	 contact_email,
-				subject: 'From MbeguChoice App',
-				body:    email_body,
-				isHtml:  true
-			});
-		 });
-	}); 
+		cordova.plugins.email.isAvailable(
+			function (isAvailable) {
+				if(isAvailable){
+					cordova.plugins.email.open({
+						app: 	 'gmail',
+						to:      'e.wamugu@creativeyr.co.ke',
+						cc:  	 contact_email,
+						subject: 'From MbeguChoice App',
+						body:    email_body,
+						isHtml:  true
+					});
 
-	uuid=device.uuid;
+				}else{
+					window.plugins.toast.showWithOptions(
+						{
+							message: "Please configure your email client app",
+							duration: "long", // "short" is 2000 ms. "long" is 4000. Or specify the ms yourself.
+							position: "bottom"
+						}
+					);
+				}
+			}
+		);
+
+		db.transaction(
+			function(tx) {
+				var user_contact_tbl_sql = 'CREATE TABLE default_sid_user_contact_info (id INTEGER PRIMARY KEY, name TEXT, email TEXT, phone TEXT);';
+				tx.executeSql(user_contact_tbl_sql);
+				var user_contact_info_sql = "INSERT INTO default_sid_user_contact_info(id, name, email, phone) VALUES (NULL, '"+$( '#contact_name' ).val()+"', '"+$( '#contact_email' ).val()+"', '"+$( '#contact_phone' ).val()+"');";
+				tx.executeSql(user_contact_info_sql);
+			},
+			function(error){console.log(error);}
+		);
+
+		// populate_user_contact_info(); //no need to if app is still running
+	});
 }
 
 function check_internet_connection() {
@@ -90,15 +133,16 @@ function check_internet_connection() {
 
 function testDB(){
 	/*  THE PURPOSE OF THIS FUNCTION IS TO CHECK IF OUR LOADED DATABASE HAS DATA IN IT. 
-		IF IT DOESNT JUST POPULAT IT WITH OUR PRE-DEFINED QUERY STATEMENTS  
+		IF IT DOESNT JUST POPULATE IT WITH OUR PRE-DEFINED QUERY STATEMENTS  
 	*/
 	db.transaction(
 		function(tx) {
-			tx.executeSql("SELECT 1 FROM default_sid_seedchoice_seedworks_combined LIMIT 1", [], function (tx, results) {
-			  	var length = results.rows.length, i;
-			  	// alert(length);
+			tx.executeSql("SELECT count(sw_id) as count FROM default_sid_seedchoice_seedworks_combined", [], function (tx, results) {
+			  	var how_many_crop_varieties = results.rows.item(0).count;
+			  	// alert(how_many_crop_varieties);
+
 			  	// THIS WILL ALMOST NEVER GET CALLED BUT JUST INCASE
-			  	if(length < 1){
+			  	if(how_many_crop_varieties < 2){
 	   	 			populateDB();
 	   	 			populate_counties_dropdown();
 	   				populate_maturity_filter();
@@ -109,7 +153,7 @@ function testDB(){
 					ask_user_if_to_sync();
 			  	}
 			});
-
+			
 		},
 		function(error){
 			// alert(error);
@@ -485,8 +529,18 @@ function populate_counties_dropdown () {
 		tx.executeSql('SELECT * FROM default_sid_counties', [], function (tx, results) {
 		  	var length = results.rows.length, i;
 		  	for (i = 0; i < length; i++) {
-		    	// console.log(results.rows.item(i));
-		    	$('.county').append('<option value="'+results.rows.item(i).county_name+'">'+results.rows.item(i).county_name+'</option>')
+		    	console.log();
+		    	$('#county-english').append('<option value="'+results.rows.item(i).county_name+'">'+results.rows.item(i).county_name+'</option>')
+		  	}
+		});
+	});
+
+	db.transaction(function(tx){
+		tx.executeSql('SELECT * FROM default_sid_counties', [], function (tx, results) {
+		  	var length = results.rows.length, i;
+		  	for (i = 0; i < length; i++) {
+		    	console.log();
+		    	$('#county-swahili').append('<option value="'+results.rows.item(i).county_name+'">'+results.rows.item(i).county_name+'</option>')
 		  	}
 		});
 	});
@@ -707,7 +761,9 @@ function populate_seasons_filter () {
 			tx.executeSql('SELECT * FROM default_sid_season where season_name !="NULL" order by season_name desc', [], function (tx, results) {
 			  	var length = results.rows.length, i;
 			  	for (i = 0; i < length; i++) {
-			  		$('#results-page-english .seasons-filter-container').append('<div class="col-xs-4" style=""><label><input data-role="none" type="radio" name="sw_season" id="season_'+results.rows.item(i).season_id+'" value="'+results.rows.item(i).season_id+'" class="sw_seasons" > '+results.rows.item(i).season_name+'</label></div>');
+			  		if(results.rows.item(i).season_name !='null' && results.rows.item(i).season_name != 'NULL' && results.rows.item(i).season_name !=''){
+			  			$('#results-page-english .seasons-filter-container').append('<div class="col-xs-4" style=""><label><input data-role="none" type="radio" name="sw_season" id="season_'+results.rows.item(i).season_id+'" value="'+results.rows.item(i).season_id+'" class="sw_seasons" > '+results.rows.item(i).season_name+'</label></div>');
+			  		}
 			  	}
 			});
 		});
@@ -717,11 +773,24 @@ function populate_seasons_filter () {
 			tx.executeSql('SELECT * FROM default_sid_season_swa where season_name !="NULL" order by season_name desc', [], function (tx, results) {
 			  	var length = results.rows.length, i;
 			  	for (i = 0; i < length; i++) {
-			  		$('#results-page-swahili .seasons-filter-container').append('<div class="col-xs-4" style=""><label><input data-role="none" type="radio" name="sw_season" id="season_'+results.rows.item(i).season_id+'" value="'+results.rows.item(i).season_id+'" class="sw_seasons" > '+results.rows.item(i).season_name+'</label></div>');
+			  		if(results.rows.item(i).season_name !='null' && results.rows.item(i).season_name != 'NULL' && results.rows.item(i).season_name !=''){
+			  			$('#results-page-swahili .seasons-filter-container').append('<div class="col-xs-4" style=""><label><input data-role="none" type="radio" name="sw_season" id="season_'+results.rows.item(i).season_id+'" value="'+results.rows.item(i).season_id+'" class="sw_seasons" > '+results.rows.item(i).season_name+'</label></div>');
+			  		}
 			  	}
 			});
 		});
 	}
+}
+
+function populate_user_contact_info() {
+	db.transaction(function(tx) {
+		tx.executeSql("SELECT * FROM default_sid_user_contact_info", [], function (tx, results) {
+		  	var user_contact_info = results.rows.item(0);
+		  	$( "#contact_name" ).val(user_contact_info.name);
+			$( "#contact_email" ).val(user_contact_info.email);
+			$( "#contact_phone" ).val(user_contact_info.phone);
+		});
+	});
 }
 
 function get_results (pageNum) {
@@ -1102,11 +1171,15 @@ function generateResultsPDF() {
 
 					writer.write( pdfOutput );
 					var filename = 'MbeguChoice_Results_'+$( "#selected_crop_name" ).val()+'_'+$( "#selected_eco_zone" ).val()+'_'+$( "#selected_county" ).val()+'.pdf';
-					console.log("Results downloaded to your device's memory successfully.");
+					window.plugins.toast.showWithOptions(
+						{
+							message: "Results have been downloaded to your device's Download's folder successfully.",
+							duration: 3000, // "short" is 2000 ms. "long" is 4000. Or specify the ms yourself.
+							position: "bottom"
+						}
+					);
 					
-					//window.plugins.fileOpener.open("/storage/sdcard0/Download/MbeguChoice_Results/"+filename);
-					window.plugins.fileOpener.open("file:///sdcard/Download/MbeguChoice_Results/"+filename);
-					// window.plugins.fileOpener.open("cdvfile://localhost/persistent/Download/MbeguChoice_Results/"+filename);
+					window.cordova.plugins.FileOpener.openFile("file:///storage/emulated/0/Download/MbeguChoice_Results/"+filename);
 					
 				}, function(error) {
 					console.log( "Error: : "+error );
@@ -1125,7 +1198,7 @@ function generateResultsPDF() {
 }
 
 function sync_with_live_db () {
-	
+
 	if(internet_connection == 'Unknown' || internet_connection == 'No network' || internet_connection == 'Ethernet'){
 		$("#sync a").removeClass("blink");
 		// window.location = $('#language-menu-link a').attr('href');
@@ -1613,5 +1686,21 @@ $(document).ready(function(e) {
 			navigator.device.exitApp();
 		}
 	});
+
+	// Bind the swiperightHandler callback function to the swipe event on div.ui-page
+	$( '[data-role="page"]' ).on( "swiperight", swiperightHandler );
+
+	// Callback function references the event target
+	function swiperightHandler( event ){
+		$('.toggle-button').click();
+	}
+
+	// Bind the swiperightHandler callback function to the swipe event on div.ui-page
+	$( '.menu-section' ).on( "swipeleft", swipeleftHandler );
+
+	// Callback function references the event target
+	function swipeleftHandler( event ){
+		$('.toggle-button').click();
+	}
 
 });

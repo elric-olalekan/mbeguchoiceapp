@@ -213,7 +213,7 @@ input:focus { outline: none;box-shadow: none;}
 
 .toggle-button, .backarrow{float:left;}
 .backarrow{font-size:30px !important; color:#fff;}
-.bgmenu{background:url(../images/bgmenu.png) no-repeat; height:100%; background-color: rgb(218,131,40)}
+.bgmenu{height:100%; background-color: rgb(218,131,40)}
 #menu{height:100%;}
 .menu-section-list li a{padding:12px 10px; clear:left; float:left; width:100%; border-top:2px solid rgb(195,116,34);  font-size:1em; font-weight:300;}
 .menu-section-list li a:hover, .menu-section-list li a.active,.menu-section-list li a:visitedddd{background:#f39d4a; text-decoration:none;}
