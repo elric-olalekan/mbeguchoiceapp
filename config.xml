@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<widget id="com.mbeguchoice.app" version="2.0.5" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+<widget id="com.mbeguchoice.app" version="2.0.7" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
 
     <name>MbeguChoice</name>
     <description>MbeguChoice Android App</description>
@@ -35,7 +35,7 @@
     <gap:splash gap:platform="android" gap:density="port-xhdpi" gap:qualifier="port-xhdpi" src="www/res/screen/android/screen-xhdpi-portrait.png" />
     
     <gap:plugin name="com.brodysoft.sqliteplugin" />
-    <gap:plugin name="de.appplant.cordova.plugin.email-composer" />
+    <gap:plugin name="de.martinreinhardt.cordova.plugins.email" version="0.8.2" />
     <gap:plugin name="com.cordova.plugins.fileopener" />
     <gap:plugin name="org.apache.cordova.file" />
     <gap:plugin name="org.apache.cordova.file-transfer" />
@@ -46,12 +46,12 @@
     <gap:plugin name="cordova-plugin-x-toast" source="npm" />
 
     <plugin name="cordova-plugin-whitelist" version="1" />
-    <allow-intent href="http://*/*" />
-    <allow-intent href="https://*/*" />
-    <allow-intent href="mailto:*" />
-    <platform name="android">
-        <allow-intent href="market:*" />
-    </platform>
+    
+    <allow-navigation href="http://*/*" />
+    <allow-navigation href="https://*/*" />
+    <allow-navigation href="mailto:*" />
+    <allow-navigation href="data:*" />
+    
     <feature name="File">
         <param name="android-package" value="org.apache.cordova.file.FileUtils" />
     </feature>
